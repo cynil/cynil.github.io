@@ -1,0 +1,52 @@
+.wrap{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	width: 900px;
+	padding: 10px;
+	border: 1px solid #888;
+}
+.cube{
+	box-sizing: border-box;
+	border: 1px solid #f00;
+	width: 150px;
+	margin: 10px;
+}
+#cube-1{
+	height: 120px;
+}
+#cube-2{
+	height: 100px;
+}
+#cube-3{
+	height: 40px;
+}
+#cube-4{
+	height: 200px;
+	border-color: #00f;
+}
+
+@media (max-width: 640px){
+	.wrap{
+		width: 100%;
+	}
+	#cube-4{
+		order: -1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

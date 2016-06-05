@@ -1,0 +1,113 @@
+body{
+	padding: 0;
+	margin: 0;
+	background: #eee;
+	font-family: "Microsoft yahei";
+}
+main, aside{
+	margin: 20px;
+}
+article, aside{
+	background: #fff;
+	border: 1px solid #ddd;
+	box-shadow: 2px 2px 2px silver;
+	padding: 16px;
+}
+article{
+	margin-bottom: 16px;
+}
+ul{
+	list-style: none;
+}
+header{
+	background: #323232;
+	height: 64px;
+}
+header img{
+	margin-left: 32px;
+	height: 70%;
+	margin-top: 10px;
+}
+header nav{
+	float: right;
+}
+header ul{
+	margin-right: 20px;
+}
+header li{
+	display: inline-block;
+	color: #fff;
+	font-size: 0.9em;
+}
+header li:last-child{
+	color: #ddd;
+}
+h1, h2{
+	font-weight: lighter;
+}
+h2{
+	font-size: 1.2em;
+}
+h2, article small{
+	color: #606060;
+}
+p{
+	text-indent: 2em;
+}
+
+article div{
+	border: 1px solid #ddd;
+	width: 16%;
+	margin: 16px;
+}
+article div p{
+	text-align: center;
+	text-indent: 0;
+}
+article div img{
+	width: 80%;
+}
+aside h1{
+	font-family: "黑体";
+	font-size: 1.4em;
+	line-height: 2em;
+	vertical-align: center;
+	border-left: 3px solid #ddd;
+	padding-left: 10px;
+}
+label{
+	display: inline-block;
+	width: 33.4%;
+	text-align: right;
+	vertical-align: middle;
+	font-size: 0.9em;
+	color: #212121;
+}
+.tips{
+	margin-left: 36%;
+	text-indent: 0;
+	color:#777;
+}
+textarea{
+	vertical-align: top;
+}
+button{
+	color: #fff;
+	height: 48px;
+	line-height: 48px;
+	width:100%;
+	background: #44d;
+	border-radius: 10px;
+	font-size: 1.3em;
+	box-shadow: none;
+}
+button:hover{
+	background:#66f;
+}
+footer{
+	text-align: center;
+	background: #212121;
+	height: 64px;
+	line-height: 64px;
+	color: #fff;
+}

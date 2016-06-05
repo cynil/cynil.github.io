@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task-2-26</title>
+	<link rel="stylesheet" type="text/css" href="css/task-2-26.css">
+</head>
+<body>
+	<div id="command">
+		<div id="create">CREATE COMMAND</div>
+		<div id="random">RANDOM COMMAND</div>
+	</div>
+	<div id="universe">
+		<div id="planet"></div>
+		<div class="sp" id="sp-1"></div>
+		<div class="sp" id="sp-2"></div>
+		<div class="sp" id="sp-3"></div>
+		<div class="sp" id="sp-4"></div>
+		<div class="orbit" id="orbit-1"></div>
+		<div class="orbit" id="orbit-2"></div>
+		<div class="orbit" id="orbit-3"></div>
+		<div class="orbit" id="orbit-4"></div>
+	</div>
+	<div id="log"></div>
+	<script src="js/task-2-26.js"></script>
+	<script type="text/javascript">
+
+	U.$('create').onclick = function(){
+
+		var id = Math.floor(Math.random()*4 + 1); //0 <= random <1
+
+		Commander.command({
+			id: id,
+			command: 'create'
+		});
+	}
+
+	U.$('random').onclick = function(){
+		var id = Math.floor(Math.random()*4 + 1); //0 <= random <1
+		var command = (['fly', 'stop'])[Math.floor(Math.random()*2)];
+
+		Commander.command({
+			id: id,
+			command: command
+		});
+	}
+
+	U.$('log').onclick = function(event){
+		if (event.target.id == 'clear-log') {
+			Panel.clear();
+		}
+	}
+	</script>
+</body>
+</html>
+
+
+
+

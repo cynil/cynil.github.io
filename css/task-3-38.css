@@ -1,0 +1,47 @@
+body{
+	padding: 6px 200px 0 200px;
+	min-width: 300px;
+	font-family: "Microsoft yahei";
+}
+h2{
+	border-left: 6px solid tomato;
+	padding: 10px;
+	padding-bottom: 0;
+}
+code, pre{
+	background:#ccf;
+	padding:2px;
+	margin:2px;
+	font-family:"Courier New";
+	overflow: scroll;
+}
+table, thead, tbody, tr, th, td{
+	border: 1px solid #999;
+	border-collapse: collapse;
+	padding: 4px;
+}
+table{
+	margin: 12px 0 12px 200px;
+}
+th, td{
+	width: 90px;
+}
+th{
+	background: #333;
+	color: #eee;
+	height: 36px;	
+	-webkit-user-select:​ none;		
+
+}
+.can-sort{
+	cursor: pointer;
+	background: #333 url(../images/task-3-38.png) right center no-repeat;
+}
+@media (max-width: 768px){
+	body{
+		padding: 6px 8px;
+	}
+	table{
+		margin: 12px 0 12px 20px;
+	}
+}

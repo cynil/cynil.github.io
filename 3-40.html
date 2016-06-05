@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task-3-40</title>
+	<link rel="stylesheet" type="text/css" href="css/task-3-40.css">
+	<style type="text/css">
+		h2{
+			border-left: 6px solid tomato;
+			padding: 10px;
+			padding-bottom: 0;
+		}
+		code, pre{
+			background:#ccf;
+			padding:1px;
+			margin:2px;
+			font-family:"Courier New";
+			overflow: scroll;
+			font-size: 14px;
+		}
+	</style>
+	<script src="js/task-3-40.js"></script>
+</head>
+<body>
+	<h2>任务四十：UI组件之日历组件（一）</h2>
+	<p>本任务要求实现一个日历组件。</p>
+	<p>通过创建<code>Calendar</code>类来实现。<code>Calendar</code>类初始化时需要提供三个参数：<code>dom</code>表示将要把日历添加到哪个DOM元素，默认为<code>document.body</code>。<code>availDateRange</code>表示顶部下拉列表的时间上下限。<code>ym</code>表示日历初始化时显示的年月份，默认为当前的年月份。示例如下：</p>
+	<pre>
+		var myCal = new Calendar({
+			dom: document.body,
+			availDateRange: [[2014, 5], [2018, 4]],
+			ym: [2016,5]//表示2016年5月份，并不是4月份:);
+		});		
+	</pre>
+	<p>此外，<code>Calendar</code>类还提供两个方法供调用。<code>Calendar.prototype.getDate()</code>返回当前选中的日期。<code>Calendar.prototype.setDate(when)</code>用于设置日期，需要提供一个<code>Date</code>类型的参数表示设置的日期，设置日期后，日历立即显示设置的年月份。示例如下：</p>
+	<pre>
+		myCal.getDate(); // "2016-5-28";
+		myCal.setDate(new Date());
+	</pre>
+	<p>点击下面按钮测试：</p>
+	<p>
+		<input type="text" id="get"><button id="get-date">获取日期</button>
+	</p>
+	<p>
+		<input type="text" id="set"><button id="set-date">设置日期</button>
+	</p>
+	<script type="text/javascript">
+		var myCal = new Calendar({
+			dom: document.body,
+			availDateRange: [[2014, 5], [2018, 4]],
+		});
+
+		document.getElementById('get-date').onclick = function(e){
+			document.getElementById('get').value = myCal.getDate();
+		};
+
+		document.getElementById('set-date').onclick = function(e){
+			var v = document.getElementById('set').value.trim();
+
+			if(!v.match(/\d{4}\-\d{1,2}\-\d{1,2}/)){
+				return alert('输入不合法');
+			}
+			v = v.split('-');
+			myCal.setDate(new Date(v[0], v[1] - 1, v[2]));
+		};
+	</script>
+</body>
+</html>
+
+
+
+
+
+

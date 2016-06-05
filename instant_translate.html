@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度划词翻译</title>
+	<style type="text/css">
+		h2{
+			border-left: 6px solid tomato;
+			padding: 10px;
+			padding-bottom: 0;
+			font-family: "Microsoft yahei";
+		}
+		.popup-span{
+			display:block;
+			position:absolute;
+			border:2px solid #999;
+			border-radius: 3px;
+			padding:6px;
+			color:#323232;
+			box-shadow: -2px -2px 2px silver;
+			background: #fff;
+			font-size:14px;
+		}
+		article{
+			background: #aaf;
+			padding:20px;
+			margin:10px;
+			margin-left: 0;
+			border-radius: 6px;
+			box-shadow: 2px 2px 2px silver;	
+			width:500px;	
+		}
+		article p{
+			margin:2px;
+			font-family:"Comic Sans MS";
+		}
+		code{
+			background:#ccf;
+			padding:2px;
+			margin:2px;
+			font-family:"Courier New";
+		}
+	</style>
+</head>
+<body>
+<h2>利用API简单实现划词翻译功能</h2>
+<p>在百度搜索的结果页中如果出现了英文，你用鼠标选中英文字符后，就会弹出一个翻译框。这个过程的原理是：当鼠标进行点击时，通过<code>document.getSelection()</code>提取选中文字，然后向服务器发送<code>jsonp</code>请求，得到返回结果后再创建一个<code>span</code>，并把结果放置在这个<code>span</code>里面。</p>
+<p>这里我通过抓包获取了这个<code>API</code>，然后简单模拟了一下整个过程。你可以选中下面的文字测试弹出翻译效果。</p>
+<article>
+	<p>The snow blows on the mountain tonight</p>
+	<p>Not a footprint to be seen</p>
+	<p>A kingdom of isolation</p>
+	<p>And it looks like I am the queen</p>
+	<p>The window is howling like the swirling storm inside</p>
+	<p>Couldnot keep it in</p>
+	<p>Heaven knows I tried</p>
+	<p>Do not let them in, do not let them see</p>
+	<p>Be the good girl you always have to be</p>
+	<p>Conceal dont fear,dont let them know</p>
+	<p>Well, now they know</p>
+	<p>Let it go, Let it go</p>
+	<p>Cant hold it back anymore</p>
+	<p>Let it go, let it go</p>
+	<p>Turn away and slam the door</p>
+	<p>I dont care what they are going to say</p>
+	<p>Let the storm rage on</p>
+	<p>The cold never bother me anyway</p>
+</article>
+</body>
+<script src="js/search.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
