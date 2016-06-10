@@ -1,0 +1,22 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+#board{
+	width: 300px;
+	height: 480px;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	margin: auto;
+}
+#board>div{
+	border: 1px solid #aaa;
+	float: left;
+	height: 30px;
+	width: 30px;
+}

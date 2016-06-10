@@ -51,7 +51,7 @@ var U = {
 var MAX_ENERGY = 100, //%
 	ENERGY_CHARGE_UNIT = 2, //%
 	ENERGY_CONSUME_UNIT = 5, //%
-	COMMAND_LOST_RATE = 0.2, //rate
+	COMMAND_LOST_RATE = 0.3, //rate
 
 	SPEED = 10, //px
 	STEP = 1000 / 60, //ms, animation step	
@@ -59,6 +59,7 @@ var MAX_ENERGY = 100, //%
 
 /*
  *Spaceship Module
+ *Created 2016/6/1 09:23
  */
 
 function Spaceship(id, orbit){
@@ -90,7 +91,8 @@ Spaceship.prototype.init = function(){
 	this.power().charge(ENERGY_CHARGE_UNIT);
 };
 
-//动力系统 OK
+//Engine System OK
+//2016/6/1 10:23
 Spaceship.prototype.engine = function(){
 	var that = this;
 
@@ -102,7 +104,7 @@ Spaceship.prototype.engine = function(){
 			}else{
 
 				if(that.status == 'stopped'){
-					DOMManupulator.activate(that.dom);
+					DOMManipulator.activate(that.dom);
 				}
 
 				that.status = 'flying';
@@ -123,13 +125,14 @@ Spaceship.prototype.engine = function(){
 			
 			clearInterval(that.timer);
 			that.timer = null;
-			DOMManupulator.freeze(that.dom);
+			DOMManipulator.freeze(that.dom);
 			that.status = 'stopped';
 		}
 	}
 };
 
-//能源系统 OK
+//Power System OK
+//2016/6/1 11:04
 Spaceship.prototype.power = function(){
 
 	var that = this,
@@ -151,7 +154,8 @@ Spaceship.prototype.power = function(){
 	}
 };
 
-//信号接收系统
+//Singnal System OK
+//2016/6/1 13:44
 Spaceship.prototype.receiveCommand = function(cmd){
 	if(cmd.id != this.id){
 		return false;
@@ -170,10 +174,11 @@ Spaceship.prototype.receiveCommand = function(cmd){
 	return true;
 }
 
-//自毁系统
+//Demolition System OK
+//2016/6/5 10:45
 Spaceship.prototype.destory = function(){
 
-	DOMManupulator.unregister(this.dom);
+	DOMManipulator.unregister(this.dom);
 	this.dom.parentNode.removeChild(this.dom);
     Mediator.unregister(this.id);
 }
@@ -181,6 +186,7 @@ Spaceship.prototype.destory = function(){
 
 /*
  *Commander Module
+ *Modified 2016/6/10 22:08
  */
 
 var Commander = {
@@ -193,7 +199,7 @@ var Commander = {
 		Mediator.exec(cmd);
 	},
 	/*create command should not send via Mediator, as you can't make order to a non-exsit ship;
-     *our user should be able to set orbit when create spaceships，but the id should be managed 
+     *our user should be able to set orbit when creating spaceships，but the id should be managed 
      *and distributed by commander to ensure data sharing among modules.
      */
 	create: function(orbit){
@@ -219,7 +225,7 @@ var Commander = {
 
 /*
  *Mediator Module
- *
+ *Created 2016/6/2 23:34
  */
 
 var Mediator = {
@@ -240,6 +246,7 @@ var Mediator = {
 
 		function send(){
 			if(Math.random() < COMMAND_LOST_RATE){
+
 				Panel.warn('Command ' + cmd.command.toUpperCase() + ' to Ship ' + cmd.id + ' Lost.');
 				return;
 			}else{
@@ -251,20 +258,17 @@ var Mediator = {
 			}
 		}
 		setTimeout(send, 1000);
-	},
-	destory: function(id){
-		this.spaceships.splice(id,1);
 	}
 }
 
 
 /*
- *DOMManupulator Module
- *Modified 6/5/2016 09:32
+ *DOMManipulator Module
+ *Modified 2016/6/5 09:32
  */
 
 
-var DOMManupulator = (function(){
+var DOMManipulator = (function(){
 
 	var timers = {},
 		degs = {},
@@ -277,7 +281,7 @@ var DOMManupulator = (function(){
 			}
 
 			timers[dom.guid] = setInterval(function(){
-				// SPEED is defined in pixels, but we can only manupulate transform by degs, so here we change it to degs.
+				// SPEED is defined in pixels, but we can only Manipulate transform by degs, so here we change it to degs.
 				degs[dom.guid] += (SPEED / (dom.radius * Math.PI * 2)) * (180 / Math.PI);
 				if(degs[dom.guid] >= 360){
 					degs[dom.guid] = 0;
@@ -303,7 +307,7 @@ var DOMManupulator = (function(){
 
 /*
  *Logbook Module
- *Modified 6/4/2016 21:32
+ *Modified 2016/6/4 21:32
  */
 
 
@@ -340,7 +344,7 @@ var Panel = (function(){
 		},
 		clear:function(){
 			ul.innerHTML = '<li id="log-header">LogBook<span id="clear-log">Clear Log</span></li>';
-		}
+		},
 	}
 })();
 
