@@ -4,8 +4,8 @@
 	box-sizing: border-box;
 }
 #board{
-	width: 300px;
-	height: 480px;
+	width: 325px;
+	height: 500px;
 	overflow: hidden;
 	top: 0;
 	left: 0;
@@ -17,6 +17,6 @@
 #board>div{
 	border: 1px solid #aaa;
 	float: left;
-	height: 30px;
-	width: 30px;
+	height: 25px;
+	width: 25px;
 }

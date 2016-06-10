@@ -1,22 +1,21 @@
+/*
 var Popup = (function(window, document){
+
+
 	return {
-		alert: function(){},
+		alert: function(msg){
+			popup();
+		},
 		confirm: function(){},
 		prompt: function(){},
 		config: function(){},
 	}
 })(window, document);
+*/
 
-
-
-
-
-
-
-
-
-
-
+/* Original Version
+ * 2016/4/11
+ */
 (function(window, document){
 	function Popup(type, msg, callback){
 		this.type = type;
