@@ -5,6 +5,16 @@
  *internally contains an two-dimensional array -->the DOMManager object will periodically
  *scan the Board, and render it in DOM.
  */
+var U = {
+	inArray: function(el, arr){
+		for(var i = 0; i < arr.length; i++){
+			if(JSON.stringify(el) == JSON.stringify(arr[i])){
+				return true;
+			}
+		}
+		return false;
+	}
+}
 var ROWS = 20,
 	COLUMNS = 13;
 
@@ -124,15 +134,33 @@ var Cube = {
 
 	go: function(dir, val){
 
+		var that = this;
+
+		//create a transfer point whose (x,y) is current cube's (x,y) + val
+		//and see if this tansfer point touched something.
 		var tran = {
 			x: this.x,
 			y: this.y
 		};
-		tran[dir] += val
+		tran[dir] += val;
+
+		//check border
 		var overflow = relativeCoords[this.type].some(function(v, i, arr){
 			return tran.x + v[0] >= COLUMNS || tran.y + v[1] >= ROWS || tran.x + v[0] <= -1 || tran.y + v[1] <= -1;
 		});
 		if(overflow) return;
+		//check collision
+		var notYetTouched = relativeCoords[this.type].every(function(v, i, arr){
+			//in two cases can we assert that the cube will not touched somthing
+			//*1 next point's status is 0
+			//*2 although next point's status is 1, but next point is already in current cube's range
+			var nextIsEmpty = Board.get(tran.x + v[0], tran.y + v[1]).status == 0;
+			var nextInArray = U.inArray([tran.x + v[0] - that.x, tran.y + v[1] - that.y], arr);
+
+			return nextIsEmpty || nextInArray;
+		});
+
+		if(!notYetTouched) return;
 
 		//we should erase its previous position,
 		this.inject(true);
@@ -153,5 +181,9 @@ document.onkeyup = function(event){
 			break;
 		case 'D':
 			Cube.go('x',1);
+			break;
+		case 'W':
+			Cube.reset();
+			break;
 	}
 };
