@@ -20,7 +20,7 @@
 				success: function(xhr){
 					var elapsed = Date.now() - then;
 					document.body.innerHTML += xhr.responseText;
-					if(elapsed < 500){
+					if(elapsed < 800){
 						//如果很快就加载好了，那么应该多等一会儿，保证一致性
 						//不然的话，loading页面会一闪而过。
 						console.log(elapsed);

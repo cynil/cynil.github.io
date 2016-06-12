@@ -66,9 +66,9 @@ var U = {
 	loadScript: function(url){
 		var script = document.createElement('script');
 		script.src = url;
-		script.onload = function(){
-			document.body.appendChild(this);
-		}
+		//script.onreadystatechange = function(){
+			document.body.appendChild(script);
+		//}
 	},
 	serialize: function(o){
 

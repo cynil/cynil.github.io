@@ -24,7 +24,7 @@ body{
 	margin: auto;
 	position: absolute;
 	height: 40px;
-	width: 200px;
+	width: 100%;
 	text-align: center;
 	color: #fff;
 }
@@ -32,11 +32,11 @@ body{
 	color: rgba(235,30,100,0.8);
 }
 .fadeout{
-	animation: fadeout 1.6s ease;
+	animation: fadeout 1s ease;
 	animation-fill-mode: forwards;
 }
 .fadeout-slowly{
-	animation: fadeoutslow 3.6s ease;
+	animation: fadeoutslow 3s ease;
 	animation-fill-mode: forwards;
 }
 .pulse{
@@ -47,14 +47,14 @@ body{
 	50%  {opacity: 0.3;}
 	100% {opacity: 1;}
 }
-
 @keyframes fadeout {
 	0%   {opacity: 1;}
 	100% {opacity: 0;}
 }
-
+/*xhr加载得太快了，Loading会一闪而过，*/
+/*所以请慢一点淡出，先等个2秒，剩下的1秒再淡出*/
 @keyframes fadeoutslow {
 	0%   {opacity: 1;}
-	80%  {opacity: 0.99;}
+	66.7%  {opacity: 1;}
 	100% {opacity: 0;}
 }
