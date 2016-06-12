@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div id="loading">
-		<h2 class="pulse">WAIT A MINUTE :-)</h2>
+		<h2 class="pulse">WAIT A MINUTE <span class="focus-me">:-)</span></h2>
 	</div>
 	<script type="text/javascript">
 		window.addEventListener('load', function(){
@@ -37,7 +37,7 @@
 				},
 				fail: function(status){
 					console.log('here');
-					U.$('#loading h2').innerHTML = '<span class="error">' + status + '</span>' + ' AN ERROR OCCURED :-(';
+					U.$('#loading h2').innerHTML = '<span class="focus-me">' + status + '</span>' + ' AN ERROR OCCURED :-(';
 					//style.animation不能获取和设置动画
 					U.$('#loading h2').className = '';
 				}
