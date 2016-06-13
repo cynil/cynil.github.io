@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,8 +7,11 @@
 	<title>Resume</title>
 	
 	<link rel="stylesheet" type="text/css" href="pre.css">
+	<link rel="stylesheet" type="text/css" href="animation.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
-	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript">
+		var then = Date.now();
+	</script>
 </head>
 <body>
 	<div id="loading">
@@ -17,37 +20,26 @@
 			<h2 class="pulse">WAIT A MINUTE <span class="focus-me">:-)</span></h2>
 		</div>
 	</div>
-	<script type="text/javascript">
-	//pre.js
-		window.addEventListener('load', function(){
-			var then = Date.now();
-			U.ajax('main.html', {
-				success: function(xhr){
-					var elapsed = Date.now() - then;
-					document.body.innerHTML += xhr.responseText;
-					if(elapsed < 800){
-						//如果很快就加载好了，那么应该多等一会儿，保证一致性
-						//不然的话，loading页面会一闪而过。
-						U.$('#loading').className = 'fadeout-slowly';				
-					}else{
-						U.$('#loading').className = 'fadeout';						
-					}
-					
-					U.$('#loading').addEventListener('animationend', function(e){
-						document.body.removeChild(this);
-					});
+	<div class="main-wrapper">
+		<div class="page" id="profile">	
+			PROFILE
+		</div>
+		<div class="page" id="skill">
+			SKILLS
+		</div>
+		<div class="page" id="work">
+			WORK
+		</div>
+		<div class="page" id="way">
+			MY WAY
+		</div>
+		<div class="page" id="download">
+			DOWNLOAD
+		</div>
+	</div>
 
-					U.loadScript('main.js');
-				},
-				fail: function(status){
-
-					U.$('#loading h2').innerHTML = '<span class="focus-me">' + status + '</span>' + ' AN ERROR OCCURED :-(';
-					//style.animation不能获取和设置动画
-					U.$('#loading h2').className = '';
-				}
-			});
-		});
-	</script>
+	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>
 

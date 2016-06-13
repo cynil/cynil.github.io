@@ -1,10 +1,55 @@
-/*Ajax and some other utils
+/*My Utils Library 
  *Created By cYnii
  *2016/6/12 16:01
  */
 var U = {
 	$: function(el){
-		return document.querySelector(el);
+		try{
+			return document.querySelector(el);			
+		}catch(e){
+			return document.getElementById(el.substring(1));
+		}
+	},
+
+	addEvent: function(el, type, fn){
+		if(window.addEventListener){
+			return el.addEventListener(type, fn, false);
+		}else if(window.attachEvent){
+			return el.attachEvent('on' + type, function(event){
+				//attachEvent同时支持event和window.event，但是属性有不同
+				//统一起见，使用event，向W3C标准DOM靠近
+				event.target = event.srcElement;
+				event.preventDefault = function(){
+					this.returnValue = false;
+				};
+				event.stopPropagation = function(){
+					this.cancelBubble = true;
+				};
+				//修补几个常见的，剩下的用到再添加
+				//...
+
+				//attachEvent会丢失this。有一点疑虑，这样直接把它挂在el下执行，
+				//而原本是在window下执行的。。。
+				fn.call(el, event);
+			});
+		}else{
+			return el['on' + type] = function(event){
+				//DOM 0级事件，W3C和IE表面上是一样的。但W3C只支持event
+				//IE只支持window.event
+				if(!event){
+					event = window.event;
+					event.target = event.srcElement;
+					event.preventDefault = function(){
+						this.returnValue = false;
+					};
+					event.stopPropagation = function(){
+						this.cancelBubble = true;
+					};
+				}
+				//函数内调用函数也会丢失this
+				fn.call(this, event);
+			};
+		}
 	},
 	ajax: function(url, options){
 		//原则：不支持老浏览器，以后可能支持，但不是现在
@@ -14,11 +59,11 @@ var U = {
 			method: 'GET', //必须
 			data: null, //必须
 			timeout: 3000,
-			success: U.emptyFunc, //必须
+			success: U.emptyFunc //必须
 			//override: 可选
 			//headers: 可选
 			//fail: 可选
-		}
+		};
 
 		U.fill(options, defaults);
 
@@ -31,8 +76,6 @@ var U = {
 		var sendings = options.method.toLowerCase() == 'post' ? data : null;
 
 		var xhr = new XMLHttpRequest();
-
-		xhr.timeout = options.timeout;
 
 		xhr.open(options.method.toUpperCase(), url, true);
 
@@ -65,9 +108,7 @@ var U = {
 				}
 			}
 		}
-		xhr.ontimeout = function(e){
-			options.timeout && options.timeout(e, xhr);
-		}
+
 	},
 	loadScript: function(url){
 		var script = document.createElement('script');
