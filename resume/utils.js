@@ -13,6 +13,7 @@ var U = {
 		var defaults = { //defaults里面只补全必须项。
 			method: 'GET', //必须
 			data: null, //必须
+			timeout: 3000,
 			success: U.emptyFunc, //必须
 			//override: 可选
 			//headers: 可选
@@ -25,11 +26,13 @@ var U = {
 
 		data = typeof data == 'object' ? U.serialize(data) : data;
 
-		url = options.method == 'post' ? url : url + '?' +  data;
+		url = options.method.toLowerCase() == 'post' ? url : url + '?' +  data;
 
 		var sendings = options.method.toLowerCase() == 'post' ? data : null;
 
 		var xhr = new XMLHttpRequest();
+
+		xhr.timeout = options.timeout;
 
 		xhr.open(options.method.toUpperCase(), url, true);
 
@@ -61,6 +64,9 @@ var U = {
 					options.fail && options.fail(xhr.status, xhr.textStatus, xhr);
 				}
 			}
+		}
+		xhr.ontimeout = function(e){
+			options.timeout && options.timeout(e, xhr);
 		}
 	},
 	loadScript: function(url){

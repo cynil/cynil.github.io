@@ -6,14 +6,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Resume</title>
 	
+	<link rel="stylesheet" type="text/css" href="pre.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
-	<script src="utils.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
 </head>
 <body>
 	<div id="loading">
-		<h2 class="pulse">WAIT A MINUTE <span class="focus-me">:-)</span></h2>
+		<div class="wrapper">
+			<p><span class="iconfont" id="coffee">&#xe604;</span></p>
+			<h2 class="pulse">WAIT A MINUTE <span class="focus-me">:-)</span></h2>
+		</div>
 	</div>
 	<script type="text/javascript">
+	//pre.js
 		window.addEventListener('load', function(){
 			var then = Date.now();
 			U.ajax('main.html', {
@@ -23,7 +28,6 @@
 					if(elapsed < 800){
 						//如果很快就加载好了，那么应该多等一会儿，保证一致性
 						//不然的话，loading页面会一闪而过。
-						console.log(elapsed);
 						U.$('#loading').className = 'fadeout-slowly';				
 					}else{
 						U.$('#loading').className = 'fadeout';						
@@ -36,7 +40,7 @@
 					U.loadScript('main.js');
 				},
 				fail: function(status){
-					console.log('here');
+
 					U.$('#loading h2').innerHTML = '<span class="focus-me">' + status + '</span>' + ' AN ERROR OCCURED :-(';
 					//style.animation不能获取和设置动画
 					U.$('#loading h2').className = '';

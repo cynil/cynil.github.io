@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1465794443_7407322.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_1465794443_7407322.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_1465794443_7407322.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/font_1465794443_7407322.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_1465794443_7407322.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #eee;
+}
+.iconfont{
+	font-family: 'iconfont';
+}
+
+html, body, #loading{
+	height: 100%;
+}
+body{
+	overflow-y: hidden;
+}
+.main-wrapper{
+	height: 500%;
+}
+#loading{
+	position:fixed;
+	width: 100%;
+	background: #323232;
+}
+#loading .wrapper{
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	position: absolute;
+	height: 80px;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+}
+#loading #coffee{
+	font-size: 36px;
+}
+.focus-me{
+	color: rgba(235,30,100,0.8);
+}
+.fadeout{
+	animation: fadeout 1s ease;
+	animation-fill-mode: forwards;
+}
+.fadeout-slowly{
+	animation: fadeoutslow 3s ease;
+	animation-fill-mode: forwards;
+}
+.pulse{
+	animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+	0%   {opacity: 1;}
+	50%  {opacity: 0.3;}
+	100% {opacity: 1;}
+}
+@keyframes fadeout {
+	0%   {opacity: 1;}
+	100% {opacity: 0;}
+}
+/*xhr加载得太快了，Loading会一闪而过，*/
+/*所以请慢一点淡出，先等个2秒，剩下的1秒再淡出*/
+@keyframes fadeoutslow {
+	0%   {opacity: 1;}
+	66.7%  {opacity: 1;}
+	100% {opacity: 0;}
+}
