@@ -1,18 +1,32 @@
+html, body, #loading, .main-wrapper, .page{
+	height: 100%;
+	width: 100%;
+}
+
 .page{
 	height: 20%;
 }
+
+.page .iconfont{
+	font-size: 36px;
+}
+
 #profile{
 	background: #575a51;
 }
+
 #skill{
 	background: #f7574a;
 }
+
 #work{
 	background: #297385;
 }
+
 #way{
 	background: #63864a;
 }
+
 #download{
 	background: #4a7973;
 }
