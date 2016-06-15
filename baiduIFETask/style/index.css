@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('http://at.alicdn.com/t/font_1465977507_1205468.eot'); /* IE9*/
+  src: url('http://at.alicdn.com/t/font_1465977507_1205468.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('http://at.alicdn.com/t/font_1465977507_1205468.woff') format('woff'), /* chrome、firefox */
+  url('http://at.alicdn.com/t/font_1465977507_1205468.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('http://at.alicdn.com/t/font_1465977507_1205468.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont{
+	font-family: 'iconfont';
+	font-style: normal;
+}
+
+html, body{
+	height: 100%;
+	width: 100%;
+	color: #323232;
+}
+a{
+	text-decoration: none;
+}
+body{
+	min-width: 1300px;
+}
+header{
+	width: 100%;
+	height: 35%;
+	position: relative;
+	background: rgb(60, 60, 70) url(../images/baidu.png);
+
+}
+header .intro{
+	position: absolute;
+	right: 200px;
+	font-size: 24px;
+	top: calc(50% - 15px);
+	color: rgb(255, 255, 255);
+}
+ul.social{
+	text-align: right;
+	margin-top: 10px; 
+}
+
+ul.social>li{
+	display: inline-block;
+	padding: 6px;
+	font-size: 28px;
+	transition: all 0.9s ease;
+}
+
+ul.social>li:last-child{
+	padding-right: 0px;
+}
+.social a{
+	color: #fff;
+}
+#social-weibo{
+	color: #ae5454 !important;
+}
+.avatar{
+	position: absolute;
+	height: 160px;
+	width: 160px;
+	border-radius: 80px;
+	border: 3px solid silver;
+	overflow: hidden;
+	left: 200px;
+	bottom: -80px;
+}
+
+.avatar img{
+	height: 110%;
+	width: 115%;
+	position: absolute;
+}
+
+.wrap{
+	margin: 120px 200px 80px 200px;
+}
+.preface{
+	border-left: 6px solid #297385;
+	padding: 12px 0 0 6px;
+	margin: 20px 0px;
+	font-family: "Microsoft kaiti";
+}
+.preface .zuosi{
+	text-decoration: line-through;
+	font-size: 14px;
+
+}
+.content h3{
+	font-weight: normal;
+}
+.work-item{
+    margin-bottom: 1em;
+    padding: .6em;
+    box-shadow:1px 1px 1px silver;	
+}
+.work-item:nth-child(3n+0){
+    background: #eee;
+}
+.work-item:nth-child(3n+1){
+    background:lightpink;
+}
+.work-item:nth-child(3n+2){
+    background:lightblue;
+}
+
+footer{
+	height: 200px;
+	margin-top: 100px;
+	background: #323232;
+	border-top: 6px solid #116b74;
+	border-bottom: 40px solid #212121;
+}

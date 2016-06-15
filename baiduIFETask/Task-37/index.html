@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Task-37</title>
 	<link rel="stylesheet" type="text/css" href="task-37.css">
-	<script src="task-37.js"></script>
 	<style type="text/css">
+	/* custom style */
 		h2{
 			border-left: 6px solid tomato;
 			padding: 10px;
@@ -26,15 +26,15 @@
 
 	<div id="c">
 	<h2>任务三十七：UI组件之浮出层</h2>
-	<p>myPop对象构建浮出层，暴露两个接口方法：<code>alert</code>和<code>confirm</code>。<code>alert</code>方法接收一个参数，即要显示的信息。<code>confirm</code>方法接收两个参数：要显示的信息和点击完按钮后的回调函数，回调函数接收一个参数，表示用户点击的按钮。（没有做浏览器适配，仅在chrome下无bug）</p>
+	<p>POP对象构建浮出层，暴露两个接口方法：<code>alert</code>和<code>confirm</code>。<code>alert</code>方法接收一个参数，即要显示的信息。<code>confirm</code>方法接收两个参数：要显示的信息和点击完按钮后的回调函数，回调函数接收一个参数，表示用户点击的按钮。（没有做浏览器适配，仅在chrome下无bug）</p>
 	<p>示例：</p>
 	<pre>
 	if(something happened){
-		myPop.alert("hello!");
+		POP.alert("hello!");
 	};
 
 	if(something happened){
-		myPop.confirm("are you sure?", function(sure){
+		POP.confirm("are you sure?", function(sure){
 			if(sure){
 				//if the user pressed OK;
 				//do something here;
@@ -46,19 +46,25 @@
 	<p id="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, nostrum dolores iste aut quaerat harum qui quas. Perferendis, reiciendis, eaque corrupti at cumque labore sequi laboriosam quaerat provident neque dolorem esse exercitationem obcaecati recusandae nemo error expedita pariatur quia facere enim maxime earum voluptatibus cum vero sit veritatis consectetur. Error, deserunt illum saepe voluptas veritatis quisquam sunt iure velit architecto? Doloribus, fugiat repudiandae nam laboriosam necessitatibus eaque perspiciatis ut iusto a sed! Impedit, unde, beatae quod sed iure possimus sit eligendi ipsam officia dignissimos quae et ipsa officiis. Deleniti, ab sint magnam possimus cupiditate quos sunt placeat est porro voluptatibus.</p>
 	<p class="right"><button id="clear">清除</button></p><br/><br/>
 	</div>
-	<script type="text/javascript">
-		$("clear").addEventListener("click",function(){
 
-			if($("lorem").innerHTML == ""){
-				myPop.alert("Already cleared!");
-			}else{
-				myPop.confirm("Are you sure you want to clear?",function(sure){
-					if(sure){
-						$("lorem").innerHTML = "";				
-					}
-				});
-			}
-		});
+	<script type="text/javascript">
+		window.onload = function(){
+			U.$("#clear").addEventListener('click', function(){
+
+				if(U.$('#lorem').innerHTML == ''){
+					POP.alert('Already cleared!');
+				}else{
+					POP.confirm('Are you sure you want to clear?', function(sure){
+						if(sure){
+							U.$('#lorem').innerHTML = '';				
+						}
+					});
+				}
+			});		
+		}
 	</script>
+
+	<script type="text/javascript" src="../lib/U.js"></script>
+	<script src="task-37.js"></script>
 </body>
 </html>
