@@ -35,7 +35,7 @@ th{
 }
 .can-sort{
 	cursor: pointer;
-	background: #333 url(../images/task-3-38.png) right center no-repeat;
+	background: #333 url(sort.png) right center no-repeat;
 }
 @media (max-width: 768px){
 	body{
