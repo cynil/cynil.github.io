@@ -87,14 +87,14 @@ ul.social>li:last-child{
 	padding: 12px 0 0 12px;
 	margin: 20px 0px;
 	font-family: "Microsoft kaiti";
+	margin-bottom: 80px; 
 }
 .preface .zuosi{
 	text-decoration: line-through;
 	font-size: 14px;
 
 }
-.content{
-}
+
 .content h3{
 	font-weight: normal;
 }
