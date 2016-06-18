@@ -11,6 +11,20 @@ window.U = {
 		}
 	},
 
+	appendHTML:  function(target, html){
+		//添加大段html但不影响其他元素的绑定
+		var tmp = document.createElement('div');
+
+		tmp.innerHTML = html;
+		
+		//不能用for...in...        
+        for(var i = 0, len = tmp.children.length; i < len; i++){
+          
+          target.appendChild(tmp.children[i]);
+          
+        }
+	},
+
 	serialize: function(o){
 
 		//时间戳防止缓存
@@ -99,6 +113,7 @@ window.U = {
 			//override: 可选
 			//headers: 可选
 			//fail: 可选
+			//firstly: 可选
 		};
 
 		U.fill(options, defaults);
@@ -112,6 +127,10 @@ window.U = {
 		var sendings = options.method.toLowerCase() == 'post' ? data : null;
 
 		var xhr = new XMLHttpRequest();
+
+		if(typeof options.firstly == 'function'){
+			options.firstly()
+		}
 
 		xhr.open(options.method.toUpperCase(), url, true);
 
@@ -145,4 +164,17 @@ window.U = {
 			}
 		}
 	}
-}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

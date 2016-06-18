@@ -8,8 +8,7 @@
 }
 @keyframes loading{
 	0% {transform: rotate(0deg);}
-	50% {transform: rotate(180deg);}
-	100%{transform: 0deg;}
+	100%{transform: rotate(360deg);}
 }
 
 .iconfont{
@@ -115,7 +114,7 @@ ul.social>li:last-child{
 	text-align: center;
 }
 .works-loading img{
-	animation: loading 1s ease infinite;
+	animation: loading 1s ease-in-out infinite;
 	animation-fill-mode:backwards;
 }
 .work-item .item-main:before{
@@ -201,4 +200,20 @@ footer p{
 	background: #212121;
 	padding:10px;
 	text-align: center;
+}
+#back{
+	position: fixed;
+	right: 40px;
+	bottom: 40px;
+	height: 80px;
+	opacity: 0.6;
+	transition: opacity 0.4s ease;
+	cursor: pointer;
+	visibility: hidden;
+}
+#back:hover{
+	opacity: 0.9
+}
+#back img{
+	height: 100%;
 }
