@@ -42,6 +42,10 @@
 
 			$works.removeChild($works.children[0])
 
+			results.sort(function(a, b){
+				return new Date(b[date]) - new Date(a[date])
+			})
+
 			results.forEach(function(v, i, arr){
 
 				var html = U.parse(template, v)
