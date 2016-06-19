@@ -68,7 +68,7 @@
 
 	U.addEvent($widget, 'click', function(){
 		var then = +new Date,
-			S = document.body.scrollTop,
+			S = U.ua('firefox') ? document.documentElement.scrollTop : document.body.scrollTop,
 			T = 8 * Math.sqrt(S),
 			self = this
 
@@ -76,7 +76,11 @@
 			var now = +new Date
 				p = Math.min(1.0, (now - then)/T)
 
-			document.body.scrollTop = (1 - p) * (1 - p) * S
+			if(U.ua('firefox')){
+				document.documentElement.scrollTop = (1 - p) * (1 - p) * S
+			}else{
+				document.body.scrollTop = (1 - p) * (1 - p) * S
+			}
 
 			if(p < 1.0){
 				requestAnimationFrame(step)
@@ -89,7 +93,7 @@
 	window.onkeyup = window.onscroll = function(){
 
 		//火狐浏览器s始终为0 -_-|||
-		var s = document.body.scrollTop
+		var s = U.ua('firefox') ? document.documentElement.scrollTop : document.body.scrollTop
 
 		if(s > 0){
 			$widget.style.visibility = 'visible'

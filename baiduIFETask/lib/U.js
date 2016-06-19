@@ -163,6 +163,21 @@ window.U = {
 				}
 			}
 		}
+	},
+
+	ua: function(type){
+
+		var ua = navigator.userAgent.toLowerCase()
+
+		var adapter = {
+			'oldIE': /msie\s*(6|7|8)/,
+			'firefox': /firefox/,
+			'chrome': /chrome/,
+			'mobile': /(android|iphone)/
+		}
+
+		return adapter[type].test(ua)
+
 	}
 };
 

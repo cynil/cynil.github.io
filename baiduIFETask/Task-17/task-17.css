@@ -1,0 +1,31 @@
+.aqi-chart-wrap{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: flex-end;
+    border: 2px solid #999;
+    height: 600px;
+    padding: 0
+}
+.aqi-chart-wrap div{
+  background: tomato;
+}
+.day{
+  width: 40px;
+  margin: 2px;
+}
+.week{
+  width: 60px;
+  margin:20px;
+}
+.month{
+  width: 100px;
+  margin: 30px;
+}
+h2{
+  font-family: "Microsoft yahei";
+  text-align: center;
+  font-weight: normal;
+  position: relative;
+  top: 100px;
+}
