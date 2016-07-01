@@ -1,0 +1,102 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Microsoft yahei";
+	-webkit-font-smoothing: antialiased
+}
+body{
+	padding:20px;
+}
+
+.date-picker{
+	width: 210px;
+}
+
+.dp-off{
+	display: none
+}
+
+.dp-on{
+	display: block
+}
+#dp-panel{
+	box-shadow: 2px 2px 2px silver;
+}
+#dp-header span,
+#dp-main span{
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+	font-size: 16px;
+	line-height: 1.875;
+}
+
+#dp-banner{
+	background: #c61b01;
+	color: #fff;
+	height: 30px;
+	line-height: 30px;
+}
+
+#dp-banner button{
+	width: 24px;
+	border: none;
+	background: #c61b01;
+	color: #fff;
+}
+
+#dp-ym{
+	display: inline-block;
+	text-align: center;
+	width: 114px
+}
+
+#dp-header{
+	font-weight: bold;
+}
+
+#dp-main{
+	margin: 2px 0
+}
+
+#dp-main span{
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+span.current{
+	transition: all 0.4s ease;
+	color: #222;
+}
+
+span.current:not(.today):hover{
+	background: #aaf
+}
+
+span.next-month, span.prev-month{
+	color: #aaa;
+}
+
+span.today{
+	background: #c61b01;
+	color: #fff;
+}
+
+p{
+	margin: 12px 0;
+}
+h2{
+	border-left: 6px solid tomato;
+	padding: 10px;
+	padding-bottom: 0;
+}
+code, pre{
+	background:#ccf;
+	padding:1px;
+	margin:2px;
+	font-family:"Courier New";
+	overflow: scroll;
+	font-size: 14px;
+}

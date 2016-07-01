@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE | Task-41</title>
+	<link rel="stylesheet" type="text/css" href="task-41.css">
+</head>
+<body>
+	<p>点击输入框显示日历</p>
+	<div class="date-picker"></div>
+	<script src="../lib/U.js"></script>
+	<script src="task-41.js"></script>
+	<script type="text/javascript">
+		var dp = new Datepicker(U.$('.date-picker'), {
+
+		    min: '2000/1/1',
+		    max: '2020/12/31',
+		    multiSelectable: false,
+		    onSelected: function(val){
+		        console.log(val.getFullDate())
+		    }
+
+		})
+	</script>
+</body>
+</html>
+
+
+
+
+
+

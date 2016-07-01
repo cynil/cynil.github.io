@@ -6,6 +6,12 @@
         "date": "2016/3/23"
     },
     {
+        "id": 40,
+        "title": "Task 41: UI组件之日历（二）",
+        "content": "实现一个datepicker日历组件",
+        "date": "2016/4/26"
+    },
+    {
         "id": 10,
         "title": "Task 10: Flexbox布局练习",
         "content": "使用Flexbox布局实现屏幕宽度小于640px时，调整Flexbox的属性以实现第四个元素移动到最前面的效果，而不要改动第一个元素的边框颜色与高度。",

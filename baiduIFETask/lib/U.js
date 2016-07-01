@@ -58,6 +58,10 @@ window.U = {
 
 	addEvent: function(el, type, fn){
 
+		if(typeof el === 'string'){
+			el = U.$(el)
+		}
+
 		if(window.addEventListener){
 
 			return el.addEventListener(type, fn, false);
@@ -181,15 +185,4 @@ window.U = {
 	}
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
+U.listen = U.addEvent;
