@@ -56,7 +56,7 @@ WaterFall.prototype = {
         wrap.className = 'waterfall-wrap'
         wrap.guid = this.$guid++
         wrap.style.width = unitW + 'px'
-        //wrap.style.padding = this.dist
+        wrap.style.padding = this.dist
         wrap.appendChild(div)//param div...
         
         this.container.appendChild(wrap)
