@@ -1,67 +1,87 @@
-U.loadImages = function(howMany){
+function WaterFall(container, options){
 
-    var color = ['E97452', 'EF3C6B', '297385', '5A5751', 'F7574A']
-
-    for (var i = 0; i < howMany; i++) {
-
-        var img = new Image()
-
-        //http://placehold.it/300x600/E97452/fff
-        img.src = 'http://placehold.it/' + (Math.random() * 240 + 100) + 'x' + (Math.random() * 240 + 100) + '/' + color[i % 5] + '/fff'
-
-        img.onload = function(){
-
-            var wrap = document.createElement('div')
-            wrap.className = 'wrap'
-            wrap.appendChild(this)
-            U.$('.container').appendChild(wrap)
-        }
+    if(typeof container == 'string'){
+        container = U.$(container)
     }
-}
 
-window.onload = function(){
+    options = options || {}
 
-    U.loadImages(30)
-
-}
-
-function waterFall(container, options){
     var defaults = {
-        baseW: container.clientWidth,
         columns: 6,
+        dist: '10px',
     }
 
-    U.fill(options, defaults)
-    
-    var images = U.$$('.wrap', container),
-        hArr = [],
-        unitW = options.baseW / options.columns
+    U.fill(this, options)
+    U.fill(this, defaults)
 
-    images = [].slice.call(images)
-
-    images.forEach(function(v, i, arr){
-        v.style.width = unitW + 'px'
-    })
-
-    for(var i = 0; i < images.length; i++){
-
-        if(i < options.columns){
-
-            images[i].style.left = unitW * i + 'px'
-
-            images[i].style.top = '0px'
-
-            hArr.push(parseInt(getComputedStyle(images[i]).height))
-
-        }else if( i >= options.columns){
-
-            var minH = Math.min.apply(null, hArr)
-
-            images[i].style.left = unitW * U.findKey(minH, hArr) + 'px'
-
-            images[i].style.top = hArr[U.findKey(minH, hArr)] + 'px'
-            
-            hArr[U.findKey(minH, hArr)] += parseInt(getComputedStyle(images[i]).height)
+    /*
+        .container{
+            border: 1px solid;
+            position: relative;
         }
+    */
+    this.container = container
+    this.hArr = []
+    this.$guid = 0
+
+    this._init()
+}
+
+WaterFall.prototype = {
+
+    _init: function(){
+
+        var items = U.$$('img', this.container)
+
+        for (var i = 0; i < items.length; i++) {
+
+            this.addItem(items[i])
+
+        }
+    },
+
+    addItem: function(div){
+
+        var unitW = this.container.clientWidth / this.columns
+        var wrap = document.createElement('div')
+
+        /*
+            .waterfall-wrap{
+                box-sizing: border-box;
+                display: inline-block;
+                padding: this.dist;
+                position: absolute;
+            }
+        */
+        wrap.className = 'waterfall-wrap'
+        wrap.guid = this.$guid++
+        wrap.style.width = unitW + 'px'
+        //wrap.style.padding = this.dist
+        wrap.appendChild(div)//param div...
+        
+        this.container.appendChild(wrap)
+
+        if(wrap.guid < this.columns){
+
+            wrap.style.left = unitW * wrap.guid + 'px'
+
+            wrap.style.top = '0px'
+
+            this.hArr.push(parseInt(getComputedStyle(wrap).height))
+
+        }else if( wrap.guid >= this.columns){
+
+            var minH = Math.min.apply(null, this.hArr)
+
+            wrap.style.left = unitW * U.findKey(minH, this.hArr) + 'px'
+
+            wrap.style.top = this.hArr[U.findKey(minH, this.hArr)] + 'px'
+            
+            this.hArr[U.findKey(minH, this.hArr)] += parseInt(getComputedStyle(wrap).height)
+
+        }
+
+        this.container.style.height = (Math.max.apply(null, this.hArr) + 2 * this.dist) + 'px'
+        
     }
 }

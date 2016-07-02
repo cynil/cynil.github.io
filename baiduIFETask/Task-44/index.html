@@ -10,6 +10,36 @@
 	</div>
 	<script src="../lib/U.js"></script>
 	<script src="task-44.js"></script>
+	<script type="text/javascript">
+	    var wf = new WaterFall(U.$('.container'), {
+	        columns: 7,
+	        dist: '5px',
+	        resizable: true
+	    })
+
+function addImage(src){
+
+    var img = new Image()
+
+    //http://placehold.it/300x600/E97452/fff
+    img.src = src
+
+    img.onload = function(){
+    	wf.addItem(img)
+    }
+}
+
+(function loadExtraImages(howMany){
+
+    var color = ['E97452', 'EF3C6B', '297385', '5A5751', 'F7574A']
+
+	for (var i = 0; i < howMany; i++) {
+		addImage('http://placehold.it/' + (Math.random() * 240 + 100) + 'x' + (Math.random() * 240 + 100) + '/' + color[i % 5] + '/fff')
+	}
+
+})(28)
+
+	</script>
 </body>
 </html>
 
