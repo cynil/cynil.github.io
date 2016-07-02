@@ -11,6 +11,20 @@ window.U = {
 		}
 	},
 
+	$$: function(el, context){
+
+		context = context || document
+
+		try{
+
+			return context.querySelectorAll(el)
+
+		}catch(e){
+
+			return (el.charAt(0) !== '#' && el.charAt(0) !== '.') ? document.getElementsByTagName(el) : false;
+		}
+	},
+	
 	appendHTML:  function(target, html){
 		//添加大段html但不影响其他元素的绑定
 		var tmp = document.createElement('div');
@@ -182,7 +196,29 @@ window.U = {
 
 		return adapter[type].test(ua)
 
+	},
+
+	findKey: function(val, arr){
+		for(var i = 0, len = arr.length; i < len; i++){
+			if(arr[i] == val){
+				return i
+			}
+		}
+		return false
 	}
 };
 
 U.listen = U.addEvent;
+
+
+
+
+
+
+
+
+
+
+
+
+
