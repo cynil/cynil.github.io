@@ -8,21 +8,16 @@ function WaterFall(container, options){
 
     var defaults = {
         columns: 6,
-        dist: '10px',
+        dist: 10,
     }
 
     U.fill(this, options)
     U.fill(this, defaults)
 
-    /*
-        .container{
-            border: 1px solid;
-            position: relative;
-        }
-    */
-    this.container = container
+    this.$container = container
     this.hArr = []
     this.$guid = 0
+    this.unitW = this.$container.offsetWidth / this.columns
 
     this._init()
 }
@@ -31,39 +26,73 @@ WaterFall.prototype = {
 
     _init: function(){
 
-        var items = U.$$('img', this.container)
 
-        for (var i = 0; i < items.length; i++) {
+        //处理已有的子元素
+        var html = this.$container.innerHTML
 
-            this.addItem(items[i])
+        this.$container.innerHTML = ''
+
+        var tmp = document.createElement('div')
+
+        tmp.innerHTML = html
+
+        for(var i = 0; i < tmp.children.length; i++){
+
+            this.addItem(tmp.children[i].cloneNode(true))
 
         }
+
+
+        //创建遮罩层
+        this.$mask = document.createElement('div')
+        this.$mask.className = 'waterfall-mask'
+        document.body.appendChild(this.$mask)
+
+        this._bindAll()
     },
 
-    addItem: function(div){
+    _bindAll: function(){
 
-        var unitW = this.container.clientWidth / this.columns
-        var wrap = document.createElement('div')
+        var self = this
 
-        /*
-            .waterfall-wrap{
-                box-sizing: border-box;
-                display: inline-block;
-                padding: this.dist;
-                position: absolute;
+        U.listen(this.$container, 'click', function(event){
+
+            //classList.contains('waterfall-wrap')
+
+            if(event.target.nodeName.toLowerCase() == 'img'){
+                self._show(event.target)
             }
-        */
-        wrap.className = 'waterfall-wrap'
-        wrap.guid = this.$guid++
-        wrap.style.width = unitW + 'px'
-        wrap.style.padding = this.dist
-        wrap.appendChild(div)//param div...
-        
-        this.container.appendChild(wrap)
+
+        })
+
+        U.listen(this.$mask, 'click', function(event){
+
+            if(event.target == this){
+
+                this.style.display = 'none'
+
+                document.body.removeChild(U.$('.waterfall-large-image'))
+            }
+        })
+    },
+
+    _show: function(target){
+        //一般前面加$表示一个变量是DOM元素
+
+        this.$mask.style.display = 'block'
+
+        var node = event.target.cloneNode()
+
+        node.className = 'waterfall-large-image'
+
+        document.body.appendChild(node)
+    },
+
+    _settleDOM: function(wrap){
 
         if(wrap.guid < this.columns){
 
-            wrap.style.left = unitW * wrap.guid + 'px'
+            wrap.style.left = this.unitW * wrap.guid + 'px'
 
             wrap.style.top = '0px'
 
@@ -73,7 +102,7 @@ WaterFall.prototype = {
 
             var minH = Math.min.apply(null, this.hArr)
 
-            wrap.style.left = unitW * U.findKey(minH, this.hArr) + 'px'
+            wrap.style.left = this.unitW * U.findKey(minH, this.hArr) + 'px'
 
             wrap.style.top = this.hArr[U.findKey(minH, this.hArr)] + 'px'
             
@@ -81,7 +110,21 @@ WaterFall.prototype = {
 
         }
 
-        this.container.style.height = (Math.max.apply(null, this.hArr) + 2 * this.dist) + 'px'
+        this.$container.style.height = (Math.max.apply(null, this.hArr) + 2 * this.dist) + 'px'        
+    },
+
+    addItem: function(div){
+
+        var wrap = document.createElement('div')
+
+        wrap.className = 'waterfall-wrap'
+        wrap.guid = this.$guid++
+        wrap.style.width = this.unitW + 'px'
+        wrap.style.padding = this.dist + 'px'
+        wrap.appendChild(div)//param div...
         
+        this.$container.appendChild(wrap)
+
+        this._settleDOM(wrap)
     }
 }

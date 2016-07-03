@@ -4,13 +4,50 @@
 	box-sizing: border-box;
 	font-family: "Microsoft yahei";
 }
+body{
+	text-align: center;
+}
+h2{
+	margin: 1em auto;
+}
 img{
 	width: 100%;
 }
+.description{
+	width: 900px;
+	text-align: justify;
+	margin: 0 auto;
+}
 .container{
 	position: relative;
+	width: 900px;
+	margin: 0 auto;
 }
 .waterfall-wrap{
 	display: inline-block;
 	position: absolute;
+}
+.waterfall-mask{
+	display: none;
+	opacity: 0.8; 
+	height: 100%; 
+	width: 100%; 
+	position: fixed; 
+	background: #323232;
+	top: 0;
+	left: 0;
+}
+.waterfall-large-image{
+	width: 400px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: fixed;
+	margin: auto;
+	z-index: 2;
+}
+.pic{
+	border: 1px solid silver;
+	box-shadow: 2px 2px 2px silver
 }

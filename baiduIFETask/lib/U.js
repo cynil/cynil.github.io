@@ -4,6 +4,7 @@
  */
 window.U = {
 	$: function(el){
+		//单选
 		try{
 			return document.querySelector(el);			
 		}catch(e){
@@ -12,7 +13,7 @@ window.U = {
 	},
 
 	$$: function(el, context){
-
+		//多选
 		context = context || document
 
 		try{
@@ -41,6 +42,7 @@ window.U = {
 
 	serialize: function(o){
 
+		//序列化查询字符串
 		//时间戳防止缓存
 		if (o == null) return '_=' + new Date().getTime();
 
@@ -52,6 +54,7 @@ window.U = {
 	},
 	
 	fill: function(optional,base){
+		//mixin
 		for(var i in base){
 			if(optional[i] === undefined){
 				optional[i] = base[i];
@@ -74,6 +77,10 @@ window.U = {
 
 		if(typeof el === 'string'){
 			el = U.$(el)
+		}
+
+		if(!el){
+			throw new ReferenceError('element null')
 		}
 
 		if(window.addEventListener){
@@ -184,7 +191,7 @@ window.U = {
 	},
 
 	ua: function(type){
-
+		//浏览器ua
 		var ua = navigator.userAgent.toLowerCase()
 
 		var adapter = {
@@ -199,26 +206,24 @@ window.U = {
 	},
 
 	findKey: function(val, arr){
+		//寻找数组下标
 		for(var i = 0, len = arr.length; i < len; i++){
 			if(arr[i] == val){
 				return i
 			}
 		}
 		return false
+	},
+
+	liveHTML: function(html){
+		//把html变为DOM元素，只接受单个元素
+		var tmp = document.createElement('div')
+
+		tmp.innerHTML = html
+
+		return tmp.firstChild
 	}
+
 };
 
 U.listen = U.addEvent;
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6,45 +6,95 @@
 	<link rel="stylesheet" type="text/css" href="task-44.css">
 </head>
 <body>
-	<div class="container">
+	<div class="description">
+		<h2>Task-44: 瀑布流布局</h2>
 	</div>
+	<div class="container">
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/152ae2a1f2fe1768.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/fef75bb33e31a816.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/b9b512981887c6bb.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/9c06f74a05a412f0.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/1d85d48bfb236505.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/0f512ca9dfc6220d.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i4.piimg.com/4851/c18ac2d0976d0363.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+	</div>
+	<div><button id="load-more">加载更多</button></div>
 	<script src="../lib/U.js"></script>
 	<script src="task-44.js"></script>
 	<script type="text/javascript">
-	    var wf = new WaterFall(U.$('.container'), {
-	        columns: 7,
-	        dist: '5px',
-	        resizable: true
-	    })
 
-function addImage(src){
+		window.onload = function(){
+		    var wf = new WaterFall(U.$('.container'), {
+		        columns: 6,
+		        dist: 5,
+		        resizable: true
+		    })
 
-    var img = new Image()
+			function addImage(src){
 
-    //http://placehold.it/300x600/E97452/fff
-    img.src = src
+			    var img = new Image()
 
-    img.onload = function(){
-    	wf.addItem(img)
-    }
-}
+			    img.src = src
 
-(function loadExtraImages(howMany){
+			    var template = 	U.liveHTML('<div class="pic">' + 
+									'<img src="0.jpg" />' +
+									'<br/>' + 
+									'<p class="title">this is a title</p>' +
+								'</div>')
 
-    var color = ['E97452', 'EF3C6B', '297385', '5A5751', 'F7574A']
+			    img.onload = function(){
+			    	template.replaceChild(img, template.firstChild)
+			    	wf.addItem(template)
+			    }
 
-	for (var i = 0; i < howMany; i++) {
-		addImage('http://placehold.it/' + (Math.random() * 240 + 100) + 'x' + (Math.random() * 240 + 100) + '/' + color[i % 5] + '/fff')
-	}
+			}
+			function loadExtraImages(howMany){
 
-})(28)
+			    var color = ['E97452', 'EF3C6B', '297385', '5A5751', 'F7574A']
+
+				for (var i = 0; i < howMany; i++) {
+					//http://placehold.it/300x600/E97452/fff
+					addImage('http://placehold.it/' + (Math.random() * 100 + 200) + 'x' + (Math.random() * 100 + 200) + '/' + color[i % 5] + '/fff')
+				}
+
+			}
+
+			U.listen('#load-more', 'click', function(event){
+				loadExtraImages(10)
+			})
+		}
+
+
+
 
 	</script>
 </body>
 </html>
-
-
-
-
-
-
