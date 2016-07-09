@@ -1,0 +1,22 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Microsoft yahei";
+}
+
+h2{
+	margin: 1em auto;
+}
+body{
+	text-align: center;
+}
+.container{
+	width: 900px;
+	font-size: 0;
+	margin: 0 auto;
+}
+.container img{
+	visibility: hidden;
+	outline: 1px solid;
+}
