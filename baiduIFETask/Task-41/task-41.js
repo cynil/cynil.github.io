@@ -167,9 +167,9 @@ Datepicker.prototype = {
         U.listen(document, 'click', function(event){
             //点击输入框，浮出面板，再点隐藏，日期显示框中显示选取的日期
 
-            var parent = event.target.parentNode
+            var target = event.target
 
-            if(event.target.id !== 'dp-input' && (parent && parent.id !== 'dp-panel') && (parent.parentNode && parent.parentNode.id) !== 'dp-panel'){
+            if(target.id !== 'dp-input' && !U.isParent(target, U.$('#dp-panel')) ){
     
                 U.$('#dp-panel').className = 'dp-off'
 
