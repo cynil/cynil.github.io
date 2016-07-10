@@ -222,8 +222,35 @@ window.U = {
 		tmp.innerHTML = html
 
 		return tmp.firstChild
+	},
+	
+	isParent: function(son, candidate){
+		var current = son
+
+		while(current){
+			if(current == candidate){
+				return true
+			}
+			current = current.parentNode
+		}
+
+		return false
 	}
 
 };
 
 U.listen = U.addEvent;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
