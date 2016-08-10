@@ -1,0 +1,92 @@
+html,body,.container-fluid,.row,.sidebar,.main{
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Microsoft Yahei'
+}
+body{
+    padding-top: 50px;
+}
+nav.navbar{
+    border-radius: 0px;
+}
+.navbar-brand{
+    color: #dedede;
+}
+ul.diary-list input[type="checkbox"]{
+    vertical-align: baseline;
+}
+.navbar-inverse{
+    background-color: #323232;
+    margin-bottom: 0px;
+}
+.nav-search{
+    position: absolute;
+    right: 32px;
+}
+.sidebar{
+    background-color: #eee;
+    padding: 0;
+    height: 100%;
+    box-shadow: 1px 0px 2px silver;
+}
+.crud{
+    padding: 8px;
+    padding-left: 12px;
+    background-color: #eee;
+}
+.diary-list{
+    overflow-y: scroll;
+    height: calc(100% - 60px);
+}
+.diary-list>li{
+    padding: 3px;
+    padding-left: 12px;
+}
+.diary-list>li:nth-of-type(odd){
+    background-color:#f9f9f9;
+}
+
+.detail-view{
+    padding: 0;
+}
+.detail-panel{
+    overflow-y: scroll;
+    height: calc(100% - 60px);
+}
+.detail-html,
+.edit-html{
+    padding: 32px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.detail-html .date{
+    text-align: right;
+}
+.default-html{
+    background: url(../images/add.png) 48% 48% no-repeat;
+    background-size: 195px 195px;
+    height: 100%;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+.default-html:hover{
+    background-size: 200px 200px;
+}
+.breadcrumb{
+    background-color: #eef;
+    margin-bottom: 0px;
+    box-shadow: 0px 1px 2px silver;
+}
+.linethrough{
+    text-decoration: line-through;
+    color: indianred;
+}
+::-webkit-scrollbar{
+	width: 2px;
+	background-color: #eee;
+}
+
+::-webkit-scrollbar-thumb{
+	width: 2px;
+	background-color: #aaa;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="QDiary" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>QDiary</title>
+    <link rel="stylesheet" href="./style/bootstrap.min.css">
+    <link rel="stylesheet" href="./style/main.css">
+    <script src="./lib/angular.min.js"></script>
+    <script src="./lib/angular.router.min.js"></script>
+    <script src="./lib/angular.simple-storage.js"></script>
+    <script src="./src/app.js"></script>
+</head>
+<body>    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <a ng-href="#/" class="navbar-brand">QDiary</a>
+            <p class="navbar-text">A lightweight diary web application. Proudly presented by cYnii.</p>
+        </div>
+        <!--form class="navbar-form nav-search">
+            <div class="form-group"><input type="text" class="form-control input-sm" placeholder="Search..."></div>
+            <button class="btn btn-primary btn-sm">Search</button>
+        </form-->
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 list-view sidebar" ng-controller="SidebarController">
+                <div class="crud">
+                    <a ng-href="#/new/" class="btn btn-primary btn-sm">New</a>
+                    <a href="javascript:void(0)" class="btn btn-success btn-sm disabled">Search</a>
+                    <a href="javascript:void(0)" class="btn btn-danger btn-sm" ng-click="delete()">Delete</a>
+                    <a href="javascript:void(0)" class="btn btn-danger btn-sm" ng-click="deleteAll()">Delete All</a>
+                </div>
+                <ul class="list-unstyled diary-list">
+                    <li ng-repeat="diary in diaries track by $index">
+                        <label>
+                            <input type="checkbox" ng-model="diary.status" ng-show="showMe">
+                            <a ng-class="{linethrough: diary.status}" ng-href="#/view/{{diary.guid}}">{{diary.title | hideExtra:20}}</a>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9 detail-view main">
+                <ul class="breadcrumb">
+                    <li ng-repeat="bread in breadcrumb">{{bread}}</li>
+                </ul>
+                <div class="ng-view detail-panel">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

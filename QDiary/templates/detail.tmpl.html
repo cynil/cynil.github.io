@@ -1,0 +1,9 @@
+<div class="detail-html">
+    <h2>{{diary.title}}</h2>
+    <div class="edit-and-delete">
+        <a ng-href="#/edit/{{diary.guid}}" class="btn btn-sm btn-primary">Edit</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-danger" ng-click="delete()">Delete</a>
+    </div>
+    <div class="date">{{diary.date}}</div>
+    <p class="text-justify" ng-repeat="content in diary.contents track by $index">{{content}}</p>
+</div>

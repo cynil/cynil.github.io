@@ -1,0 +1,14 @@
+<div class="edit-html" ng-submit="saveItem()">
+    <form class="from-horizontal">
+        <div class="form-group">
+            <label>Title: <input type="text" class="form-control" ng-model="diary.title" required></label>
+        </div>
+        <div class="form-group">
+            <label>Content: </label>
+            <textarea class="form-control" ng-model="rawContents" rows="14" required></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save Diary" class="btn btn-primary">
+        </div>
+    </form>
+</div>
