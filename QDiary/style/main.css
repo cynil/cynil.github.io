@@ -5,6 +5,7 @@ html,body,.container-fluid,.row,.sidebar,.main{
 }
 body{
     padding-top: 50px;
+    min-width: 980px;
 }
 nav.navbar{
     border-radius: 0px;
