@@ -5,7 +5,10 @@ html,body,.container-fluid,.row,.sidebar,.main{
 }
 body{
     padding-top: 50px;
-    min-width: 980px;
+    min-width: 980px !important;
+}
+.container-fluid{
+    min-width: 980px !important;
 }
 nav.navbar{
     border-radius: 0px;
@@ -14,7 +17,8 @@ nav.navbar{
     color: #dedede;
 }
 ul.diary-list input[type="checkbox"]{
-    vertical-align: baseline;
+    vertical-align: -3px;
+    margin-right: 4px;
 }
 .navbar-inverse{
     background-color: #323232;

@@ -94,8 +94,6 @@ QDiary
                     }
                 })
 
-                $location.path('/')
-
                 $timeout(function(){
                     $scope.showMe = false
                 },0)
@@ -173,6 +171,7 @@ QDiary
             var item = {
                 title: $scope.diary.title,
                 date: date,
+                status: false,
                 contents: $scope.rawContents.split('\n')
             }
 
@@ -251,12 +250,8 @@ angular.module('myServices', ['simpleStorage'])
     })
 
 /*
- *
- * 
  * mock data for tests
- * 
- * 
- * */
+ */
 function mock(n){
 
     localStorage.clear()
