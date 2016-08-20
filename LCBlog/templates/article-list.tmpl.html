@@ -1,0 +1,8 @@
+<div  lean-animate="pull-in" class="article-list"><ul>
+    <li ng-repeat="article in articles">
+        <h3 class="article-title">
+            <a ng-href="#/articles/{{article.id}}">{{article.title}}</a>
+        </h3>
+        <time>{{article.time.toUTCString()}}</time>
+    </li>
+</ul></div>

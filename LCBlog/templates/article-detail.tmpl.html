@@ -1,0 +1,23 @@
+<article lean-animate="pull-in">
+    <h3 class="article-title">{{article.title}}</h3>
+    <time>{{article.time.toLocaleString()}}</time>
+    <div class="article-tags">
+        <span ng-repeat="tag in article.tags">{{tag}}</span>
+    </div>
+    <div class="article-content">{{article.content}}</div>
+
+    <div class="article-comment" ng-controller="CommentController">
+        
+        <form ng-submit="addComment()">
+            <textarea name="newc" ng-model="newComment.content"></textarea>
+            <input type="submit" value="发表评论">
+        </form>
+
+        <div class="article-comment-list"><ul>
+            <li ng-repeat="comment in comments">
+                <p>{{comment.content}}</p>
+                <p><span>{{comment.time.toLocaleString()}}</span></p>
+            </li>
+        </ul></div>
+    </div>
+</article>

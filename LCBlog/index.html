@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="leanBlog" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>cYnii</title>
+    <!--link rel="stylesheet" href="./style/bootstrap.min.css"-->
+    <link rel="stylesheet" href="./style/main.css">
+
+    <script src="./lib/angular.min.js"></script>
+    <script src="./lib/angular-router.min.js"></script>
+    <script src="./lib/av.min.1.2.1.js"></script>
+    <script src="./lib/angular-lean.js"></script>
+    <script src="./src/directives.js"></script>
+    <script src="./src/app.js"></script>
+
+</head>
+<body>
+    <sidebar toggle-me="show">
+
+        <div class="cynii-info">
+            <div id="avatar">
+                <img src="./images/avatar.png" alt="">
+            </div>
+            <ul class="cynii-social">
+                <li class="cynii-social-item" ng-repeat="social in socials">
+                    <a nmg-href="#/{{social.link}}">
+                        <img ng-src="./images/{{social.pic}}"/>                        
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="sidebar-menu-item" ng-repeat="item in items" ng-click="hide()">
+                <img ng-src="./images/{{item.pic}}"/>
+                <a nmg-href="#/{{item.link}}">
+                    <span>{{item.name}}</span>
+                </a>
+            </li>
+        </ul>
+
+    </sidebar>
+    <button ng-click="show = !show">toggle</button>
+    <div ng-view></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
