@@ -1,12 +1,15 @@
-<div  lean-animate="pull-in" class="article-list"><ul>
-    <li class="article-item" ng-repeat="article in articles">
-        <h3 class="article-title">
-            <a ng-href="#/articles/{{article.id}}">{{article.title}}</a>
-        </h3>
-        <p ng-if="!!article.tags" class="article-tag">
-            <img src="./images/tag.png">
-            <span class="article-tag-item" ng-repeat="tag in article.tags">{{tag}}</span>
-        </p>
-        <small class="timestamp">{{article.time.toUTCString()}}</small>
-    </li>
-</ul></div>
+<div  lean-animate="pull-in" class="article-list">
+    <ul>
+        <li style="border: 1px solid red" class="article-item" ng-repeat="article in articles">
+            <h3 style="border: 1px solid red" class="article-title">
+                <a ng-href="#/articles/{{article.id}}">{{article.title}}</a>
+            </h3>
+            <small style="border: 1px solid red" ng-if="!!article.tags" class="article-tag">
+                <img src="./images/tag.png">
+                <span class="article-tag-item" ng-repeat="tag in article.tags">{{tag}}</span>
+            </small>
+            <small style="border: 1px solid red" class="timestamp">{{article.time.toUTCString()}}</small>
+        </li>
+    </ul>
+    <loadmore></loadmore>
+</div>

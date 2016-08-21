@@ -54,6 +54,7 @@ leanBlog.config(function($routeProvider){
                 return [{
                         id: '00004',
                         title: 'setTimeout(fn(){},0)的妙用',
+                        tags: ['CSS', 'javascript', '动画'],
                         time: new Date('2011/5/9'),
                         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur beatae nesciunt voluptates, voluptas cumque reiciendis quidem cum, eligendi officiis eos, a ratione sint, nemo accusantium omnis aperiam corporis. Repellendus, ad nulla odio sapiente maiores perferendis aspernatur aperiam nobis voluptates quasi adipisci id eius omnis quae in officiis dolore explicabo perspiciatis nesciunt delectus alias, qui? Ea veritatis deserunt, excepturi atque, modi, eaque impedit perspiciatis saepe eum voluptas minus maiores dignissimos.'
                     }]

@@ -47,7 +47,9 @@
     </sidebar>
 
     <main ng-class="{pushright:show}">
-    <button ng-click="show = !show">toggle</button>
+        <nav class="navbar">
+            <img src="./images/menu.png" ng-click="show = !show">
+        </nav>
     <div ng-view></div>
     </main>
 </body>

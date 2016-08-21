@@ -7,7 +7,7 @@
 }
 
 p, li{
-    padding: 4px;
+    padding: 2px;
     font-size: 14px;
     line-height: 1.428571429;
     color: #323232;
@@ -89,7 +89,7 @@ ul.cynii-social>li{
     border: 1px solid red;
 }
 ul.cynii-social>li img{
-    height: 1.4em;
+    height: 1.6em;
 }
 li.sidebar-menu-item{
     border: 1px solid red;
@@ -115,23 +115,35 @@ main{
     border: 1px solid red;
     width: 100%;
     transform: translateX(0%);
-    padding: 4px;
 }
 main.pushright{/*来的时候main要延迟，走的时候同步*/
     transition-delay: 0.24s;
     transform: translateX(60%)
 }
 
+/*navbar*/
+nav{
+    height: 2em;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 4px #cccccc;
+}
+nav img{
+    height: 2em;
+    vertical-align: -10%;
+}
 
 /*article*/
+div.article-list{
+    padding: 6px;
+}
 .article-item{
-    border-bottom: 1px solid #878787;
+    border-bottom: 1px solid #aaa;
 }
 h3.article-title{
     font-weight: lighter;
     margin: .2em 0;
 }
-p.article-tag img{
+small.article-tag img{
     height: 1em;
     vertical-align: -10%;
     margin-right: 6px;
@@ -145,9 +157,18 @@ p.article-tag img{
 .article-tag-item:last-of-type::after{
     content: "";
 }
-.timestamp{
+small{
     font-size: 12px;
+    display: block;
+}
+small.timestamp{
     color: #656565;
+}
+article{
+    padding: 6px;
+}
+div.article-content{
+    margin: 8px 0;
 }
 /*
 *for lean-animates

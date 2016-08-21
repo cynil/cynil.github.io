@@ -1,9 +1,11 @@
 <article lean-animate="pull-in">
+
     <h3 class="article-title">{{article.title}}</h3>
-    <time>{{article.time.toLocaleString()}}</time>
-    <div class="article-tags">
-        <span ng-repeat="tag in article.tags">{{tag}}</span>
-    </div>
+    <small ng-if="!!article.tags" class="article-tag">
+        <img src="./images/tag.png">
+        <span class="article-tag-item" ng-repeat="tag in article.tags">{{tag}}</span>
+    </small>
+    <small class="timestamp">{{article.time.toUTCString()}}</small>
     <div class="article-content">{{article.content}}</div>
 
     <div class="article-comment" ng-controller="CommentController">
