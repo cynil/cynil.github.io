@@ -105,7 +105,7 @@ li.sidebar-menu-item:first-of-type{
 li.sidebar-menu-item img{
     height: 1em;
     vertical-align: -10%;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 
 /*main*/
@@ -123,13 +123,20 @@ main.pushright{/*来的时候main要延迟，走的时候同步*/
 
 /*navbar*/
 nav{
-    height: 2em;
+    height: 2.4em;
     background-color: #ffffff;
     box-shadow: 1px 1px 4px #cccccc;
 }
-nav img{
-    height: 2em;
-    vertical-align: -10%;
+.navbar-menu-wrap{
+    display: inline-block;
+    height: 2.4em;
+    width: 2.4em;
+    border: 1px solid red;
+    background: url('../images/menu.png') 0.2em 0.2em no-repeat;
+    background-size: 2em;
+}
+.navbar-menu-wrap::hover{
+    background-color: #999999;
 }
 
 /*article*/
@@ -146,13 +153,13 @@ h3.article-title{
 small.article-tag img{
     height: 1em;
     vertical-align: -10%;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 .article-tag-item{
     margin-right: 2px;
 }
 .article-tag-item::after{
-    content:",";
+    content:", ";
 }
 .article-tag-item:last-of-type::after{
     content: "";
@@ -169,6 +176,25 @@ article{
 }
 div.article-content{
     margin: 8px 0;
+}
+
+/*article comment*/
+textarea,input, label{
+    display: block;
+    width: 100%;
+    border: 1px solid #ddd;
+    transition: border-color 0.4s linear;
+    margin: 8px 0;
+}
+textarea:focus,input:focus{
+    outline: none;
+    border: 1px solid #777;
+}
+input[type="submit"]{
+    background-color: #fff;
+    padding: 2px;
+    width: 25%;
+    margin-left: 75%;
 }
 /*
 *for lean-animates
