@@ -14,11 +14,13 @@ leanBlog.config(function($routeProvider){
                 return [
                     {
                         id: '00001',
+                        tags: ['CSS', '设计', '其他'],
                         title: 'sass语法速记',
                         time: new Date('2011/3/21')
                     },
                     {
                         id: '00002',
+                        tags: ['javascript', '基础理论'],
                         title: '深入作用域与闭包',
                         time: new Date('2011/5/1')
                     },                    
@@ -29,6 +31,7 @@ leanBlog.config(function($routeProvider){
                     },
                     {
                         id: '00004',
+                        tags: ['CSS', 'javascript', '动画'],
                         title: 'setTimeout(fn(){},0)的妙用',
                         time: new Date('2011/5/9')
                     }
@@ -85,7 +88,11 @@ leanBlog.run(function($rootScope){
         {name: '摄影', pic:'pics.png', link: 'pics'},
         {name: '后台管理', pic:'back.png', link: 'login'},
     ]
-    
+
+    $rootScope.socials = [
+        {pic:'github.png', link: 'https://github.com/cynil'},
+        {pic:'weibo.png', link: 'http://weibo.com/cynii'},
+    ]    
     $rootScope.show = false
 
     $rootScope.hide = function(){

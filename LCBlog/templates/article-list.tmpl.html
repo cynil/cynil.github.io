@@ -1,8 +1,12 @@
 <div  lean-animate="pull-in" class="article-list"><ul>
-    <li ng-repeat="article in articles">
+    <li class="article-item" ng-repeat="article in articles">
         <h3 class="article-title">
             <a ng-href="#/articles/{{article.id}}">{{article.title}}</a>
         </h3>
-        <time>{{article.time.toUTCString()}}</time>
+        <p ng-if="!!article.tags" class="article-tag">
+            <img src="./images/tag.png">
+            <span class="article-tag-item" ng-repeat="tag in article.tags">{{tag}}</span>
+        </p>
+        <small class="timestamp">{{article.time.toUTCString()}}</small>
     </li>
 </ul></div>

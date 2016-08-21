@@ -23,9 +23,13 @@
             <div id="avatar">
                 <img src="./images/avatar.png" alt="">
             </div>
+            <div class="intro">
+                <p>cYnii</p>
+                <p>前端攻城狮</p>
+            </div>
             <ul class="cynii-social">
                 <li class="cynii-social-item" ng-repeat="social in socials">
-                    <a nmg-href="#/{{social.link}}">
+                    <a ng-href="{{social.link}}">
                         <img ng-src="./images/{{social.pic}}"/>                        
                     </a>
                 </li>
@@ -35,27 +39,16 @@
         <ul class="sidebar-menu">
             <li class="sidebar-menu-item" ng-repeat="item in items" ng-click="hide()">
                 <img ng-src="./images/{{item.pic}}"/>
-                <a nmg-href="#/{{item.link}}">
+                <a ng-href="#/{{item.link}}">
                     <span>{{item.name}}</span>
                 </a>
             </li>
         </ul>
-
     </sidebar>
+
+    <main ng-class="{pushright:show}">
     <button ng-click="show = !show">toggle</button>
     <div ng-view></div>
+    </main>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

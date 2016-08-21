@@ -2,7 +2,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Trebuchet, Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
 
@@ -39,11 +39,11 @@ div.sidebar-content{
 }
 div.sidebar{
     transform: translateX(-100%);
-    transition: transform 0.4s linear;
+    transition: transform 0.6s linear;
+    z-index: 277;
 }
 div.sidebar-content{
     width: 60%;
-    z-index: 277;
     background-color: #323254;
 }
 div.sidebar.active{
@@ -55,23 +55,45 @@ div.sidebar.active{
 
 div.cynii-info{
     text-align: center;
+    border: 1px solid red;
 }
 div.cynii-info>#avatar{
 
-    height: 50%;
-    width: 50%;
-    margin: auto;
+    height: 60px;
+    width: 60px;
+    margin: 1em auto;
+    position: relative;
 
     border-radius: 50%;
     overflow: hidden;
+    border: 1px solid red;
 }
 div.cynii-info #avatar img{
-    height: 100%;
-    width: 100%;
+    height: 120%;
+    width: 120%;
+    position:absolute;
+    left: -10%;
+    top: -10%;
+    border: 1px solid red;    
+}
+div.cynii-info .intro p{
+    color: #ffffff;
+}
+ul.cynii-social{
+    list-style: none;
+}
+ul.cynii-social>li{
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid red;
+}
+ul.cynii-social>li img{
+    height: 1.4em;
 }
 li.sidebar-menu-item{
+    border: 1px solid red;
     color: white;
-    font-size: 18px;
     padding: 6px;
     padding-left: 1em;
     list-style: none;
@@ -86,7 +108,47 @@ li.sidebar-menu-item img{
     margin-right: 6px;
 }
 
+/*main*/
 
+main{
+    transition: transform 0.36s linear;
+    border: 1px solid red;
+    width: 100%;
+    transform: translateX(0%);
+    padding: 4px;
+}
+main.pushright{/*来的时候main要延迟，走的时候同步*/
+    transition-delay: 0.24s;
+    transform: translateX(60%)
+}
+
+
+/*article*/
+.article-item{
+    border-bottom: 1px solid #878787;
+}
+h3.article-title{
+    font-weight: lighter;
+    margin: .2em 0;
+}
+p.article-tag img{
+    height: 1em;
+    vertical-align: -10%;
+    margin-right: 6px;
+}
+.article-tag-item{
+    margin-right: 2px;
+}
+.article-tag-item::after{
+    content:",";
+}
+.article-tag-item:last-of-type::after{
+    content: "";
+}
+.timestamp{
+    font-size: 12px;
+    color: #656565;
+}
 /*
 *for lean-animates
 */
@@ -98,13 +160,12 @@ li.sidebar-menu-item img{
 
 @keyframes pullin{
     0%{
-        transform: translateX(-100%)
-    }
-    80%{
-        transform: translateX(10%)
+        transform: translateX(-3%);
+        opacity: 0;
     }
     100%{
-        transform: translateX(0%)
+        transform: translateX(0%);
+        opacity: 1;
     }
 }
 /*end of lean-animates*/
