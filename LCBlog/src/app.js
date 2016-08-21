@@ -61,22 +61,25 @@ leanBlog.config(function($routeProvider){
             }
         }
     })
-/*
-    .when('/admin', {
-        templateUrl: 'templates/article-new.tmpl.html',
+   
+    .when('/admin/', {
+        templateUrl: 'templates/admin.tmpl.html',
         controller: 'AdminController'
     })
-    
-    .when('/admin/new', {
-        templateUrl: '',
-        controller:
+
+    .when('/login/', {
+        templateUrl: 'templates/login.tmpl.html',
+        controller: 'LoginController'
+    })
+
+    .when('/error/',{
+        templateUrl:'templates/404.tmpl.html',
+        controller: 'ErrorPageController'
     })
 
     .otherwise({
-        redirectTo: '/'
+        redirectTo: '/error/'
     })
-
-*/
 
 })
 
@@ -87,7 +90,7 @@ leanBlog.run(function($rootScope){
         {name: '生活', pic:'coffee.png', link: 'life'},
         {name: '简历', pic:'cv.png', link: 'cv'},
         {name: '摄影', pic:'pics.png', link: 'pics'},
-        {name: '后台管理', pic:'back.png', link: 'login'},
+        {name: '后台管理', pic:'back.png', link: 'admin'},
     ]
 
     $rootScope.socials = [
@@ -168,16 +171,45 @@ leanBlog.controller('commentController', function($scope, leanDB, $route){
 
 })
 
-/*
-leanblog.controller('NewArticleController', function($scope, leanDB){
+leanBlog.controller('ErrorPageController', function($scope, $location){
+    $scope.gohome = function(){
+        $location.path('/')
+    }
+})
 
+
+leanBlog.controller('AdminController', function($scope, $location, leanDB){
+
+    if(!leanDB.currentUser()){
+        $location.path('/login')
+    }else{
+        console.log('well!')
+    }
 
 })
 
-leanblog.controller('AdminController', function($scope, leanDB){
-
-    leanDB.login($scope.email, $scope.password).then(function(loginedUser){
-
-    })
+leanBlog.controller('LoginController', function($scope, $location, leanDB){
+    $scope.user = {
+        nick: '',
+        password: ''
+    }
+    
+    $scope.login = function(){
+        
+        leanDB.login($scope.user).then(function(admin){
+            $location.path('/admin')
+        },function(err){
+            $scope.errMessage = err.message
+        })
+    }
 })
-*/
+
+
+
+
+
+
+
+
+
+

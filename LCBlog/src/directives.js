@@ -34,6 +34,13 @@ angular.module('leanBlog.directives', [])
             link: function(scope, element, attrs){}
         }
     })
+    .directive('loadmore', function(){
+        return {
+            restrict: 'E',
+            replace: true,
+            
+        }
+    })
 
 
 

@@ -29,7 +29,9 @@ h3{
 }
 html, 
 body, 
-div.sidebar{
+div.sidebar,
+main,
+.view{
     height: 100%;
     width: 100%;
 }
@@ -113,6 +115,9 @@ li.sidebar-menu-item img{
 }
 
 /*main*/
+main{
+    overflow: scroll;
+}
 
 main, nav{
     transition: transform 0.36s linear;
@@ -146,6 +151,7 @@ nav{
 }
 .view{
     padding-top: 2.4em;
+    position: relative;
 }
 
 /*article*/
@@ -241,6 +247,17 @@ div.comment-content{
     background-color: #ddd;
     padding: 4px;
 }
+
+/*error page*/
+div.error-page{
+    width: 100%;
+    height: 100%;
+    background: #ddd;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url('../images/404.png')  center center no-repeat
+}
 /*
 *for lean-animates
 */
@@ -261,9 +278,3 @@ div.comment-content{
     }
 }
 /*end of lean-animates*/
-
-
-
-
-
-

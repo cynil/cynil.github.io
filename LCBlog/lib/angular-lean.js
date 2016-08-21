@@ -52,11 +52,16 @@ angular.module('leanDB', [])
             },
 
             login: function(obj){
-                AV.User.logIn(obj.email, obj.password).then(function(loginedUser){
-                    console.log(loginedUser)
+                var deferred = $q.defer()
+
+                AV.User.logIn(obj.nick, obj.password).then(function(loginedUser){
+                    deferred.resolve(loginedUser)
                 }, function(err){
+                    deferred.reject(err)
                     console.log(err)
                 })
+
+                return deferred.promise
             }
         }
     })
