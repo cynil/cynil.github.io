@@ -18,6 +18,15 @@ a,a:visited{
     color: inherit;
 }
 
+h3::before,
+.h3::before{
+    content: '#';
+    color: #aaa;
+    margin-right: 4px;
+}
+h3{
+    font-weight: lighter;
+}
 html, 
 body, 
 div.sidebar{
@@ -126,6 +135,9 @@ nav{
     height: 2.4em;
     background-color: #ffffff;
     box-shadow: 1px 1px 4px #cccccc;
+    position: fixed;
+    top:0;
+    width: 100%;
 }
 .navbar-menu-wrap{
     display: inline-block;
@@ -138,6 +150,9 @@ nav{
 .navbar-menu-wrap::hover{
     background-color: #999999;
 }
+.view{
+    padding-top: 2.4em;
+}
 
 /*article*/
 div.article-list{
@@ -147,7 +162,6 @@ div.article-list{
     border-bottom: 1px solid #aaa;
 }
 h3.article-title{
-    font-weight: lighter;
     margin: .2em 0;
 }
 small.article-tag img{
@@ -190,6 +204,9 @@ textarea,input, label{
 textarea{
     height: 4em;
 }
+input{
+    height: 1.8em;
+}
 textarea:focus,input:focus{
     outline: none;
     border: 1px solid #777;
@@ -201,7 +218,34 @@ input[type="submit"]{
     margin-left: 75%;
 }
 input[type="submit"]:hover{
-    background-color: #777;
+    background-color: #aaa;
+    color: #fff;
+}
+/*comment item*/
+li.comment-item{
+    overflow: hidden;
+}
+div.comment-avatar{
+    width: 12%;
+    float: left;
+    padding-right: 4px;
+}
+
+div.comment-avatar span{
+    display: block;
+    width: 100%;
+    font-size: 2em;
+    text-align: center;
+    line-height: 140%;
+}
+div.comment-detail{
+    width: 88%;
+    float: left;
+    padding-left: 4px;
+}
+div.comment-content{
+    background-color: #ccc;
+    padding: 4px;
 }
 /*
 *for lean-animates

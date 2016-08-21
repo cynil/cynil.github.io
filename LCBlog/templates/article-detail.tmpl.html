@@ -11,18 +11,40 @@
     <div class="article-comment" ng-controller="CommentController">
         
         <form ng-submit="addComment()">
-            <legend>评论区</legend>
+            <legend class="h3">评论区</legend>
             <textarea name="newc" ng-model="newComment.content" required></textarea>
             <input type="text" ng-model="newComment.name" placeholder="留名" required>
             <input type="text" ng-model="newComment.website" placeholder="你的主页" required>
-            <input type="submit" value="发表评论">
+            <input type="submit" value="加上去">
         </form>
 
-        <div class="article-comment-list"><ul>
-            <li ng-repeat="comment in comments">
-                <p>{{comment.content}}</p>
-                <p><span>{{comment.time.toLocaleString()}}</span></p>
-            </li>
-        </ul></div>
+        <div class="article-comment-list">
+            <h3>已有评论</h3>
+            <ol>
+                <li class="comment-item" ng-repeat="comment in comments">
+                    <div style="border: 1px solid red" class="comment-avatar">
+                        <span>{{comment.name | limitTo:1}}</span>
+                    </div>
+                    <div style="border: 1px solid red" class="comment-detail">
+                        <p>{{comment.name}}</p>
+                        <div class="comment-content">{{comment.content}}</div>
+                        <small class="timestamp">{{comment.time.toUTCString()}}</small>
+                    </div>
+                </li>
+            </ol>
+        </div>
     </div>
 </article>
+
+
+
+
+
+
+
+
+
+
+
+
+

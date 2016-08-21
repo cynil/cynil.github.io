@@ -83,7 +83,7 @@ leanBlog.config(function($routeProvider){
 leanBlog.run(function($rootScope){
 
     $rootScope.items = [
-        {name: '文章', pic:'article.png', link: 'articles'},
+        {name: '文章', pic:'article.png', link: '/'},
         {name: '生活', pic:'coffee.png', link: 'life'},
         {name: '简历', pic:'cv.png', link: 'cv'},
         {name: '摄影', pic:'pics.png', link: 'pics'},
@@ -116,7 +116,13 @@ leanBlog.controller('ArticleDetailController', function($scope, $routeParams, ar
 })
 
 //记得改回来----------->
-leanBlog.controller('CommentController', function($scope, leanDB, $route){})
+leanBlog.controller('CommentController', function($scope, leanDB, $route){
+    $scope.comments = [
+        {name: 'Leonis Doerwald', content: 'lorem ipsum dowagre consit lua, lorem ipsum dowagre consit lua, lorem ipsum dowagre consit lua', time: new Date('2013/4/5')},
+        {name: 'Zhou Lianjian', content: 'dowagre consit lua shim bower coz infot', time: new Date('2013/4/5')},
+        {name: 'Douglas', content: 'lamdys ino kotsot rinmothein gonjure saitus', time: new Date('2013/4/5')},
+    ]
+})
 leanBlog.controller('commentController', function($scope, leanDB, $route){
 
     var cql = 'select * from Comment where targetArticle = "' + $scope.$parent.aid + '"'
