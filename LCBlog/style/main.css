@@ -185,6 +185,10 @@ textarea,input, label{
     border: 1px solid #ddd;
     transition: border-color 0.4s linear;
     margin: 8px 0;
+    padding: 4px;
+}
+textarea{
+    height: 4em;
 }
 textarea:focus,input:focus{
     outline: none;
@@ -195,6 +199,9 @@ input[type="submit"]{
     padding: 2px;
     width: 25%;
     margin-left: 75%;
+}
+input[type="submit"]:hover{
+    background-color: #777;
 }
 /*
 *for lean-animates
