@@ -46,11 +46,12 @@
         </ul>
     </sidebar>
 
+    <nav  ng-class="{pushright:show}" class="navbar">
+        <span class="navbar-menu-wrap" ng-click="show = !show">
+        </span>
+    </nav>
+
     <main ng-class="{pushright:show}">
-        <nav class="navbar">
-            <span class="navbar-menu-wrap" ng-click="show = !show">
-            </span>
-        </nav>
         <div class="view" ng-view></div>
     </main>
 </body>

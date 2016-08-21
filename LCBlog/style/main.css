@@ -64,7 +64,6 @@ div.sidebar.active{
 
 div.cynii-info{
     text-align: center;
-    border: 1px solid red;
 }
 div.cynii-info>#avatar{
 
@@ -75,15 +74,13 @@ div.cynii-info>#avatar{
 
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid red;
 }
 div.cynii-info #avatar img{
     height: 120%;
     width: 120%;
     position:absolute;
     left: -10%;
-    top: -10%;
-    border: 1px solid red;    
+    top: -10%; 
 }
 div.cynii-info .intro p{
     color: #ffffff;
@@ -95,13 +92,11 @@ ul.cynii-social>li{
     display: inline-block;
     padding-left: 8px;
     padding-right: 8px;
-    border: 1px solid red;
 }
 ul.cynii-social>li img{
     height: 1.6em;
 }
 li.sidebar-menu-item{
-    border: 1px solid red;
     color: white;
     padding: 6px;
     padding-left: 1em;
@@ -119,13 +114,12 @@ li.sidebar-menu-item img{
 
 /*main*/
 
-main{
+main, nav{
     transition: transform 0.36s linear;
-    border: 1px solid red;
     width: 100%;
     transform: translateX(0%);
 }
-main.pushright{/*来的时候main要延迟，走的时候同步*/
+.pushright{/*来的时候main要延迟，走的时候同步*/
     transition-delay: 0.24s;
     transform: translateX(60%)
 }
@@ -133,17 +127,17 @@ main.pushright{/*来的时候main要延迟，走的时候同步*/
 /*navbar*/
 nav{
     height: 2.4em;
-    background-color: #ffffff;
+    background-color: #fff;
     box-shadow: 1px 1px 4px #cccccc;
     position: fixed;
     top:0;
     width: 100%;
+    z-index: 999
 }
 .navbar-menu-wrap{
     display: inline-block;
     height: 2.4em;
     width: 2.4em;
-    border: 1px solid red;
     background: url('../images/menu.png') 0.2em 0.2em no-repeat;
     background-size: 2em;
 }
@@ -244,7 +238,7 @@ div.comment-detail{
     padding-left: 4px;
 }
 div.comment-content{
-    background-color: #ccc;
+    background-color: #ddd;
     padding: 4px;
 }
 /*

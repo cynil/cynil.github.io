@@ -22,10 +22,10 @@
             <h3>已有评论</h3>
             <ol>
                 <li class="comment-item" ng-repeat="comment in comments">
-                    <div style="border: 1px solid red" class="comment-avatar">
+                    <div class="comment-avatar">
                         <span>{{comment.name | limitTo:1}}</span>
                     </div>
-                    <div style="border: 1px solid red" class="comment-detail">
+                    <div class="comment-detail">
                         <p>{{comment.name}}</p>
                         <div class="comment-content">{{comment.content}}</div>
                         <small class="timestamp">{{comment.time.toUTCString()}}</small>
