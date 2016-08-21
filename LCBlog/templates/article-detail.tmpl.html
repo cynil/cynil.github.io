@@ -12,21 +12,21 @@
         
         <form ng-submit="addComment()">
             <legend class="h3">评论区</legend>
-            <textarea name="newc" ng-model="newComment.content" required></textarea>
+            <textarea name="newc" ng-model="newComment.content" placeholder="留言" required></textarea>
             <input type="text" ng-model="newComment.name" placeholder="留名" required>
-            <input type="text" ng-model="newComment.website" placeholder="你的主页" required>
+            <input type="text" ng-model="newComment.website" placeholder="留地址" required>
             <input type="submit" value="加上去">
         </form>
 
         <div class="article-comment-list">
             <h3>已有评论</h3>
             <ol>
-                <li class="comment-item" ng-repeat="comment in comments">
+                <li class="comment-item" ng-repeat="comment in comments" lean-animate="dropdown">
                     <div class="comment-avatar">
                         <span>{{comment.name | limitTo:1}}</span>
                     </div>
                     <div class="comment-detail">
-                        <p>{{comment.name}}</p>
+                        <p><a ng-href="{{comment.website}}">{{comment.name}}</a></p>
                         <div class="comment-content">{{comment.content}}</div>
                         <small class="timestamp">{{comment.time.toUTCString()}}</small>
                     </div>

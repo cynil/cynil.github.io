@@ -11,5 +11,5 @@
             <small class="timestamp">{{article.time.toUTCString()}}</small>
         </li>
     </ul>
-    <loadmore></loadmore>
+    <button class="load-article" ng-disabled="nomore" ng-click="load()">{{!!nomore?'没有了':'加载更多'}}</button>
 </div>

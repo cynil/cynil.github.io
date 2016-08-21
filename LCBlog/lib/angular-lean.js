@@ -36,7 +36,9 @@ angular.module('leanDB', [])
                         output.push(mixin)
                     })
 
-                    deferred.resolve(output)
+                    if(output.length > 0){
+                        deferred.resolve(output)
+                    }
 
                 }, function(err){
 
@@ -62,6 +64,25 @@ angular.module('leanDB', [])
                 })
 
                 return deferred.promise
+            }
+        }
+    })
+
+    .factory('leanCache', function(){
+
+        var cache = {}
+
+        return {
+            cache: function(key, data){
+                cache[key] = data
+            },
+
+            fetch: function(key){
+                if(cache[key]){
+                    return cache[key]
+                }else{
+                    return false
+                }
             }
         }
     })

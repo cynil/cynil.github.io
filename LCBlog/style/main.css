@@ -22,7 +22,7 @@ h3::before,
 .h3::before{
     content: '#';
     color: #aaa;
-    margin-right: 4px;
+    margin-right: 2px;
 }
 h3{
     font-weight: lighter;
@@ -92,11 +92,11 @@ ul.cynii-social{
 }
 ul.cynii-social>li{
     display: inline-block;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 ul.cynii-social>li img{
-    height: 1.6em;
+    height: 1.4em;
 }
 li.sidebar-menu-item{
     color: white;
@@ -256,7 +256,8 @@ div.error-page{
     position: absolute;
     left: 0;
     top: 0;
-    background: url('../images/404.png')  center center no-repeat
+    background: url('../images/404.png')  center center no-repeat;
+    background-size: 120px 120px;
 }
 /*
 *for lean-animates
@@ -274,6 +275,25 @@ div.error-page{
     }
     100%{
         transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+.dropdown{
+    animation-name: dropdown;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+}
+
+@keyframes dropdown{
+    0%{
+        transform: scaleY(0);
+    }
+    86%{
+        transform: scaleY(1.2);
+    }
+    100%{
+        transform: scaleY(1.0);
         opacity: 1;
     }
 }

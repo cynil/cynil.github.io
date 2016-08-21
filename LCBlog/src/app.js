@@ -1,5 +1,7 @@
 var leanBlog = angular.module('leanBlog', ['ngRoute', 'leanDB', 'leanBlog.directives'])
 
+leanBlog.constant('ITEMS_PER_PAGE', 4)
+
 leanBlog.config(function($routeProvider){
     $routeProvider
 
@@ -7,35 +9,19 @@ leanBlog.config(function($routeProvider){
         templateUrl: 'templates/article-list.tmpl.html',
         controller: 'MainController',
         resolve: {
-            articles: function(leanDB){
+            articles: function(leanDB, leanCache, $route, ITEMS_PER_PAGE){
 
-                //return leanDB.query('select title,time from Article')
+                var page = $route.current.params['page'] || 0
 
-                return [
-                    {
-                        id: '00001',
-                        tags: ['CSS', '设计', '其他'],
-                        title: 'sass语法速记',
-                        time: new Date('2011/3/21')
-                    },
-                    {
-                        id: '00002',
-                        tags: ['javascript', '基础理论'],
-                        title: '深入作用域与闭包',
-                        time: new Date('2011/5/1')
-                    },                    
-                    {
-                        id: '00003',
-                        title: '简单理解jsonp',
-                        time: new Date('2011/2/13')
-                    },
-                    {
-                        id: '00004',
-                        tags: ['CSS', 'javascript', '动画'],
-                        title: 'setTimeout(fn(){},0)的妙用',
-                        time: new Date('2011/5/9')
-                    }
-                ]
+                var cached = leanCache.fetch(page)
+
+                if(cached){
+                    return cached
+                }else{
+                    var cql = 'select title, tags, time from Article limit ' + page * ITEMS_PER_PAGE + ', ' + ITEMS_PER_PAGE
+
+                    return leanDB.query(cql)
+                }
 
             }
         }
@@ -49,15 +35,8 @@ leanBlog.config(function($routeProvider){
                 var aid = $route.current.params.id,
                     cql = 'select * from Article where objectId = "' + aid + '"'
 
-                //return leanDB.query(cql)
+                return leanDB.query(cql)
 
-                return [{
-                        id: '00004',
-                        title: 'setTimeout(fn(){},0)的妙用',
-                        tags: ['CSS', 'javascript', '动画'],
-                        time: new Date('2011/5/9'),
-                        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur beatae nesciunt voluptates, voluptas cumque reiciendis quidem cum, eligendi officiis eos, a ratione sint, nemo accusantium omnis aperiam corporis. Repellendus, ad nulla odio sapiente maiores perferendis aspernatur aperiam nobis voluptates quasi adipisci id eius omnis quae in officiis dolore explicabo perspiciatis nesciunt delectus alias, qui? Ea veritatis deserunt, excepturi atque, modi, eaque impedit perspiciatis saepe eum voluptas minus maiores dignissimos.'
-                    }]
             }
         }
     })
@@ -90,13 +69,16 @@ leanBlog.run(function($rootScope){
         {name: '生活', pic:'coffee.png', link: 'life'},
         {name: '简历', pic:'cv.png', link: 'cv'},
         {name: '摄影', pic:'pics.png', link: 'pics'},
+        {name: '链接', pic:'link.png', link: 'link'},
+        {name: '关于', pic:'about.png', link: 'about'},
         {name: '后台管理', pic:'back.png', link: 'admin'},
     ]
 
     $rootScope.socials = [
         {pic:'github.png', link: 'https://github.com/cynil'},
         {pic:'weibo.png', link: 'http://weibo.com/cynii'},
-    ]    
+    ] 
+
     $rootScope.show = false
 
     $rootScope.hide = function(){
@@ -105,11 +87,26 @@ leanBlog.run(function($rootScope){
 
 })
 
-leanBlog.controller('MainController', function($scope, $rootScope, articles){
+leanBlog.controller('MainController', function($scope, $rootScope, $location, leanCache, articles, ITEMS_PER_PAGE){
+    
     $scope.articles = articles
 
-})
+    $scope.page = $location.search().page || 0
 
+    //如果这次取出的数字小于一页的数字，说明下次就没有了
+    if($scope.articles.length < ITEMS_PER_PAGE){
+        $scope.nomore = true
+    }
+
+    if(!leanCache.fetch($scope.page)){
+        leanCache.cache($scope.page, articles)
+    }
+
+    $scope.load = function(){
+        $location.path('/').search('page', ++$scope.page)
+    }
+    
+})
 
 leanBlog.controller('ArticleDetailController', function($scope, $routeParams, article){
 
@@ -126,29 +123,33 @@ leanBlog.controller('CommentController', function($scope, leanDB, $route){
         {name: 'Douglas', content: 'lamdys ino kotsot rinmothein gonjure saitus', time: new Date('2013/4/5')},
     ]
 })
-leanBlog.controller('commentController', function($scope, leanDB, $route){
+leanBlog.controller('CommentController', function($scope, leanDB, $route){
 
-    var cql = 'select * from Comment where targetArticle = "' + $scope.$parent.aid + '"'
+    var cql = 'select * from Comment where targetArticle = "' + $scope.$parent.aid + '" order by time'
 
     leanDB.query(cql).then(function(comments){
 
-        $scope.comments = comments.sort(function(a, b){
-            return b.time - a.time
-        })
+        $scope.comments = comments || []
 
     })
 
-    $scope.newComment = {content: ''}
+    $scope.newComment = {
+        name: '',
+        content: '',
+        website: ''
+    }
 
     $scope.addComment = function(){
 
         var aid = $scope.$parent.aid,
-            content = $scope.newComment.content,
-            date = new Date()
+                    content = $scope.newComment.content,
+                    time = new Date(),
+                    name = $scope.newComment.name,
+                    website = $scope.newComment.website
 
         //我从未见过有如此不堪入目之代码！！（+正义之凝视）
-        var cql = 'insert into Comment(targetArticle,content,time)' + 
-                  ' values("' + aid +'", "' + content +'", date("' + date.toJSON() +'"))'
+        var cql = 'insert into Comment(targetArticle,content,name,website,time)' + 
+                  ' values("' + aid +'", "' + content +'", "' + name +'", "' + website +'", date("' + time.toJSON() +'"))'
 
         leanDB.query(cql).then(function(data){
             
@@ -156,10 +157,10 @@ leanBlog.controller('commentController', function($scope, leanDB, $route){
             $scope.comments.unshift({
                 id: data[0].id,
                 content: content,
-                time: date
+                time: time,
+                name: name,
+                website: website
             })
-
-            $scope.newComment.content = ''
 
         }, function(err){
 
