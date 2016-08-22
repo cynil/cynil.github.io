@@ -1,0 +1,28 @@
+<tabset>
+    <tab topic="文章">
+        <ul class="tab-content">
+            <li ng-repeat="article in articles">
+                <a ng-href="#/articles/{{article.id}}">
+                    <p>{{article.title}}</p>
+                    <small class="timestamp">{{article.time.toLocaleString()}}</small>
+                </a>
+                <div class="close"  onclick="report(type, article.id)"></div>
+            </li>
+        </ul>
+        <load completed="nomoreArticles" pending="loading" onloadmore="loadArticles()"></load>
+    </tab>
+    <tab topic="评论">
+        <ul class="tab-content">
+            <li ng-repeat="comment in comments">
+                <a ng-href="#/articles/{{comment.targetArticle}}">
+                    <p class="tab-name">{{comment.name}}说：</p>
+                    <p>{{comment.content}}</p>
+                    <small class="timestamp">{{comment.time.toLocaleString()}}</small>
+                </a>
+                <div class="close" onclick="report(type, comment.id)"></div>
+            </li>
+        </ul>
+        <load completed="nomoreComments" pending="loading" onloadmore="loadComments()"></load>
+    </tab>
+    <!--modal title="删除" message="删除后不可恢复，确认删除吗？" onsure="delete()"></modal-->
+</tabset>

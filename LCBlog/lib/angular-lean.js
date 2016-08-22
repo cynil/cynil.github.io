@@ -4,7 +4,7 @@ angular.module('leanDB', [])
         'APP_KEY': 'dFvoexXSk6iePA6CnPRsUSBr',
     })
 
-    .factory('leanDB', function($q, LEAN_DB){
+    .factory('leanDB', function($q, $rootScope, LEAN_DB){
 
         AV.init({
             appId: LEAN_DB.APP_ID,
@@ -14,14 +14,18 @@ angular.module('leanDB', [])
         //一律采用CQL
         return {
 
-            query: function(cql){
+            query: function(cql, pvalues){
 
                 var deferred = $q.defer()
 
-                AV.Query.doCloudQuery(cql).then(function(data){
+                AV.Query.doCloudQuery(cql, pvalues).then(function(data){
                     
                     var results = data.results,
                         output = []
+
+                    if(data.count){
+                        output.count = data.count
+                    }
 
                     results.forEach(function(result){
 
@@ -36,9 +40,7 @@ angular.module('leanDB', [])
                         output.push(mixin)
                     })
 
-                    if(output.length > 0){
-                        deferred.resolve(output)
-                    }
+                    deferred.resolve(output)
 
                 }, function(err){
 
@@ -57,9 +59,15 @@ angular.module('leanDB', [])
                 var deferred = $q.defer()
 
                 AV.User.logIn(obj.nick, obj.password).then(function(loginedUser){
+
+                    $rootScope.logined = true
+
                     deferred.resolve(loginedUser)
+
                 }, function(err){
+
                     deferred.reject(err)
+                    
                     console.log(err)
                 })
 
@@ -74,6 +82,7 @@ angular.module('leanDB', [])
 
         return {
             cache: function(key, data){
+                
                 cache[key] = data
             },
 
@@ -86,13 +95,3 @@ angular.module('leanDB', [])
             }
         }
     })
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,7 @@
+<div class="load">
+    <button class="load-btn" ng-show="!pending" ng-click="onloadmore()" ng-disabled="completed">
+        {{completed ? '没有了' : '加载更多'}}
+    </button>
+    <div class="load-pending" ng-show="!!pending">
+    </div>
+</div>

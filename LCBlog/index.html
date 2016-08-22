@@ -38,17 +38,21 @@
 
         <ul class="sidebar-menu">
             <li class="sidebar-menu-item" ng-repeat="item in items" ng-click="hide()">
-                <img ng-src="./images/{{item.pic}}"/>
+
                 <a ng-href="#/{{item.link}}">
+                    <img ng-src="./images/{{item.pic}}"/>
                     <span>{{item.name}}</span>
                 </a>
+                
             </li>
         </ul>
     </sidebar>
 
     <nav  ng-class="{pushright:show}" class="navbar">
-        <span class="navbar-menu-wrap" ng-click="show = !show">
-        </span>
+        <a href="javascript:void(0)" class="navbar-menu-wrap" ng-click="show = !show">
+        </a>
+        <a ng-href="#/newpost" class="navbar-newpost-wrap" ng-if="!!logined">
+        </a>
     </nav>
 
     <main ng-class="{pushright:show}">

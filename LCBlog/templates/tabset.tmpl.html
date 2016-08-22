@@ -1,0 +1,6 @@
+<div class="tabset">
+    <div class="tabset-header">
+        <a href="javascript:void(0)"><span ng-repeat="tab in tabs" ng-class="{tabactive: tab.showMe}" ng-click="goTo($index)">{{tab.topic}}</span></a>
+    </div>
+    <div class="tabset-contents" ng-transclude></div>
+</div>

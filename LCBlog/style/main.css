@@ -105,7 +105,8 @@ li.sidebar-menu-item{
     list-style: none;
 
 }
-li.sidebar-menu-item:first-of-type{
+li.sidebar-menu-item::focus,
+li.sidebar-menu-item::hover,{
     background: #565678;
 }
 li.sidebar-menu-item img{
@@ -137,16 +138,25 @@ nav{
     position: fixed;
     top:0;
     width: 100%;
-    z-index: 999
+    z-index: 999;
 }
-.navbar-menu-wrap{
+.navbar-menu-wrap,
+.navbar-newpost-wrap{
     display: inline-block;
     height: 2.4em;
     width: 2.4em;
+}
+.navbar-menu-wrap{
     background: url('../images/menu.png') 0.2em 0.2em no-repeat;
     background-size: 2em;
 }
-.navbar-menu-wrap::hover{
+.navbar-newpost-wrap{
+    position: absolute;
+    right: 0;
+    background: url('../images/newpost.png') 0.2em 0.2em no-repeat;
+    background-size: 2em;
+}
+.navbar-menu-wrap::focus{
     background-color: #999999;
 }
 .view{
@@ -252,13 +262,103 @@ div.comment-content{
 div.error-page{
     width: 100%;
     height: 100%;
-    background: #ddd;
     position: absolute;
     left: 0;
     top: 0;
-    background: url('../images/404.png')  center center no-repeat;
-    background-size: 120px 120px;
+    background: url('../images/404.png') center 40% no-repeat;
+    background-size: 100px 100px;
 }
+p.error-page-tip{
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    color: #000;
+}
+
+/*tab&tabset*/
+.tabset-header{
+    height: 2.4em;
+}
+.tabset-header span{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    height: 100%;
+    line-height: 2.4em;
+    font-size: 16px;
+    background-color: #ddd;
+}
+.tabset-header .tabactive{
+    background-color: #fff
+}
+/*login-panel*/
+div.login-panel{
+    padding: 6px;
+}
+/*loading*/
+.load-btn{
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 6px 0;
+    background-color: #fff;
+    height: 2em;
+    line-height: 2em;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    color: #323232;
+}
+.load-btn::disabled{
+    color: #aaa
+}
+.load-pending{
+    height: 2em;
+    width: 2em;
+    margin-left: calc(50% - 1em);
+    background: url(../images/loading.png) center center no-repeat;
+    background-size: 1.8em;
+	animation: loading .6s ease-in-out infinite;
+	animation-fill-mode:backwards;
+}
+@keyframes loading{
+	0% {
+        transform: rotate(0deg);
+    }
+	100%{
+        transform: rotate(360deg);
+    }
+}
+
+/*admin*/
+
+.tab-content li{
+    border-bottom: 1px solid #ccc;
+    position: relative;
+}
+.tab-content li a{
+    display: block;
+    width: 80%;
+}
+.tab-content li .close{
+    width: 10%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(../images/delete.png) center center no-repeat;
+    background-size: 2em;
+    height: 100%;
+}
+.tab-name{
+    font-size: 12px;
+    color: #aaa;
+}
+
 /*
 *for lean-animates
 */
@@ -295,6 +395,21 @@ div.error-page{
     100%{
         transform: scaleY(1.0);
         opacity: 1;
+    }
+}
+
+.swipeup{
+    animation-name: dropdown;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes swipeup{
+    0%{
+        transform: translateY(10%);
+    }
+    100%{
+        transform: translateY(0%);
     }
 }
 /*end of lean-animates*/

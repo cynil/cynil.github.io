@@ -1,6 +1,6 @@
 var leanBlog = angular.module('leanBlog', ['ngRoute', 'leanDB', 'leanBlog.directives'])
 
-leanBlog.constant('ITEMS_PER_PAGE', 4)
+leanBlog.constant('ITEMS_PER_PAGE', 6)
 
 leanBlog.config(function($routeProvider){
     $routeProvider
@@ -8,37 +8,11 @@ leanBlog.config(function($routeProvider){
     .when('/',{
         templateUrl: 'templates/article-list.tmpl.html',
         controller: 'MainController',
-        resolve: {
-            articles: function(leanDB, leanCache, $route, ITEMS_PER_PAGE){
-
-                var page = $route.current.params['page'] || 0
-
-                var cached = leanCache.fetch(page)
-
-                if(cached){
-                    return cached
-                }else{
-                    var cql = 'select title, tags, time from Article limit ' + page * ITEMS_PER_PAGE + ', ' + ITEMS_PER_PAGE
-
-                    return leanDB.query(cql)
-                }
-
-            }
-        }
     })
 
-    .when('/articles/:id', {
+    .when('/articles/:aid', {
         controller: 'ArticleDetailController',
         templateUrl: 'templates/article-detail.tmpl.html',
-        resolve: {
-            article: function(leanDB, $route){
-                var aid = $route.current.params.id,
-                    cql = 'select * from Article where objectId = "' + aid + '"'
-
-                return leanDB.query(cql)
-
-            }
-        }
     })
    
     .when('/admin/', {
@@ -62,7 +36,7 @@ leanBlog.config(function($routeProvider){
 
 })
 
-leanBlog.run(function($rootScope){
+leanBlog.run(function($rootScope, leanDB){
 
     $rootScope.items = [
         {name: '文章', pic:'article.png', link: '/'},
@@ -79,50 +53,108 @@ leanBlog.run(function($rootScope){
         {pic:'weibo.png', link: 'http://weibo.com/cynii'},
     ] 
 
+    //控制sidebar
     $rootScope.show = false
 
     $rootScope.hide = function(){
         $rootScope.show = false
     }
 
+    //navbar发表
+
+    if(leanDB.currentUser()) $rootScope.logined = true
 })
 
-leanBlog.controller('MainController', function($scope, $rootScope, $location, leanCache, articles, ITEMS_PER_PAGE){
+leanBlog.controller('MainController', function($scope, $rootScope, leanCache, leanDB, ITEMS_PER_PAGE){
+
+    var cnt = 0
+    var cached = leanCache.fetch('mainctrl') || {}
     
-    $scope.articles = articles
+    $scope.articles = []
 
-    $scope.page = $location.search().page || 0
+    if(!cached.articlePages){
 
-    //如果这次取出的数字小于一页的数字，说明下次就没有了
-    if($scope.articles.length < ITEMS_PER_PAGE){
-        $scope.nomore = true
-    }
+        leanDB.query('select count(*) from Article').then(function(output){
 
-    if(!leanCache.fetch($scope.page)){
-        leanCache.cache($scope.page, articles)
+            cached.articlePages = Math.ceil(output.count / ITEMS_PER_PAGE)
+
+        }, function(err){
+            console.log(err)
+        })
+
     }
 
     $scope.load = function(){
-        $location.path('/').search('page', ++$scope.page)
+
+        cnt = cnt + 1
+
+        if(cnt > cached.articlePages){
+
+            $scope.nomore = true
+
+        }else{
+
+            if(cached['page'+cnt]){
+
+                $scope.articles = $scope.articles.concat(cached['page' + cnt])
+
+            }else{
+                $scope.loading = true
+
+                var cql = 'select time,title,tags from Article limit ?, ? order by createdAt desc',
+                    pvalues = [(cnt - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
+
+                leanDB.query(cql, pvalues).then(function(articles){
+
+                    $scope.articles = $scope.articles.concat(articles)
+
+                    console.log(articles[0])
+
+                    cached['page' + cnt] = articles
+
+                    $scope.loading = false
+                })
+            }
+
+        }
+    } 
+
+    $scope.load()
+
+    $scope.$on('$destroy', function(){
+        leanCache.cache('mainctrl', cached)
+    })
+})
+
+leanBlog.controller('ArticleDetailController', function($scope, $routeParams, leanCache, leanDB){
+
+    var cached = leanCache.fetch('articledetailctrl') || {}
+
+    $scope.aid = $routeParams.aid
+
+    if(cached['article' + $scope.aid]){
+
+        $scope.article = cached['article' + $scope.aid]
+
+    }else{
+
+        var cql = 'select * from Article where objectId = "' + $scope.aid + '"'
+
+        leanDB.query(cql).then(function(articles){
+
+            $scope.article = articles[0]
+
+            cached['article' + $scope.aid] = articles[0]
+
+        })
+
     }
-    
+
+    $scope.$on('$destroy', function(){
+        leanCache.cache('articledetailctrl', cached)
+    })
 })
 
-leanBlog.controller('ArticleDetailController', function($scope, $routeParams, article){
-
-    $scope.aid = $routeParams.id
-
-    $scope.article = article[0]
-})
-
-//记得改回来----------->
-leanBlog.controller('CommentController', function($scope, leanDB, $route){
-    $scope.comments = [
-        {name: 'Leonis Doerwald', content: 'lorem ipsum dowagre consit lua, lorem ipsum dowagre consit lua, lorem ipsum dowagre consit lua', time: new Date('2013/4/5')},
-        {name: 'Zhou Lianjian', content: 'dowagre consit lua shim bower coz infot', time: new Date('2013/4/5')},
-        {name: 'Douglas', content: 'lamdys ino kotsot rinmothein gonjure saitus', time: new Date('2013/4/5')},
-    ]
-})
 leanBlog.controller('CommentController', function($scope, leanDB, $route){
 
     var cql = 'select * from Comment where targetArticle = "' + $scope.$parent.aid + '" order by time'
@@ -179,14 +211,59 @@ leanBlog.controller('ErrorPageController', function($scope, $location){
 })
 
 
-leanBlog.controller('AdminController', function($scope, $location, leanDB){
+leanBlog.controller('AdminController', function($scope, $location, leanDB, ITEMS_PER_PAGE){
 
     if(!leanDB.currentUser()){
         $location.path('/login')
-    }else{
-        console.log('well!')
     }
 
+    var aCnt = 0
+    var cCnt = 0
+
+    $scope.articles = []; $scope.comments = []
+
+    $scope.loadArticles = function(){
+
+        $scope.loading = true
+
+        var aCQL = 'select title,time from Article limit ?, ? order by createdAt desc',
+            pvalues =  [aCnt * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
+
+        leanDB.query(aCQL, pvalues).then(function(articles){
+
+            $scope.articles = $scope.articles.concat(articles)
+
+            $scope.loading = false
+
+        }, function(err){
+            console.log(err)
+        })
+
+        aCnt++;
+
+    }
+
+    $scope.loadComments = function(){
+
+        $scope.loading = true
+
+        var cCQL = 'select targetArticle,content,name,time from Comment limit ?, ? order by createdAt desc',
+            pvalues =  [cCnt * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
+
+        leanDB.query(cCQL, pvalues).then(function(comments){
+
+            $scope.comments = $scope.comments.concat(comments)
+
+            $scope.loading = false
+
+        }, function(err){
+            console.log(err)
+        })
+
+        cCnt++;
+    }
+
+    $scope.loadComments(); $scope.loadArticles();
 })
 
 leanBlog.controller('LoginController', function($scope, $location, leanDB){
@@ -204,13 +281,3 @@ leanBlog.controller('LoginController', function($scope, $location, leanDB){
         })
     }
 })
-
-
-
-
-
-
-
-
-
-
