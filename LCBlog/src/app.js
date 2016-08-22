@@ -10,9 +10,18 @@ leanBlog.config(function($routeProvider){
         controller: 'MainController',
     })
 
+    .when('/tag/:tag',{
+        templateUrl: 'templates/article-list.tmpl.html',
+        controller: 'TagController',
+    })
+
     .when('/articles/:aid', {
         controller: 'ArticleDetailController',
         templateUrl: 'templates/article-detail.tmpl.html',
+    })
+    .when('/newpost/', {
+        templateUrl:'templates/newpost.tmpl.html',
+        controller: 'NewpostController'
     })
    
     .when('/admin/', {
@@ -94,7 +103,7 @@ leanBlog.controller('MainController', function($scope, $rootScope, leanCache, le
 
         }else{
 
-            if(cached['page'+cnt]){
+            if(cached['page' + cnt]){
 
                 $scope.articles = $scope.articles.concat(cached['page' + cnt])
 
@@ -123,6 +132,49 @@ leanBlog.controller('MainController', function($scope, $rootScope, leanCache, le
 
     $scope.$on('$destroy', function(){
         leanCache.cache('mainctrl', cached)
+    })
+})
+
+leanBlog.controller('TagController', function($scope, $rootScope, $routeParams, leanDB, ITEMS_PER_PAGE){
+
+    var cnt = 0, pages
+    var tag = $routeParams.tag
+    
+    $scope.articles = []
+
+    $scope.load = function(){
+
+        cnt = cnt + 1
+
+        if(cnt > pages){
+            console.log(cnt)
+            $scope.nomore = true
+
+        }else{
+            $scope.loading = true
+
+            var cql = 'select time,title,tags from Article where tags = ? limit ?, ? order by createdAt desc',
+                pvalues = [tag + '', (cnt - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
+
+            leanDB.query(cql, pvalues).then(function(articles){
+
+                $scope.articles = $scope.articles.concat(articles)
+
+                $scope.loading = false
+            },function(err){console.log(err)})
+        }
+    }
+
+    var cql = 'select count(*) from Article where tags = "' + tag + '"'
+
+    leanDB.query(cql).then(function(output){
+
+        pages = Math.ceil(output.count / ITEMS_PER_PAGE)
+
+        $scope.load()
+
+    }, function(err){
+        console.log(err)
     })
 })
 
@@ -207,6 +259,27 @@ leanBlog.controller('CommentController', function($scope, leanDB, $route){
 leanBlog.controller('ErrorPageController', function($scope, $location){
     $scope.gohome = function(){
         $location.path('/')
+    }
+})
+
+leanBlog.controller('NewpostController', function($scope, $location, leanDB){
+
+    $scope.post = function(){
+
+        $scope.tags = $scope.tags.split(',').map(function(v){
+            return v.trim()
+        }).filter(function(v){
+            return v != ''
+        })
+
+        var cql = 'insert into Article(title, tags, content, time) values(?,?,?,date(?))'
+            pvalues = [$scope.title, $scope.tags, $scope.content, new Date().toJSON()]
+            
+        leanDB.query(cql, pvalues).then(function(newposts){
+            var aid = newposts[0].id
+
+            $location.path('/articles/' + aid)
+        })
     }
 })
 

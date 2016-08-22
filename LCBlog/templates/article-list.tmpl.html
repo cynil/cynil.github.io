@@ -6,7 +6,9 @@
             </h3>
             <small ng-if="!!article.tags" class="article-tag">
                 <img src="./images/tag.png">
-                <span class="article-tag-item" ng-repeat="tag in article.tags">{{tag}}</span>
+                <span class="article-tag-item" ng-repeat="tag in article.tags">
+                    <a ng-href="#/tag/{{tag}}">{{tag}}</a>
+                </span>
             </small>
             <small class="timestamp">{{article.time.toUTCString()}}</small>
         </li>

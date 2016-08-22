@@ -1,0 +1,10 @@
+<div class="newpost">
+    <h3>发表文章</h3>
+    <form ng-submit="post()">
+        <input type="text" name="title" placeholder="标题" ng-model="title" required>
+        <input type="text" name="tags" placeholder="标签，半角逗号隔开" ng-model="tags">
+        <textarea name="body" ng-model="content" required></textarea>
+        <input type="submit" value="发表">
+    </form>
+    <p class="error-message">{{message}}</p>
+</div>
