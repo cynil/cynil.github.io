@@ -171,6 +171,9 @@ nav{
 p.page-indicator{
     text-align: center;
 }
+h3.article-title a{
+    color: #323232;
+}
 div.article-list{
     padding: 6px;
 }
