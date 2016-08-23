@@ -1,0 +1,164 @@
+@import "normalize.css";
+@import "previous";
+
+//comment type 1
+$baseLineHeight: 1.4;
+$fontSize: 16px;
+$baseBorderDirection: top !default;
+
+body{
+    font-size: $fontSize;
+}
+
+.border-#{$borderDirection}{
+    border-#{$borderDirection}: 1px solid #ccc;
+}
+
+body{
+    font: #{$baseLineHeight} / #{$baseLineHeight};
+}
+
+//list
+$linkColor: #08c #333 !default;
+
+a{
+    color: nth($linkColor, 1);
+
+    &:hover{
+        color: nth($linkColor, 2);
+    }
+}
+
+//map
+//
+$headings: (h1, 2em), (h2, 1.5em), (h3, 1.2em);
+
+@each $header, $size in $headings {
+    #{$header} {
+        font-size: $size;
+    }
+}
+
+//选择器嵌套
+#top-nav{
+    line-height: $baseLineHeight;
+    text-transform: capitalize;
+    background-color: nth($linkColor, 2);
+
+    li{
+        float: left;
+    }
+
+    a{
+        display: block;
+        padding: 0 10px;
+        color: #fff;
+
+        &:hover{
+            color: #ddd;
+        }
+    }
+
+}
+
+//属性嵌套
+
+.fakeshadow{
+    border: {
+        style: solid;
+        left: {
+            width: 4px;
+            color: #888;
+        }
+        right: {
+            width: 2px;
+            color: #ccc;
+        }
+    }
+}
+
+//跳出嵌套
+
+.parent{
+    color: #f87;
+
+    @at-root .child{
+        width: 200px;
+    }
+}
+
+//混入
+//@mixin name(var1: defaultValue, var2: defaultValue){attr: var1}
+@mixin line($border: 1px solid #323232, $padding: 2px){
+    border-bottom: $border;
+    padding-left: $padding;
+}
+li .line{
+    @include line(1px dashed #555);
+    @include line($padding: 4px);
+}
+
+//继承
+withborder{
+    border: 1px solid tomato;
+}
+h1 .speaker{
+    @extend withborder;
+    border-width: 2px;
+}
+
+//占位，不调用不渲染
+%clearfix{
+    @if $lte7{
+        *zoom: 1;
+    }
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+        font: 0/0 a;
+    }
+    &:after{
+        clear: both;
+    }
+}
+body{
+    .container{
+        @extend %clearfix;
+    }
+}
+
+//函数
+
+@function pxToRem($px) {
+    @return $px / $fontSize * 1rem;
+}
+.test{
+    font-size: pxToRem(16px);
+}
+
+//运算
+$_columns: 12;
+$_column-width: 60px;
+$_gutter: 20px;
+$_grid-width: $_columns * ($_column-width + $_gutter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,10 +12,11 @@ p, li{
     line-height: 1.428571429;
     color: #323232;
 }
-
+a{
+    color: lightslategray;
+}
 a,a:visited{
     text-decoration: none;
-    color: inherit;
 }
 
 h3::before,
@@ -27,6 +28,7 @@ h3::before,
 h3{
     font-weight: lighter;
     color: #323232;
+    margin: .6em 0;
 }
 html, 
 body, 
@@ -166,15 +168,16 @@ nav{
 }
 
 /*article*/
+p.page-indicator{
+    text-align: center;
+}
 div.article-list{
     padding: 6px;
 }
 .article-item{
     border-bottom: 1px solid #aaa;
 }
-h3.article-title{
-    margin: .2em 0;
-}
+
 small.article-tag img{
     height: 1em;
     vertical-align: -10%;
@@ -182,7 +185,6 @@ small.article-tag img{
 }
 .article-tag-item{
     margin-right: 2px;
-    color: lightslategray;
 }
 .article-tag-item::after{
     content:", ";
@@ -195,13 +197,14 @@ small{
     display: block;
 }
 small.timestamp{
-    color: #656565;
+    color: #767676;
 }
 article{
     padding: 6px;
 }
 div.article-content{
-    margin: 8px 0;
+    margin: .6em 0;
+    font-weight: lighter;
 }
 
 /*article comment*/
@@ -255,8 +258,18 @@ div.comment-detail{
     float: left;
     padding-left: 4px;
 }
+p.comment-author{
+    font-size: 16px;
+}
+a.admin-comment{
+    color: indianred;
+}
+.comment-author small{
+    display: inline;
+    font-size: 12px;
+}
 div.comment-content{
-    background-color: #ddd;
+    background-color: #eee;
     padding: 4px;
 }
 
@@ -369,9 +382,32 @@ div.newpost{
 p.error-message{
     color: indianred;
     font-size: 12px;
+    text-align: center;
 }
 div.newpost textarea{
     height: 10em !important;
+}
+
+/*about*/
+
+div.about-me{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding: 1em 1em;
+}
+div.about-me p{
+    border-bottom: 1px solid #ddd;
+    padding: 2em 0 .4em 0;
+}
+div.about-me p::before{
+    content: '#';
+    color: lightslategrey;
+    margin-right: 6px;
+}
+div.like-this-blog{
+    position: absolute;
+    bottom: 0;
 }
 /*
 *for lean-animates
@@ -413,8 +449,8 @@ div.newpost textarea{
 }
 
 .swipeup{
-    animation-name: dropdown;
-    animation-duration: 0.4s;
+    animation-name: swipeup;
+    animation-duration: 0.6s;
     animation-timing-function: ease-in-out;
 }
 
@@ -424,6 +460,20 @@ div.newpost textarea{
     }
     100%{
         transform: translateY(0%);
+    }
+}
+.swipeleft{
+    animation-name: swipeleft;
+    animation-duration: 0.6s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes swipeleft{
+    0%{
+        transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0%);
     }
 }
 /*end of lean-animates*/

@@ -17,8 +17,6 @@ window.onload = function(){
 
         if(curWidth >= (1 - diff) * baseW){
 
-            console.log(curWidth / baseW)
-
             stack.forEach(function(v, i, arr){
         
             var justifiedH = baseW / curWidth * v.height

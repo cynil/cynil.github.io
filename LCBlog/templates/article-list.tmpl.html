@@ -1,4 +1,8 @@
 <div  lean-animate="pull-in" class="article-list">
+    
+    <h3 ng-if="currentTag != undefined">标签：{{currentTag}}</h3>
+
+    <p class="page-indicator">{{currentPage}}/{{totalPages}}</p>
     <ul>
         <li class="article-item" ng-repeat="article in articles">
             <h3 class="article-title">
@@ -13,5 +17,5 @@
             <small class="timestamp">{{article.time.toUTCString()}}</small>
         </li>
     </ul>
-    <load completed="nomore" pending="loading" onloadmore="load()"></load>
+    <load completed="nomore" pending="loading" onloadmore="next()"></load>
 </div>

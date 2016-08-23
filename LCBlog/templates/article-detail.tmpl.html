@@ -1,20 +1,25 @@
-<article lean-animate="pull-in">
+<article lean-animate="swipeleft">
 
     <h3 class="article-title">{{article.title}}</h3>
     <small ng-if="!!article.tags" class="article-tag">
         <img src="./images/tag.png">
-        <span class="article-tag-item" ng-repeat="tag in article.tags">{{tag}}</span>
+        <span class="article-tag-item" ng-repeat="tag in article.tags">
+            <a ng-href="#/tag/{{tag}}">{{tag}}</a>
+        </span>
     </small>
     <small class="timestamp">{{article.time.toUTCString()}}</small>
+
+    <p ng-if="!!logined"><a ng-href="#/edit/{{article.id}}">编辑</a></p>
+
     <div class="article-content">{{article.content}}</div>
 
     <div class="article-comment" ng-controller="CommentController">
         
         <form ng-submit="addComment()">
-            <legend class="h3">评论区</legend>
+            <h3>评论区</h3>
             <textarea name="newc" ng-model="newComment.content" placeholder="留言" required></textarea>
-            <input type="text" ng-model="newComment.name" placeholder="留名" required>
-            <input type="text" ng-model="newComment.website" placeholder="留地址" required>
+            <input type="text" ng-model="newComment.name" placeholder="留名">
+            <input type="text" ng-model="newComment.website" placeholder="留地址">
             <input type="submit" value="加上去">
         </form>
 
@@ -26,9 +31,11 @@
                         <span>{{comment.name | limitTo:1}}</span>
                     </div>
                     <div class="comment-detail">
-                        <p><a ng-href="{{comment.website}}">{{comment.name}}</a></p>
+                        <p class="comment-author">
+                            <a ng-href="{{comment.website}}">{{comment.name}}</a>
+                            <small class="timestamp">{{comment.time | date:'fullDate'}}</small>
+                        </p>
                         <div class="comment-content">{{comment.content}}</div>
-                        <small class="timestamp">{{comment.time.toUTCString()}}</small>
                     </div>
                 </li>
             </ol>

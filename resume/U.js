@@ -2,19 +2,68 @@
  *Created By cYnii
  *2016/6/12 16:01
  */
-var U = {
+window.U = {
 	$: function(el){
 		try{
 			return document.querySelector(el);			
 		}catch(e){
-			return document.getElementById(el.substring(1));
+			return el.charAt(0) == '#' ? document.getElementById(el.substring(1)) : false;
 		}
 	},
 
+	appendHTML:  function(target, html){
+		//添加大段html但不影响其他元素的绑定
+		var tmp = document.createElement('div');
+
+		tmp.innerHTML = html;
+		
+		//不能用for...in...        
+        for(var i = 0, len = tmp.children.length; i < len; i++){
+          
+          target.appendChild(tmp.children[i]);
+          
+        }
+	},
+
+	serialize: function(o){
+
+		//时间戳防止缓存
+		if (o == null) return '_=' + new Date().getTime();
+
+		var ret = [];
+		for(var i in o){
+			ret.push(i + '=' + o[i]);
+		}
+		return ret.join('&') + '&_=' + new Date().getTime();
+	},
+	
+	fill: function(optional,base){
+		for(var i in base){
+			if(optional[i] === undefined){
+				optional[i] = base[i];
+			}
+		}
+	},
+
+	emptyFunc: function(){},
+
+	parse: function(template, o){
+		//match 如果有g，则返回数组是所有匹配。如果没有g，
+		//返回数组第一项是第一个匹配，剩下的是圆括号内每一项。
+		var pattern = /\{\{([^\}\{}]+)\}\}/g;		
+		return template.replace(pattern, function(all, a){//这里的all,a分别指整个匹配，和第一个小括号
+			return o[a];
+		});
+	},
+
 	addEvent: function(el, type, fn){
+
 		if(window.addEventListener){
+
 			return el.addEventListener(type, fn, false);
+
 		}else if(window.attachEvent){
+
 			return el.attachEvent('on' + type, function(event){
 				//attachEvent同时支持event和window.event，但是属性有不同
 				//统一起见，使用event，向W3C标准DOM靠近
@@ -51,6 +100,7 @@ var U = {
 			};
 		}
 	},
+
 	ajax: function(url, options){
 		//原则：不支持老浏览器，以后可能支持，但不是现在
 		if(!url && !options) return;
@@ -63,6 +113,7 @@ var U = {
 			//override: 可选
 			//headers: 可选
 			//fail: 可选
+			//firstly: 可选
 		};
 
 		U.fill(options, defaults);
@@ -76,6 +127,10 @@ var U = {
 		var sendings = options.method.toLowerCase() == 'post' ? data : null;
 
 		var xhr = new XMLHttpRequest();
+
+		if(typeof options.firstly == 'function'){
+			options.firstly()
+		}
 
 		xhr.open(options.method.toUpperCase(), url, true);
 
@@ -108,47 +163,33 @@ var U = {
 				}
 			}
 		}
-
 	},
-	loadScript: function(url){
-		var script = document.createElement('script');
-		script.src = url;
-		//script.onreadystatechange = function(){
-			document.body.appendChild(script);
-		//}
-	},
-	serialize: function(o){
 
-							//时间戳防止缓存
-		if (o == null) return '_=' + new Date().getTime();
+	ua: function(type){
 
-		var ret = [];
-		for(var i in o){
-			ret.push(i + '=' + o[i]);
+		var ua = navigator.userAgent.toLowerCase()
+
+		var adapter = {
+			'oldIE': /msie\s*(6|7|8)/,
+			'firefox': /firefox/,
+			'chrome': /chrome/,
+			'mobile': /(android|iphone)/
 		}
-		return ret.join('&') + '&_=' + new Date().getTime();
-	},
-	fill: function(optional,base){
-		for(var i in base){
-			if(!optional[i]){
-				optional[i] = base[i];
-			}
-		}
-	},
-	emptyFunc: function(){}
-}
 
-/*
-U.ajax('main.html', {
-	method: 'post',
-	data: o,
-	headers: {}
-	override: 'xml',//你期望的数据格式，想用responsexml就用设置为xml，不管服务器返回的是什么
-	success: function(xhr){
-		console.log(data);
-	},
-	fail: function(xhr){
-		console.log(status);
+		return adapter[type].test(ua)
+
 	}
-});
-*/
+};
+
+
+
+
+
+
+
+
+
+
+
+
+

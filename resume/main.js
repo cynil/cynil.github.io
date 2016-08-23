@@ -1,57 +1,107 @@
+;(function Loading(callback){
+        
+    var $mask = U.$('#loading')
 
-//Initializing, remove loading page
-U.addEvent(window, 'load', function(event){
-	var elapsed = Date.now() - then
-		timer  = null;
+    U.addEvent(window, 'load', function(){
+        var now = +new Date
+        
+        if(now - then < 800){
+            $mask.className = 'fadeout-slowly'
+        }else{
+            $mask.className = 'fadeout'
+        }
+    })
+    
+    U.addEvent($mask, 'animationend', function(){
+        document.body.removeChild(this)
+        callback()
+    })
+})(function Init(){
+    var page = 0
+    
+    CommandQueue.fetch(page)
 
-	if(elapsed < 600){
-		//如果很快就加载好了，那么应该多等一会儿，保证一致性
-		//不然的话，loading页面会一闪而过。
-		U.$('#loading').className = 'fadeout-slowly';				
-	}else{
-		U.$('#loading').className = 'fadeout';						
-	}
-	
-	U.addEvent(U.$('#loading'), 'animationend', function(e){
-		document.body.removeChild(this);
-		console.log(this);
-	});
+    CommandQueue.forward()
+    
+    U.addEvent(window, 'click', function(){
 
-});
+        if(CommandQueue.length > 0){
 
-//鼠标滚轮，方向键，PageDown/PageUp键只触发翻页运动，不涉及页内运动。
-//页内添加一个炫酷的按钮控制PPT进度。
+            CommandQueue.forward()
 
-(function enablePageSlider(U){
+        }else{
 
-})(U);
+            PageLoader.load(++page)
+            CommandQueue.fetch(++page)
 
-//enable presentation effects;
-(function enablePPTCommands(U){
-/*
-	var i = 0,
-		h = document.documentElement.clientHeight;
+        }
 
-	U.addEvent(U.$('.main-wrapper'), 'click', function(event){
+    })
+    U.addEvent(window, 'contextmenu', function(){
 
-		this.style.top = (--i * h) + 'px';
-		console.log(i * h);
-	});
-	*/
-})(U);
+        if(CommandQueue.obsLength > 0){
 
+            CommandQueue.back()
 
+        }else{
 
+            PageLoader.load(--page)
+            CommandQueue.fetch(--page)
+            
+        }
+    })    
+})
 
+;(function Basics(){
+    function Animator(el, easing){
+        this.el = U.$(el)
+        this.easing = easing || function(p){return p}
+    }
+    
+    Animator.prototype.start = function(property, T, S){
+        var then = +new Date
+            
+        requestAnimationFrame(function step(){})
+    }
+    
+    function Command(receiver, options){
+        this.receiver = receiver
+    }
+    
+    Command.prototype.execute = function(){
+        this.receiver.start()
+    }
+    
+    var CommandQueue = {
+        todo: [],
+        done: [],
+        length: 0,
+        obsLength: 0,
+        locked: false,
 
+        add: function(){},
 
+        forward: function(){},
 
+        back: function(){},
 
+        fetch: function(){}
+    }
 
-
-
-
-
-
-
-
+    var PageLoader = {}
+    
+    var easing = {
+        linear: function(p){
+            return p
+        },
+        accelerate: function(p){
+            return p * p
+        }
+        //and more
+    }
+})()
+// CommandQueue.add(new Animator('#d1', 'bounce'), {
+// 	property: 'top',
+// 	T: 1000,
+// 	S: 200
+// })

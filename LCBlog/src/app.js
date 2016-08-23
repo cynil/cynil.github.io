@@ -19,14 +19,24 @@ leanBlog.config(function($routeProvider){
         controller: 'ArticleDetailController',
         templateUrl: 'templates/article-detail.tmpl.html',
     })
+
     .when('/newpost/', {
         templateUrl:'templates/newpost.tmpl.html',
         controller: 'NewpostController'
     })
-   
+
+    .when('/edit/:aid', {
+        templateUrl:'templates/newpost.tmpl.html',
+        controller: 'EditpostController'
+    })   
+
     .when('/admin/', {
         templateUrl: 'templates/admin.tmpl.html',
         controller: 'AdminController'
+    })
+
+    .when('/about/', {
+        templateUrl: 'templates/about.tmpl.html'
     })
 
     .when('/login/', {
@@ -74,136 +84,109 @@ leanBlog.run(function($rootScope, leanDB){
     if(leanDB.currentUser()) $rootScope.logined = true
 })
 
-leanBlog.controller('MainController', function($scope, $rootScope, leanCache, leanDB, ITEMS_PER_PAGE){
+leanBlog.controller('MainController', function($scope, $rootScope, $location, leanDB, ITEMS_PER_PAGE){
 
-    var cnt = 0
-    var cached = leanCache.fetch('mainctrl') || {}
+    $scope.totalPages = 0
+        
+    $scope.currentPage = $location.search()['page'] || 1
     
     $scope.articles = []
 
-    if(!cached.articlePages){
+    leanDB.query('select count(*) from Article').then(function(output){
 
-        leanDB.query('select count(*) from Article').then(function(output){
-
-            cached.articlePages = Math.ceil(output.count / ITEMS_PER_PAGE)
-
-        }, function(err){
-            console.log(err)
-        })
-
-    }
-
-    $scope.load = function(){
-
-        cnt = cnt + 1
-
-        if(cnt > cached.articlePages){
-
-            $scope.nomore = true
-
-        }else{
-
-            if(cached['page' + cnt]){
-
-                $scope.articles = $scope.articles.concat(cached['page' + cnt])
-
-            }else{
-                $scope.loading = true
-
-                var cql = 'select time,title,tags from Article limit ?, ? order by createdAt desc',
-                    pvalues = [(cnt - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
-
-                leanDB.query(cql, pvalues).then(function(articles){
-
-                    $scope.articles = $scope.articles.concat(articles)
-
-                    console.log(articles[0])
-
-                    cached['page' + cnt] = articles
-
-                    $scope.loading = false
-                })
-            }
-
-        }
-    } 
-
-    $scope.load()
-
-    $scope.$on('$destroy', function(){
-        leanCache.cache('mainctrl', cached)
-    })
-})
-
-leanBlog.controller('TagController', function($scope, $rootScope, $routeParams, leanDB, ITEMS_PER_PAGE){
-
-    var cnt = 0, pages
-    var tag = $routeParams.tag
-    
-    $scope.articles = []
-
-    $scope.load = function(){
-
-        cnt = cnt + 1
-
-        if(cnt > pages){
-            console.log(cnt)
-            $scope.nomore = true
-
-        }else{
-            $scope.loading = true
-
-            var cql = 'select time,title,tags from Article where tags = ? limit ?, ? order by createdAt desc',
-                pvalues = [tag + '', (cnt - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
-
-            leanDB.query(cql, pvalues).then(function(articles){
-
-                $scope.articles = $scope.articles.concat(articles)
-
-                $scope.loading = false
-            },function(err){console.log(err)})
-        }
-    }
-
-    var cql = 'select count(*) from Article where tags = "' + tag + '"'
-
-    leanDB.query(cql).then(function(output){
-
-        pages = Math.ceil(output.count / ITEMS_PER_PAGE)
+        $scope.totalPages = Math.ceil(output.count / ITEMS_PER_PAGE)
 
         $scope.load()
 
     }, function(err){
         console.log(err)
     })
+
+    $scope.load = function(){
+
+        if($scope.currentPage > $scope.totalPages){
+
+            $scope.nomore = true
+
+        }else{
+            $scope.loading = true
+
+            var cql = 'select time,title,tags from Article limit ?, ? order by createdAt desc',
+                pvalues = [($scope.currentPage - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
+
+            leanDB.query(cql, pvalues).then(function(articles){
+
+                $scope.articles = articles
+
+                $scope.loading = false
+            })
+        }
+    }
+
+    $scope.next = function(){
+
+        console.log($scope.currentPage)
+
+        $location.path('/').search('page', parseInt($scope.currentPage) + 1)
+    }
 })
 
-leanBlog.controller('ArticleDetailController', function($scope, $routeParams, leanCache, leanDB){
+leanBlog.controller('TagController', function($scope, $rootScope, $location, $routeParams, leanDB, ITEMS_PER_PAGE){
 
-    var cached = leanCache.fetch('articledetailctrl') || {}
+    $scope.totalPages = 0
+
+    $scope.currentPage = $location.search()['page'] || 1
+    
+    $scope.currentTag = $routeParams['tag']
+    
+    $scope.articles = []
+
+    leanDB.query('select count(*) from Article where tags = "' + $scope.currentTag + '"').then(function(output){
+
+        $scope.totalPages = Math.ceil(output.count / ITEMS_PER_PAGE)
+
+        $scope.load()
+
+    }, function(err){
+        console.log(err)
+    })
+
+    $scope.load = function(){
+
+        if($scope.currentPage > $scope.totalPages){
+
+            $scope.nomore = true
+
+        }else{
+            $scope.loading = true
+
+            var cql = 'select time,title,tags from Article where tags = ? limit ?, ? order by createdAt desc',
+                pvalues = [$scope.currentTag + '', ($scope.currentPage - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
+
+            leanDB.query(cql, pvalues).then(function(articles){
+
+                $scope.articles = articles
+
+                $scope.loading = false
+            })
+        }
+    }
+
+    $scope.next = function(){
+        $location.path('/tag/' + $scope.currentTag).search('page', parseInt($scope.currentPage) + 1)
+    } 
+})
+
+leanBlog.controller('ArticleDetailController', function($scope, $routeParams, leanDB){
 
     $scope.aid = $routeParams.aid
 
-    if(cached['article' + $scope.aid]){
+    var cql = 'select * from Article where objectId = "' + $scope.aid + '"'
 
-        $scope.article = cached['article' + $scope.aid]
+    leanDB.query(cql).then(function(articles){
 
-    }else{
+        $scope.article = articles[0]
 
-        var cql = 'select * from Article where objectId = "' + $scope.aid + '"'
-
-        leanDB.query(cql).then(function(articles){
-
-            $scope.article = articles[0]
-
-            cached['article' + $scope.aid] = articles[0]
-
-        })
-
-    }
-
-    $scope.$on('$destroy', function(){
-        leanCache.cache('articledetailctrl', cached)
     })
 })
 
@@ -225,11 +208,15 @@ leanBlog.controller('CommentController', function($scope, leanDB, $route){
 
     $scope.addComment = function(){
 
+        if(leanDB.currentUser()){
+            $scope.isAdmin = true
+        }
+
         var aid = $scope.$parent.aid,
                     content = $scope.newComment.content,
                     time = new Date(),
-                    name = $scope.newComment.name,
-                    website = $scope.newComment.website
+                    name = $scope.isAdmin ? 'cYnii' : $scope.newComment.name || '匿名者',
+                    website = $scope.newComment.website || 'http://cynil.github.io'
 
         //我从未见过有如此不堪入目之代码！！（+正义之凝视）
         var cql = 'insert into Comment(targetArticle,content,name,website,time)' + 
@@ -283,8 +270,36 @@ leanBlog.controller('NewpostController', function($scope, $location, leanDB){
     }
 })
 
+leanBlog.controller('EditpostController', function($scope, $routeParams, $location, leanDB){
 
-leanBlog.controller('AdminController', function($scope, $location, leanDB, ITEMS_PER_PAGE){
+    $scope.aid = $routeParams.aid
+
+    leanDB.query('select * from Article where objectId = "' + $scope.aid + '"').then(function(output){
+        $scope.title = output[0].title
+        $scope.tags = output[0].tags.join(',')
+        $scope.content = output[0].content
+    })
+
+    $scope.post = function(){
+
+        $scope.tags = $scope.tags.split(',').map(function(v){
+            return v.trim()
+        }).filter(function(v){
+            return v != ''
+        })
+
+        var cql = 'update Article set title = ?, tags = ?, content = ?, time = date(?) where objectId = ?'
+            pvalues = [$scope.title, $scope.tags, $scope.content, new Date().toJSON(), $scope.aid]
+            
+        leanDB.query(cql, pvalues).then(function(updatedposts){
+
+            $location.path('/articles/' + $scope.aid)
+
+        }, function(err){console.log(err)})
+    }
+})
+
+leanBlog.controller('AdminController', function($scope, $location, $timeout, leanDB, ITEMS_PER_PAGE){
 
     if(!leanDB.currentUser()){
         $location.path('/login')
@@ -336,7 +351,41 @@ leanBlog.controller('AdminController', function($scope, $location, leanDB, ITEMS
         cCnt++;
     }
 
-    $scope.loadComments(); $scope.loadArticles();
+    $scope.delete = function(isArticle, id){
+        var cql
+
+        if(isArticle){
+
+            $scope.articles.splice(findKey($scope.articles, id), 1)
+            cql = 'delete from Article where objectId = ?'
+
+        }else {
+
+            $scope.comments.splice(findKey($scope.comments), 1)
+            cql = 'delete from Comment where objectId = ?'
+
+        }
+
+        var pvalues = [id]
+
+        leanDB.query(cql, pvalues).then(function(output){
+            $scope.message = '删除成功！'
+            $scope.showError = true
+        }, function(err){
+            $scope.message = err.message
+            $scope.showError = true
+        })
+
+        function findKey(arr, value){
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i].id = value){
+                    return i
+                }
+            }
+        }
+    }
+
+    $scope.loadComments(); $scope.loadArticles()
 })
 
 leanBlog.controller('LoginController', function($scope, $location, leanDB){

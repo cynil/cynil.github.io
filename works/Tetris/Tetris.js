@@ -13,10 +13,22 @@ var U = {
 			}
 		}
 		return false;
+	},
+	$: function(el){
+		return document.getElementById(el);
 	}
 }
 var ROWS = 20,
-	COLUMNS = 13;
+	COLUMNS = 13,
+	SPEED = 800,
+	scores = 0;
+
+var scoreRule ={
+	1: 100,
+	2: 300,
+	3: 700,
+	4: 1500
+}
 
 var relativeCoords = {
 	// relativeCoords describes the shape of a certain cube
@@ -89,6 +101,14 @@ var Board = (function(x, y){
 		get: function(x, y){
 			return board[x][y];
 		},
+		checkScore: function(){
+
+			var cnt = 0;
+
+			var fulls = [];
+
+			
+        }
 	}
 	//here we reversed rows and columns, coz array's coordinates is different from common (x, y)
 })(COLUMNS, ROWS);
@@ -101,7 +121,6 @@ var Cube = {
 	x: 0,
 	y: 0,
 	type: types[0],
-	rotate: 0,
 	color: colors[0],
 
 	reset: function(){
@@ -109,12 +128,13 @@ var Cube = {
 		this.x = Math.floor(Board.w / 2 - 1);
 		this.y = 0;
 		this.type = types[Math.floor(Math.random() * 7)];
-		this.rotate = Math.floor(Math.random() * 4);
 		this.color = colors[Math.floor(Math.random() * 5)];
 		this.inject(false);
 
 		return this;
 	},
+
+	rotate: function(){},
 
 	inject: function(reset/*boolean*/){
 		var o = {status: 1, color: this.color};
@@ -160,30 +180,44 @@ var Cube = {
 			return nextIsEmpty || nextInArray;
 		});
 
-		if(!notYetTouched) return;
+		if(!notYetTouched) return false;
 
 		//we should erase its previous position,
 		this.inject(true);
 		this[dir] += val;
 		this.inject(false);
+
+		return true;
 	}
 };
 
-Cube.reset();
-document.onkeyup = function(event){
-	var button = String.fromCharCode(event.keyCode).toUpperCase();
-	switch (button){
-		case 'A': 
-			Cube.go('x', -1);
-			break;
-		case 'S':
-			Cube.go('y', 1);
-			break;
-		case 'D':
-			Cube.go('x',1);
-			break;
-		case 'W':
-			Cube.reset();
-			break;
-	}
-};
+U.$('start').addEventListener('click', function(e){
+
+    Cube.reset();
+    
+    var timer = setInterval(function(){
+       if(!Cube.go('y', 1)){
+           Board.checkScore();
+           Cube.reset();
+       }
+    }, SPEED);
+
+
+	document.onkeyup = function(event){
+		var button = String.fromCharCode(event.keyCode).toUpperCase();
+		switch (button){
+			case 'A': 
+				Cube.go('x', -1);
+				break;
+			case 'S':
+				Cube.go('y', 1);
+				break;
+			case 'D':
+				Cube.go('x',1);
+				break;
+			case 'W':
+				Cube.rotate();
+				break;
+		}
+	};
+});
