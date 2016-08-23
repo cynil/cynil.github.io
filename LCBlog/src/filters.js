@@ -1,4 +1,6 @@
-angular.module('marked', [])
+angular.module('leanBlog.filters', [])
     .filter('marked', function(){
-        return function(value){}
+        return function(value){
+            return marked(value)
+        }
     })

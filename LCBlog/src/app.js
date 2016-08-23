@@ -1,4 +1,4 @@
-var leanBlog = angular.module('leanBlog', ['ngRoute', 'leanDB', 'leanBlog.directives'])
+var leanBlog = angular.module('leanBlog', ['ngRoute', 'leanDB', 'leanBlog.directives', 'leanBlog.filters', 'ngSanitize'])
 
 leanBlog.constant('ITEMS_PER_PAGE', 6)
 
@@ -59,7 +59,6 @@ leanBlog.run(function($rootScope, leanDB){
 
     $rootScope.items = [
         {name: '文章', pic:'article.png', link: '/'},
-        {name: '生活', pic:'coffee.png', link: 'life'},
         {name: '简历', pic:'cv.png', link: 'cv'},
         {name: '摄影', pic:'pics.png', link: 'pics'},
         {name: '链接', pic:'link.png', link: 'link'},
@@ -178,6 +177,8 @@ leanBlog.controller('TagController', function($scope, $rootScope, $location, $ro
 })
 
 leanBlog.controller('ArticleDetailController', function($scope, $routeParams, leanDB){
+    
+    $scope.marked = marked
 
     $scope.aid = $routeParams.aid
 
@@ -192,7 +193,7 @@ leanBlog.controller('ArticleDetailController', function($scope, $routeParams, le
 
 leanBlog.controller('CommentController', function($scope, leanDB, $route){
 
-    var cql = 'select * from Comment where targetArticle = "' + $scope.$parent.aid + '" order by time'
+    var cql = 'select * from Comment where targetArticle = "' + $scope.$parent.aid + '" order by createdAt desc'
 
     leanDB.query(cql).then(function(comments){
 

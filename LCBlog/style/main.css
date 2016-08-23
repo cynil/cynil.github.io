@@ -203,11 +203,17 @@ small.timestamp{
     color: #767676;
 }
 article{
-    padding: 6px;
+    padding: 8px;
+}
+article h3{
+    margin: 1em 0;
 }
 div.article-content{
     margin: .6em 0;
     font-weight: lighter;
+}
+div.article-comment{
+    margin-bottom: 2em;
 }
 
 /*article comment*/

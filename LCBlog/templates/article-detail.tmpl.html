@@ -7,11 +7,11 @@
             <a ng-href="#/tag/{{tag}}">{{tag}}</a>
         </span>
     </small>
-    <small class="timestamp">{{article.time.toUTCString()}}</small>
+    <small class="timestamp">{{article.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}</small>
 
     <p ng-if="!!logined"><a ng-href="#/edit/{{article.id}}">编辑</a></p>
 
-    <div class="article-content">{{article.content}}</div>
+    <div class="article-content" ng-bind-html="marked(article.content)"></div>
 
     <div class="article-comment" ng-controller="CommentController">
         
@@ -33,25 +33,12 @@
                     <div class="comment-detail">
                         <p class="comment-author">
                             <a ng-href="{{comment.website}}">{{comment.name}}</a>
-                            <small class="timestamp">{{comment.time | date:'fullDate'}}</small>
+                            <small class="timestamp">{{comment.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}</small>
                         </p>
-                        <div class="comment-content">{{comment.content}}</div>
+                        <div class="comment-content" ng-bind-html="marked(comment.content)"></div>
                     </div>
                 </li>
             </ol>
         </div>
     </div>
 </article>
-
-
-
-
-
-
-
-
-
-
-
-
-
