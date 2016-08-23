@@ -23,8 +23,8 @@
     content: '';
     margin: 0;
 }
-.cymd-code,
-.lang-javascript{
+.cymd-pre,
+.cymd-code{
     font-family: Consolas,'Liberation Mono',Courier,monospace;
     background-color: #efefff;
     padding: 6px;
@@ -35,6 +35,7 @@
 .cymd-code{
     padding: 2px;
     margin: 0 2px;
+    overflow-x: auto;
 }
 .cymd-blockquote{
     border-left: 4px solid lightgray;
