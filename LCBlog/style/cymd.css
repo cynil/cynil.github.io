@@ -24,8 +24,7 @@
     margin: 0;
 }
 .cymd-code,
-.lang-javascript,
-.cymd-pre{
+.lang-javascript{
     font-family: Consolas,'Liberation Mono',Courier,monospace;
     background-color: #efefff;
     padding: 6px;
@@ -64,15 +63,3 @@ small.cymd-img-text{
 .cymd-em{
     font-weight: bolder;
 }
-
-
-
-
-
-
-
-
-
-
-
-
