@@ -1,4 +1,4 @@
-var leanBlog = angular.module('leanBlog', ['ngRoute', 'leanDB', 'leanBlog.directives', 'leanBlog.filters', 'ngSanitize'])
+var leanBlog = angular.module('leanBlog', ['ngRoute', 'leanDB', 'leanBlog.directives', 'ngSanitize'])
 
 leanBlog.constant('ITEMS_PER_PAGE', 6)
 
@@ -177,7 +177,7 @@ leanBlog.controller('TagController', function($scope, $rootScope, $location, $ro
 })
 
 leanBlog.controller('ArticleDetailController', function($scope, $routeParams, leanDB){
-    
+
     $scope.marked = marked
 
     $scope.aid = $routeParams.aid
@@ -187,6 +187,8 @@ leanBlog.controller('ArticleDetailController', function($scope, $routeParams, le
     leanDB.query(cql).then(function(articles){
 
         $scope.article = articles[0]
+
+        $scope.article.content = marked($scope.article.content)
 
     })
 })

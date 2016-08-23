@@ -1,0 +1,77 @@
+.article-content,
+.comment-content{
+        color: #4d4e53;
+}
+.cymd-p{
+    line-height: 1.428571429;
+    font-size: 14px;
+    font-weight: lighter;
+    margin: 6px 0;
+}
+.cymd-h1,
+.cymd-h2,
+.cymd-h3,
+.cymd-h4,
+.cymd-h5,
+.cymd-h6{
+    font-family: 'Open Sans Light',Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    margin: .6em 0;
+    color: #4d4e53;
+}
+.cymd-h3::before{
+    content: '';
+    margin: 0;
+}
+.cymd-code,
+.lang-javascript,
+.cymd-pre{
+    font-family: Consolas,'Liberation Mono',Courier,monospace;
+    background-color: #efefff;
+    padding: 6px;
+    font-size: 14px;
+    color: indianred;
+}
+.cymd-code{
+    padding: 2px;
+    margin: 0 2px;
+}
+.cymd-blockquote{
+    border-left: 4px solid lightgray;
+    background: #efefef;
+    padding: 4px 16px;
+}
+.cymd-p-with-img{
+    padding: 0;
+    text-align: center;
+}
+small.cymd-img-text{
+    color: darkslategrey;
+    font-size: 14px;
+}
+.cymd-img{
+    max-width: 100%;
+    margin: 1em;
+    margin-bottom: .4em;
+}
+.cymd-ol,
+.cymd-ul{
+    margin: 0;
+    padding: 16px;
+}
+.cymd-strong,
+.cymd-em{
+    font-weight: bolder;
+}
+
+
+
+
+
+
+
+
+
+
+
+

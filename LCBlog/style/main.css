@@ -203,7 +203,7 @@ small.timestamp{
     color: #767676;
 }
 article{
-    padding: 8px;
+    padding: 12px;
 }
 article h3{
     margin: 1em 0;
@@ -248,6 +248,7 @@ input[type="submit"]:hover{
 /*comment item*/
 li.comment-item{
     overflow: hidden;
+    border-bottom: 1px dotted #eed
 }
 div.comment-avatar{
     width: 12%;
@@ -270,15 +271,12 @@ div.comment-detail{
 p.comment-author{
     font-size: 16px;
 }
-a.admin-comment{
-    color: indianred;
-}
 .comment-author small{
     display: inline;
     font-size: 12px;
 }
 div.comment-content{
-    background-color: #eee;
+    background-color: #fefefe;
     padding: 4px;
 }
 

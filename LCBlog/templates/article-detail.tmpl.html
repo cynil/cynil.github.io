@@ -11,13 +11,13 @@
 
     <p ng-if="!!logined"><a ng-href="#/edit/{{article.id}}">编辑</a></p>
 
-    <div class="article-content" ng-bind-html="marked(article.content)"></div>
+    <div class="article-content" ng-bind-html="article.content"></div>
 
     <div class="article-comment" ng-controller="CommentController">
         
         <form ng-submit="addComment()">
             <h3>评论区</h3>
-            <textarea name="newc" ng-model="newComment.content" placeholder="留言" required></textarea>
+            <textarea name="newc" ng-model="newComment.content" placeholder="留言，支持markdown语法" required></textarea>
             <input type="text" ng-model="newComment.name" placeholder="留名">
             <input type="text" ng-model="newComment.website" placeholder="留地址">
             <input type="submit" value="加上去">

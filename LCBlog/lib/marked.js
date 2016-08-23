@@ -761,6 +761,13 @@ function Renderer(options) {
   this.options = options || {};
 }
 
+/*
+ * 
+ * sorry modified by cynii
+ * 
+ * 
+ * 
+ */
 Renderer.prototype.code = function(code, lang, escaped) {
   if (this.options.highlight) {
     var out = this.options.highlight(code, lang);
@@ -771,12 +778,12 @@ Renderer.prototype.code = function(code, lang, escaped) {
   }
 
   if (!lang) {
-    return '<pre><code>'
+    return '<pre class="cymd-pre"><code>'
       + (escaped ? code : escape(code, true))
       + '\n</code></pre>';
   }
 
-  return '<pre><code class="'
+  return '<pre class="cymd-pre"><code class="'
     + this.options.langPrefix
     + escape(lang, true)
     + '">'
@@ -785,7 +792,7 @@ Renderer.prototype.code = function(code, lang, escaped) {
 };
 
 Renderer.prototype.blockquote = function(quote) {
-  return '<blockquote>\n' + quote + '</blockquote>\n';
+  return '<blockquote class="cymd-blockquote">\n' + quote + '</blockquote>\n';
 };
 
 Renderer.prototype.html = function(html) {
@@ -798,7 +805,7 @@ Renderer.prototype.heading = function(text, level, raw) {
     + ' id="'
     + this.options.headerPrefix
     + raw.toLowerCase().replace(/[^\w]+/g, '-')
-    + '">'
+    + '" class="cymd-h' + level + '">'
     + text
     + '</h'
     + level
@@ -811,15 +818,15 @@ Renderer.prototype.hr = function() {
 
 Renderer.prototype.list = function(body, ordered) {
   var type = ordered ? 'ol' : 'ul';
-  return '<' + type + '>\n' + body + '</' + type + '>\n';
+  return '<' + type + ' class="cymd-' + type + '">\n' + body + '</' + type + '>\n';
 };
 
 Renderer.prototype.listitem = function(text) {
-  return '<li>' + text + '</li>\n';
+  return '<li class="cymd-li">' + text + '</li>\n';
 };
 
 Renderer.prototype.paragraph = function(text) {
-  return '<p>' + text + '</p>\n';
+  return '<p class="cymd-p">' + text + '</p>\n';
 };
 
 Renderer.prototype.table = function(header, body) {
@@ -847,15 +854,15 @@ Renderer.prototype.tablecell = function(content, flags) {
 
 // span level renderer
 Renderer.prototype.strong = function(text) {
-  return '<strong>' + text + '</strong>';
+  return '<strong class="cymd-strong">' + text + '</strong>';
 };
 
 Renderer.prototype.em = function(text) {
-  return '<em>' + text + '</em>';
+  return '<em class="cymd-em">' + text + '</em>';
 };
 
 Renderer.prototype.codespan = function(text) {
-  return '<code>' + text + '</code>';
+  return '<code class="cymd-code">' + text + '</code>';
 };
 
 Renderer.prototype.br = function() {
@@ -863,7 +870,7 @@ Renderer.prototype.br = function() {
 };
 
 Renderer.prototype.del = function(text) {
-  return '<del>' + text + '</del>';
+  return '<del class="cymd-del">' + text + '</del>';
 };
 
 Renderer.prototype.link = function(href, title, text) {
@@ -879,7 +886,7 @@ Renderer.prototype.link = function(href, title, text) {
       return '';
     }
   }
-  var out = '<a href="' + href + '"';
+  var out = '<a class="cymd-a" href="' + href + '"';
   if (title) {
     out += ' title="' + title + '"';
   }
@@ -888,11 +895,11 @@ Renderer.prototype.link = function(href, title, text) {
 };
 
 Renderer.prototype.image = function(href, title, text) {
-  var out = '<img src="' + href + '" alt="' + text + '"';
+  var out = '<p class="cymd-p-with-img"><img class="cymd-img" src="' + href + '" alt="' + text + '"';
   if (title) {
     out += ' title="' + title + '"';
   }
-  out += this.options.xhtml ? '/>' : '>';
+  out += this.options.xhtml ? '/>' : '>' + '<small class="cymd-img-text">' + text + '</small></p>';
   return out;
 };
 
