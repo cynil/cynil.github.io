@@ -777,18 +777,9 @@ Renderer.prototype.code = function(code, lang, escaped) {
     }
   }
 
-  if (!lang) {
-    return '<pre class="cymd-pre"><code>'
-      + (escaped ? code : escape(code, true))
-      + '\n</code></pre>';
-  }
-
-  return '<pre class="cymd-pre"><code class="'
-    + this.options.langPrefix
-    + escape(lang, true)
-    + '">'
+  return '<pre class="cymd-pre">'
     + (escaped ? code : escape(code, true))
-    + '\n</code></pre>\n';
+    + '\n</pre>';
 };
 
 Renderer.prototype.blockquote = function(quote) {
