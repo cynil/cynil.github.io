@@ -7,6 +7,7 @@
     font-size: 14px;
     font-weight: lighter;
     margin: 6px 0;
+    text-align: justify;
 }
 .cymd-h1,
 .cymd-h2,
@@ -52,8 +53,8 @@ small.cymd-img-text{
 }
 .cymd-img{
     display:block;
-    width: 100%;
-    max-width: 100%;
+    width: 80%;
+    max-width: 80%;
     margin: 1em;
     margin-bottom: .4em;
     box-shadow: 1px 1px 4px #bbb;
