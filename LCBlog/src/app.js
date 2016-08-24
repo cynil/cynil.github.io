@@ -98,7 +98,8 @@ leanBlog.controller('MainController', function($scope, $rootScope, $location, le
         $scope.load()
 
     }, function(err){
-        console.log(err)
+        $rootScope.showError = true
+        $rootScope.errorMessage = err.message
     })
 
     $scope.load = function(){
@@ -124,8 +125,6 @@ leanBlog.controller('MainController', function($scope, $rootScope, $location, le
 
     $scope.next = function(){
 
-        console.log($scope.currentPage)
-
         $location.path('/').search('page', parseInt($scope.currentPage) + 1)
     }
 })
@@ -147,7 +146,11 @@ leanBlog.controller('TagController', function($scope, $rootScope, $location, $ro
         $scope.load()
 
     }, function(err){
-        console.log(err)
+
+        $rootScope.errorMessage = err.message
+
+        $rootScope.showError = true
+
     })
 
     $scope.load = function(){
@@ -221,11 +224,11 @@ leanBlog.controller('CommentController', function($scope, leanDB, $route){
                     name = $scope.isAdmin ? 'cYnii' : $scope.newComment.name || '匿名者',
                     website = $scope.newComment.website || 'http://cynil.github.io'
 
-        //我从未见过有如此不堪入目之代码！！（+正义之凝视）
-        var cql = 'insert into Comment(targetArticle,content,name,website,time)' + 
-                  ' values("' + aid +'", "' + content +'", "' + name +'", "' + website +'", date("' + time.toJSON() +'"))'
+        var cql = 'insert into Comment(targetArticle,content,name,website,time) values(?, ?, ?, date(?))'
 
-        leanDB.query(cql).then(function(data){
+        var pvalues = [aid, content, name, websitetime.toJSON()]
+
+        leanDB.query(cql, pvalues).then(function(data){
             
             //insert仅仅返回id
             $scope.comments.unshift({
@@ -238,7 +241,8 @@ leanBlog.controller('CommentController', function($scope, leanDB, $route){
 
         }, function(err){
 
-            console.log(err)
+            $rootScope.errorMessage = err.message
+            $rootScope.showError = true
 
         })
 
@@ -256,7 +260,7 @@ leanBlog.controller('NewpostController', function($scope, $location, leanDB){
 
     $scope.post = function(){
 
-        $scope.tags = $scope.tags.split(',').map(function(v){
+        $scope.tags = !$scope.tags ? [] : $scope.tags.split(',').map(function(v){
             return v.trim()
         }).filter(function(v){
             return v != ''
@@ -298,11 +302,14 @@ leanBlog.controller('EditpostController', function($scope, $routeParams, $locati
 
             $location.path('/articles/' + $scope.aid)
 
-        }, function(err){console.log(err)})
+        }, function(err){
+            $rootScope.errorMessage = err.message
+            $rootScope.showError = true
+        })
     }
 })
 
-leanBlog.controller('AdminController', function($scope, $location, $timeout, leanDB, ITEMS_PER_PAGE){
+leanBlog.controller('AdminController', function($scope, $rootScope, $location, $timeout, leanDB, ITEMS_PER_PAGE){
 
     if(!leanDB.currentUser()){
         $location.path('/login')
@@ -327,7 +334,10 @@ leanBlog.controller('AdminController', function($scope, $location, $timeout, lea
             $scope.loading = false
 
         }, function(err){
-            console.log(err)
+
+            $rootScope.errorMessage = err.message
+            $rootScope.showError = true
+            
         })
 
         aCnt++;
@@ -364,7 +374,7 @@ leanBlog.controller('AdminController', function($scope, $location, $timeout, lea
 
         }else {
 
-            $scope.comments.splice(findKey($scope.comments), 1)
+            $scope.comments.splice(findKey($scope.comments, id), 1)
             cql = 'delete from Comment where objectId = ?'
 
         }
@@ -372,11 +382,15 @@ leanBlog.controller('AdminController', function($scope, $location, $timeout, lea
         var pvalues = [id]
 
         leanDB.query(cql, pvalues).then(function(output){
-            $scope.message = '删除成功！'
-            $scope.showError = true
+
+            $rootScope.errorMessage = '删除成功！'
+            $rootScope.showError = true
+
         }, function(err){
-            $scope.message = err.message
-            $scope.showError = true
+
+             $rootScope.errorMessage = '删除失败了:(  ' + err.message
+             $rootScope.showError = true
+
         })
 
         function findKey(arr, value){

@@ -416,6 +416,18 @@ div.like-this-blog{
     position: absolute;
     bottom: 0;
 }
+/*tooltip*/
+.tooltip{
+    position: absolute;
+    top: 2.4em;
+    left: 0;
+    width: 100%;
+    background-color: indianred;
+    padding: 4px; 
+}
+.tooltip .message{
+    color: #fff;
+}
 /*
 *for lean-animates
 */

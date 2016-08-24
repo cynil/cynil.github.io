@@ -115,21 +115,37 @@ angular.module('leanBlog.directives', [])
         
     })
 
-    .directive('modal', function(){
+    //<tootip show="showError" message="errorMessage"></tootip>
+
+    .directive('tootip', function(){
 
         return {
             restrict: 'E',
             replace: true,
             transclude: true,
-            templateUrl: './templates/modal.tmpl.html',
+            templateUrl: './templates/tooltip.tmpl.html',
             scope: {
-                title: '@',
-                message: '@',
-                onsure: '&'
+                show: '=',
+                message: '='
             },
             link: function(scope, element, attrs){
 
+                scope.$watch(scope.show, function(n){
+                    console.log(scope.show)
+                    if (n == true){
+                        scope.show = true
+                    }
+                })
+
             }
-        }
-        
+        }        
     })
+
+
+
+
+
+
+
+
+
