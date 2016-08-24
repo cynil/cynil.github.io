@@ -337,7 +337,7 @@ leanBlog.controller('AdminController', function($scope, $rootScope, $location, $
 
             $rootScope.errorMessage = err.message
             $rootScope.showError = true
-            
+
         })
 
         aCnt++;
@@ -388,8 +388,8 @@ leanBlog.controller('AdminController', function($scope, $rootScope, $location, $
 
         }, function(err){
 
-             $rootScope.errorMessage = '删除失败了:(  ' + err.message
              $rootScope.showError = true
+             $rootScope.errorMessage = '删除失败了:(  ' + err.message
 
         })
 

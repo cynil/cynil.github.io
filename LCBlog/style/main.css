@@ -422,6 +422,7 @@ div.like-this-blog{
     top: 2.4em;
     left: 0;
     width: 100%;
+    min-height: 2.4em;
     background-color: indianred;
     padding: 4px; 
 }
