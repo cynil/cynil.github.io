@@ -27,7 +27,7 @@
 }
 .cymd-pre,
 .cymd-code{
-    font-family: Consolas,'Liberation Mono',Courier,monospace;
+    font-family: monospace,Consolas,'Liberation Mono',Courier;
     background-color: #efefff;
     padding: 6px;
     font-size: 14px;
@@ -50,7 +50,7 @@
 }
 small.cymd-img-text{
     display:block;
-    margin-top: 0.4em;
+    margin-top: 1em;
     color: darkslategrey;
     font-size: 14px;
 }
