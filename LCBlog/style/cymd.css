@@ -65,7 +65,11 @@ small.cymd-img-text{
     margin: 0;
     padding: 16px;
 }
-.cymd-strong,
+.cymd-strong{
+    font-weight: bold;
+}
 .cymd-em{
-    font-weight: bolder;
+    font-weight: normal;
+    font-style: italic;
+}
 }
