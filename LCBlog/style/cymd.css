@@ -7,7 +7,6 @@
     font-size: 14px;
     font-weight: lighter;
     margin: 6px 0;
-    text-indent: 2em;
 }
 .cymd-h1,
 .cymd-h2,
@@ -35,7 +34,7 @@
 }
 .cymd-code{
     padding: 1px 2px;
-    margin: 1px 2px;
+    margin: 2px;
     overflow-x: auto;
 }
 .cymd-blockquote{
