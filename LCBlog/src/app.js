@@ -226,7 +226,7 @@ leanBlog.controller('CommentController', function($scope, leanDB, $route){
 
         var cql = 'insert into Comment(targetArticle,content,name,website,time) values(?, ?, ?, date(?))'
 
-        var pvalues = [aid, content, name, websitetime.toJSON()]
+        var pvalues = [aid, content, name, website, time.toJSON()]
 
         leanDB.query(cql, pvalues).then(function(data){
             
