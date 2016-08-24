@@ -1,66 +1,36 @@
 <!DOCTYPE html>
-<html ng-app="leanBlog" lang="en">
+<html ng-app="wdblog" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <title>cYnii</title>
-    <link rel="stylesheet" href="./style/cymd.css">
-    <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/bootstrap.min.css">
+    <!--link rel="stylesheet" href="./style/main.css"-->
 
     <script src="./lib/angular.min.js"></script>
     <script src="./lib/angular-router.min.js"></script>
-    <script src="./lib/angular-sanitize.js"></script>    
-    <script src="./lib/av.min.1.2.1.js"></script>
-    <script src="./lib/marked.js"></script>
-    <script src="./lib/angular-lean.js"></script>
-    <script src="./src/directives.js"></script>
+    <script src="./lib/wilddog.js"></script>
+    <script src="./lib/wild-angular.min.js"></script>
     <script src="./src/app.js"></script>
-
+    
 </head>
-<body>
-    <sidebar toggle-me="show">
-
-        <div class="cynii-info">
-            <div id="avatar">
-                <img src="./images/avatar.png" alt="">
-            </div>
-            <div class="intro">
-                <p>cYnii</p>
-                <p>前端攻城狮</p>
-            </div>
-            <ul class="cynii-social">
-                <li class="cynii-social-item" ng-repeat="social in socials">
-                    <a ng-href="{{social.link}}">
-                        <img ng-src="./images/{{social.pic}}"/>                        
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <ul class="sidebar-menu">
-            <li class="sidebar-menu-item" ng-repeat="item in items" ng-click="hide()">
-
-                <a ng-href="#/{{item.link}}">
-                    <img ng-src="./images/{{item.pic}}"/>
-                    <span>{{item.name}}</span>
-                </a>
-                
-            </li>
-        </ul>
-    </sidebar>
-
-    <nav  ng-class="{pushright:show}" class="navbar">
-        <a href="javascript:void(0)" class="navbar-menu-wrap" ng-click="show = !show">
-        </a>
-        <a ng-href="#/newpost" class="navbar-newpost-wrap" ng-if="!!logined">
-        </a>
-    </nav>
-
-    <main ng-class="{pushright:show}">
-        <div class="view" ng-view></div>
-    </main>
-
-    <tootip show="showError" message="errorMessage">（点击隐藏）</tootip>
+<body ng-controller="ListController">
+    <div ng-repeat="article in articles">
+        <h3><a ng-href="#/articles/{{article.$id}}">{{article.title}}</a></h3>
+        <time>{{article.date}}</time>
+    </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
