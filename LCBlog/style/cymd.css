@@ -52,6 +52,7 @@ small.cymd-img-text{
     font-size: 14px;
 }
 .cymd-img{
+    width: 100%
     max-width: 100%;
     margin: 1em;
     margin-bottom: .4em;
