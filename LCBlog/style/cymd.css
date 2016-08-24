@@ -43,7 +43,6 @@
     padding: 4px 16px;
 }
 .cymd-p-with-img{
-    width: 100%;
     padding: 0;
     text-align: center;
 }
@@ -52,7 +51,8 @@ small.cymd-img-text{
     font-size: 14px;
 }
 .cymd-img{
-    width: 100%
+    display:block;
+    width: 100%;
     max-width: 100%;
     margin: 1em;
     margin-bottom: .4em;
