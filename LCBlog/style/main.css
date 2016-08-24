@@ -248,7 +248,7 @@ input[type="submit"]:hover{
 /*comment item*/
 li.comment-item{
     overflow: hidden;
-    border-bottom: 2px dotted #aaa
+    border-bottom: 1px dotted #aab
 }
 div.comment-avatar{
     width: 12%;
