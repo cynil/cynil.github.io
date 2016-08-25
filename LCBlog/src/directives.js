@@ -115,9 +115,9 @@ angular.module('leanBlog.directives', [])
         
     })
 
-    //<tootip show="showError" message="errorMessage"></tootip>
+    //<tooltip show="showError" message="errorMessage"></tooltip>
 
-    .directive('tootip', function(){
+    .directive('tooltip', function(){
 
         return {
             restrict: 'E',

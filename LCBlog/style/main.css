@@ -52,6 +52,8 @@ div.sidebar-content{
     height: 100%;
 }
 div.sidebar{
+    -webkit-transform: translateX(-100%);
+    -webkit-transition: transform 0.6s linear;
     transform: translateX(-100%);
     transition: transform 0.6s linear;
     z-index: 277;
@@ -61,6 +63,7 @@ div.sidebar-content{
     background-color: #323254;
 }
 div.sidebar.active{
+    -webkit-transform: translateX(0%);
     transform: translateX(0%)
 }
 /* end of sidebar directive*/
@@ -124,13 +127,17 @@ main{
 }
 
 main, nav{
+    -webkit-transition: transform 0.36s linear;
+    -webkit-transform: translateX(0%);
     transition: transform 0.36s linear;
-    width: 100%;
     transform: translateX(0%);
+    width: 100%;
 }
 .pushright{/*来的时候main要延迟，走的时候同步*/
+    -webkit-transition-delay: 0.24s;
+    -webkit-transform: translateX(60%);
     transition-delay: 0.24s;
-    transform: translateX(60%)
+    transform: translateX(60%);
 }
 
 /*navbar*/
@@ -221,9 +228,10 @@ textarea,input, label{
     display: block;
     width: 100%;
     border: 1px solid #ddd;
-    transition: border-color 0.4s linear;
     margin: 8px 0;
     padding: 4px;
+    -webkit-transition: border-color 0.4s linear;
+    transition: border-color 0.4s linear;
 }
 textarea{
     height: 4em;
@@ -345,8 +353,18 @@ div.login-panel{
     margin-left: calc(50% - 1em);
     background: url(../images/loading.png) center center no-repeat;
     background-size: 1.8em;
+	-webkit-animation: loading .6s ease-in-out infinite;
+	-webkit-animation-fill-mode:backwards;
 	animation: loading .6s ease-in-out infinite;
 	animation-fill-mode:backwards;
+}
+@-webkit-keyframes loading{
+	0% {
+        -webkit-transform: rotate(0deg);
+    }
+	100%{
+        -webkit-transform: rotate(360deg);
+    }
 }
 @keyframes loading{
 	0% {
@@ -356,7 +374,6 @@ div.login-panel{
         transform: rotate(360deg);
     }
 }
-
 /*admin*/
 
 .tab-content li{
@@ -392,7 +409,7 @@ p.error-message{
     text-align: center;
 }
 div.newpost textarea{
-    height: 10em !important;
+    height: 6em !important;
 }
 
 /*about*/
@@ -433,11 +450,24 @@ div.like-this-blog{
 *for lean-animates
 */
 .pull-in{
+    -webkit-animation-name: pullin;
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-timing-function: linear;
     animation-name: pullin;
     animation-duration: 0.4s;
     animation-timing-function: linear;
 }
 
+@-webkit-keyframes pullin{
+    0%{
+        -webkit-transform: translateX(-3%);
+        opacity: 0;
+    }
+    100%{
+        -webkit-transform: translateX(0%);
+        opacity: 1;
+    }
+}
 @keyframes pullin{
     0%{
         transform: translateX(-3%);
@@ -455,6 +485,18 @@ div.like-this-blog{
     animation-timing-function: linear;
 }
 
+@-webkit-keyframes dropdown{
+    0%{
+        -webkit-transform: scaleY(0);
+    }
+    86%{
+        -webkit-transform: scaleY(1.2);
+    }
+    100%{
+        -webkit-transform: scaleY(1.0);
+        opacity: 1;
+    }
+}
 @keyframes dropdown{
     0%{
         transform: scaleY(0);
@@ -469,11 +511,22 @@ div.like-this-blog{
 }
 
 .swipeup{
+    -webkit-animation-name: swipeup;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-timing-function: ease-in-out;
     animation-name: swipeup;
     animation-duration: 0.6s;
     animation-timing-function: ease-in-out;
 }
 
+@-webkit-keyframes swipeup{
+    0%{
+        -webkit-transform: translateY(10%);
+    }
+    100%{
+        -webkit-transform: translateY(0%);
+    }
+}
 @keyframes swipeup{
     0%{
         transform: translateY(10%);
@@ -483,11 +536,22 @@ div.like-this-blog{
     }
 }
 .swipeleft{
+    -webkit-animation-name: swipeleft;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-timing-function: ease-in-out;
     animation-name: swipeleft;
     animation-duration: 0.6s;
     animation-timing-function: ease-in-out;
 }
 
+@-webkit-keyframes swipeleft{
+    0%{
+        -webkit-transform: translateX(100%);
+    }
+    100%{
+        -webkit-transform: translateX(0%);
+    }
+}
 @keyframes swipeleft{
     0%{
         transform: translateX(100%);
