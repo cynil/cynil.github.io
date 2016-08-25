@@ -127,7 +127,7 @@ main{
 }
 
 main, nav{
-    -webkit-transition: transform 0.36s linear;
+    -webkit-transition: all 0.36s linear;
     -webkit-transform: translateX(0%);
     transition: transform 0.36s linear;
     transform: translateX(0%);
