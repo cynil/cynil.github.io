@@ -7,6 +7,8 @@
     font-size: 14px;
     font-weight: lighter;
     margin: 6px 0;
+    text-align: justify;
+
 }
 .cymd-h1,
 .cymd-h2,
@@ -25,11 +27,11 @@
 }
 .cymd-pre,
 .cymd-code{
-    font-family: Consolas,'Liberation Mono',Courier,monospace;
-    background-color: #efefff;
+    font-family: monospace,Consolas,'Liberation Mono',Courier;
+    background-color: #efefef;
     padding: 6px;
     font-size: 14px;
-    color: indianred;
+    color: #708090;
     overflow-x: scroll;
 }
 .cymd-code{
@@ -43,24 +45,29 @@
     padding: 4px 16px;
 }
 .cymd-p-with-img{
-    padding: 0;
+    padding: 1em;
     text-align: center;
 }
 small.cymd-img-text{
+    display:block;
+    margin-top: 1em;
     color: darkslategrey;
     font-size: 14px;
 }
 .cymd-img{
+    display:block;
+    width: 100%;
     max-width: 100%;
-    margin: 1em;
-    margin-bottom: .4em;
+    box-shadow: 1px 1px 4px #bbb;
 }
 .cymd-ol,
 .cymd-ul{
     margin: 0;
     padding: 16px;
 }
-.cymd-strong,
+.cymd-strong{
+    font-weight: bold;
+}
 .cymd-em{
-    font-weight: bolder;
+    font-weight: normal;
 }
