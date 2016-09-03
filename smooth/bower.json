@@ -1,0 +1,19 @@
+{
+  "name": "fullpage",
+  "description": "fullpage.js",
+  "main": "./src/main.js",
+  "keywords": [
+    "fullpage",
+    "ppt"
+  ],
+  "authors": [
+    "cynii"
+  ],
+  "license": "MIT",
+  "homepage": "cynil.github.io",
+  "private": true,
+  "dependencies": {
+    "requirejs": "^2.2.0",
+    "zepto": "^1.1.6"
+  }
+}

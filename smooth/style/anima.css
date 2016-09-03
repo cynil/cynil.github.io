@@ -1,0 +1,127 @@
+.rightIn{
+    animation: rightIn 1s ease 1;
+}
+.rightInReverse{
+    animation: rightInReverse 1s ease 1;
+}
+.rightRotateIn{
+    animation: rightRotateIn 1s ease 1;
+}
+.rightRotateInReverse{
+    animation: rightRotateInReverse 1s ease 1;
+}
+.bottomIn{
+    animation: bottomIn 1s ease 1;
+}
+.bottomInReverse{
+    animation: bottomInReverse 1s ease 1;
+}
+/*rightin*/
+@keyframes rightIn{
+    from{
+        transform: translateX(100%);
+        opacity: 1
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+@keyframes rightInReverse{
+    from{
+        transform: translateX(-100%);
+        opacity: 1
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+
+/*slidedown*/
+@keyframes bottomIn{
+    from{
+        transform: translateY(100%);
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes bottomInReverse{
+    from{
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+    to{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/*rotatein*/
+@keyframes rightRotateIn{
+    from{
+        transform: translateX(100%) rotate(30deg);
+    }
+    to{
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+@keyframes rightRotateInReverse{
+    from{
+        transform: translateX(-100%) rotate(-30deg);
+    }
+    to{
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+
+
+
+.fadeIn{
+    animation: fadeIn 1s ease 1;
+}
+.lightSpeedIn{
+    animation: lightSpeedIn 1s ease-out 1;
+}
+
+
+@keyframes fadeIn{
+    from{
+        opacity: 0
+    }
+    to{
+        opacity: 1
+    }
+}
+
+@keyframes lightSpeedIn {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
+    opacity: 0;
+  }
+
+  60% {
+    -webkit-transform: skewX(20deg);
+    transform: skewX(20deg);
+    opacity: 1;
+  }
+
+  80% {
+    -webkit-transform: skewX(-5deg);
+    transform: skewX(-5deg);
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: none;
+    transform: none;
+    opacity: 1;
+  }
+}
