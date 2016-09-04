@@ -1,56 +1,52 @@
-@import "./anima.css";
-@import "./ppt.css";
+@import "./smooth-anima.css";
+@import "./smooth.css";
 
 body{
     font-size: 14px;
     line-height: 1.428571429;
-}
-img{
-    max-width: 100%
+    color: #ececec;
 }
 #s-1{
     background: #3283b0
 }
 #s-2{
     background: #323232;
-    color: #ebebeb;
 }
-#s-2 div{
-    height: 20%;
-    padding: 4em 0;
+#s-3{
+    background: #e393a0;
 }
-.bloc#heading{
+#s-4{
+    background: #5ac061;
+}
+
+#s-1 .bloc#heading{
     background: #3692c5;
-    height: 40%
 }
-.bloc#heading h1{
-	position: absolute;
-	top: 30%;
-    color: #efefef;
-	font-size: 3.6em;
+#s-1 .bloc#heading h1{
+	font-size: 3em;
 	font-family: monospace, Monospace;
 	text-align: center;
-	width: 100%
 }
-.bloc#intro{
+#s-1 .bloc#brief{
     color: #efefef;
     text-align: right;
     padding: 0.6em 0;
-    height: 20%;
 }
-.bloc#intro h3{
+#s-1 .bloc#intro h3{
     padding: 1em 0.6em
 }
-.bloc#start{
+#s-1 .bloc#start{
     text-align: center;
-    height: 40%
 }
-#start span{
+#s-1 .bloc#start span{
 	padding: 0.4em 1.8em;
-	border: 2px solid #efefef;
-	color: #efefef;
+	border: 2px solid #ececec;
 	font-size: 1.2em;
 	margin: 2em 0
+}
+#s-1 .bloc#start span:hover{
+    background: #ececec;
+    color: transparent;
 }
 #gohome{
 	padding: 0.6em;
@@ -62,31 +58,3 @@ img{
     bottom: 0;
     width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

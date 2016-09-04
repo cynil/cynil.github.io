@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <title>Full Page</title>
+    <title>Smooth</title>
     <link rel="stylesheet" href="./style/main.css">
     <script data-main="./src/main.js" src="./bower_components/requirejs/require.js"></script>
 </head>
 <body>
 	<main class="ppt">
 		<section class="stage" id="s-1" animate="rightIn">
-            <div id="heading" class="bloc" now="now" animate="lightSpeedIn">
+            <div id="heading" class="bloc" now="now" animate="rubberBand">
 				<h1>smooth.js</h1>
 			</div>
-			<div class="bloc" id="intro" animate="rightInReverse">
+			<div class="bloc" id="brief" animate="lightSpeedIn">
 				<h3>很轻的H5、PPT演示文稿制作工具</h3>
 			</div>
 			<div class="bloc" id="start" animate="fadeIn">
@@ -24,31 +24,28 @@
 			<div id="static">
 				<p>这是一个静态区块，它随着stage一起进场。</p>
 			</div>
-			<div class="bloc"  now="now" animate="rightRotateIn">
+			<div class="bloc" now="now" animate="rightRotateIn">
 				<p>这是一个nowbloc区块，它会在stage进场动画执行后立即进场。</p>
 			</div>
-			<div class="bloc"  animate="rightInReverse">
+			<div class="bloc" now="now" delay="1s" animate="rightInReverse">
 				<p>这是一个bloc区块，它会根据用户交互依次进场。</p>
 			</div>
 			<div class="bloc"  animate="fadeIn">
 				<p>这依然是一个bloc区块，它会根据用户交互依次进场。</p>
 			</div>
 			<div id="gohome" class="bloc" animate="rightInReverse">
-				<p>这里绑定了锚点，滑动它立即回到第一屏</p>
+				<p id="goo">这里绑定了锚点，轻触立即回到第一屏</p>
 			</div>
 		</section>
 		<section class="stage" id="s-3" animate="bottomIn">
-            <div class="heading">
+            <div class="bloc" now="now">
 				<h1>三、如何书写HTML</h1>
 			</div>
-			<h1 class="bloc" animate="fadeIn">Introduce</h1>
-			<div class="bloc" animate="bottomIn">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit similique harum maiores architecto, deserunt optio a repellat? Consequuntur esse, officiis est voluptatibus et adipisci sed quibusdam impedit alias, quae dicta expedita eum consectetur magnam!</div>
 		</section>
 		<section class="stage" id="s-4">
 			<div class="heading">
 				<h1>四、如何书写Javascript</h1>
 			</div>
-            <div class="bloc" animate="bottomIn"><h1>4</h1></div>
 			<h1 class="bloc" animate="fadeIn">Introduce</h1>
 		</section>
 	</main>

@@ -2,7 +2,7 @@ require.config({
     paths: {
         'hammer': '../bower_components/hammerjs/hammer.min',
         'zepto': '../bower_components/zepto/zepto.min',
-        'ppt': '../lib/ppt'
+        'smooth': '../lib/smooth'
     },
     shim: {
         'zepto': {
@@ -11,16 +11,17 @@ require.config({
     }
 })
 
-require(['ppt'], function(PPT){
+require(['smooth'], function(Smooth){
 
-    var ppt = document.querySelector('.ppt')
-    var app = new PPT(ppt, {
-        rollback: false, 
-        stageControl: 'h',//'v',''
-        flow: '#back tap' //forward only
+    var smooth = document.querySelector('.ppt')
+    
+    var app = new Smooth(smooth, {
+        rollback: false,
+        dir: 'v',
+        flow: '#go' //forward only
     })
 
-    app.anchor('#gohome', 'swipe', '#s-1')
+    app.anchor('#goo', '#s-1')
 
 })
 /**

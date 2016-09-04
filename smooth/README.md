@@ -78,4 +78,4 @@ smooth.anchor('#back', 'tap', '#stage-1')
 ```
 这样当用户轻触`id`为`back`的元素时，smooth会立即跳转到`id`为`stage-1`的单页。
 
-在线演示，请点击[这里]()
+在线演示，请点击[这里](http://cynil.github.io/smooth)
