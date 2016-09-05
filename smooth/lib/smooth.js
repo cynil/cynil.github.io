@@ -118,10 +118,9 @@ Smooth.prototype = {
 
         $(tag)[0].occupied = true
         hm(tag).on('tap', function(event){
-            if($(event.target).css('opacity') == '0') return
+            if($(event.target).closest('.bloc').css('opacity') < 1) return
             self.load(targetStage)
         })
-        console.log('anchor')
     },
 
     load: function(stage){
