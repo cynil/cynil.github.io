@@ -4,57 +4,81 @@
 body{
     font-size: 14px;
     line-height: 1.428571429;
-    color: #ececec;
+    color: #ededed;
 }
 #s-1{
-    background: #3283b0
+    background: linear-gradient(#3692c5 30%, #3283b0 0);
 }
 #s-2{
     background: #323232;
 }
 #s-3{
-    background: #e393a0;
+    background: #263942;
 }
 #s-4{
-    background: #5ac061;
+    background: #2e2827;
+}
+.bloc{
+    position: relative;
+}
+.v-center{
+    /*w, h required*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
 }
 
 #s-1 .bloc#heading{
-    background: #3692c5;
+    height: 30%;
+    width: 100%;
 }
 #s-1 .bloc#heading h1{
-	font-size: 3em;
+	font-size: 3rem;
 	font-family: monospace, Monospace;
-	text-align: center;
+    height: 4.285714286rem;
+    width: 100%;
+    text-align: center;
+    border: 1px solid red;
 }
 #s-1 .bloc#brief{
-    color: #efefef;
-    text-align: right;
-    padding: 0.6em 0;
+    height: 10%;
+    width: 100%;
+    border: 1px solid red;
 }
-#s-1 .bloc#intro h3{
-    padding: 1em 0.6em
+#s-1 .bloc#brief h3{
+    font-size: 1.2rem;
+    height: 1.714285714rem;
+    width: 100%;
+    padding: 0 1rem;
+    text-align: right;
+    border: 1px solid red;
 }
 #s-1 .bloc#start{
+    height: 40%;
+    width: 100%;
+}
+#s-1 .bloc#start p{
+    height: 2.514285714rem;
+    font-size: 1.2rem;
+    width: 100%;
     text-align: center;
 }
 #s-1 .bloc#start span{
-	padding: 0.4em 1.8em;
-	border: 2px solid #ececec;
-	font-size: 1.2em;
-	margin: 2em 0
+    display: inline-block;
+    border: 2px solid #ededed;
+    padding: .4rem 2rem;
 }
 #s-1 .bloc#start span:hover{
     background: #ececec;
-    color: transparent;
+    color: #3283b0;
 }
-#gohome{
-	padding: 0.6em;
-	border: 2px solid #ebebeb;
-	color: #efefef;
-	font-size: 1.2em;
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+#goo{
+    border: 1px solid #fff;
+    height: 2rem;
+}
+#s-2>div,
+#s-3>div,
+#s-4>div{
+    margin: 1.4rem;
 }

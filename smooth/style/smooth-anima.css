@@ -1,17 +1,17 @@
 .rightIn{
-    animation: rightIn 1s ease 1;
+    animation: rightIn 1s ease-in 1;
 }
 .rightInReverse{
-    animation: rightInReverse 1s ease 1;
+    animation: rightInReverse 1s ease-in 1;
 }
 .rightRotateIn{
-    animation: rightRotateIn 1s ease 1;
+    animation: rightRotateIn 1s ease-in 1;
 }
 .rightRotateInReverse{
-    animation: rightRotateInReverse 1s ease 1;
+    animation: rightRotateInReverse 1s ease-in 1;
 }
 .bottomIn{
-    animation: bottomIn 1s ease 1;
+    animation: bottomIn 1s ease-in 1;
 }
 .bottomInReverse{
     animation: bottomInReverse 1s ease 1;
@@ -37,7 +37,6 @@
         opacity: 1
     }
 }
-
 
 /*slidedown*/
 @keyframes bottomIn{

@@ -82,26 +82,28 @@ Smooth.prototype = {
             }
         })
 
-        hm(document.body).on('tap', function(event){
+        if(this.options.flow === true){
+            hm(document.body).on('tap', function(event){
 
-            if (event.target.occupied === true) return
+                if (event.target.occupied === true) return
 
-            clearTimeout(throttler)
+                clearTimeout(throttler)
 
-            throttler = setTimeout(function(){
-                var current = self.currentStage.blocs[self.currentStage.currentBloc]
-                
-                if(current){
-                    anime($(current.el), current.animate, function(){
-                        $(current.el).css({'opacity': '1'})
-                        self.currentStage.currentBloc++
-                    })
-                }else if(!current){
-                    self.load(next(1, self.currentStage, self.stages))
-                    self.currentStage.currentBloc = 0
-                }
-            }, 400)
-        })
+                throttler = setTimeout(function(){
+                    var current = self.currentStage.blocs[self.currentStage.currentBloc]
+                    
+                    if(current){
+                        anime($(current.el), current.animate, function(){
+                            $(current.el).css({'opacity': '1'})
+                            self.currentStage.currentBloc++
+                        })
+                    }else if(!current){
+                        self.load(next(1, self.currentStage, self.stages))
+                        self.currentStage.currentBloc = 0
+                    }
+                }, 400)
+            })
+        }
     },
 
     anchor: function(tag, target){
@@ -119,6 +121,7 @@ Smooth.prototype = {
             if($(event.target).css('opacity') == '0') return
             self.load(targetStage)
         })
+        console.log('anchor')
     },
 
     load: function(stage){
@@ -130,7 +133,6 @@ Smooth.prototype = {
         var index = this.stages.indexOf(stage),
             prevIndex = this.stages.indexOf(this.currentStage),
             isFromNextStage = index < prevIndex
-            console.log(index, prevIndex, isFromNextStage)
 
         if(toBeRemoved) $(toBeRemoved.el).css({'zIndex': '0'})
         $el.css({zIndex:'1',transform: 'translateX(0)'})

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html, body{
+            height: 100%;
+            width: 100%;
+        }
+        body>div{
+            height: 100%;
+            width: 100%;
+            position: relative;
+            border: 1px solid red
+        }
+        #inner{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            height: 100px;
+            width: 100px;
+            background-color: #323232;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="inner"><p>inner</p></div>
+    </div>
+</body>
+</html>

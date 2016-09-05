@@ -5,48 +5,68 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <title>Smooth</title>
     <link rel="stylesheet" href="./style/main.css">
-    <script data-main="./src/main.js" src="./bower_components/requirejs/require.js"></script>
+    <script data-main="./src/main.js" src="./lib/require.js"></script>
 </head>
 <body>
 	<main class="ppt">
-		<section class="stage" id="s-1" animate="rightIn">
+		<section class="stage" id="s-1" animate="rightRotateIn">
             <div id="heading" class="bloc" now="now" animate="rubberBand">
-				<h1>smooth.js</h1>
+				<h1 class="v-center">smooth.js</h1>
 			</div>
-			<div class="bloc" id="brief" animate="lightSpeedIn">
-				<h3>很轻的H5、PPT演示文稿制作工具</h3>
+			<div id="brief" class="bloc" now="now" delay="0.8s" animate="lightSpeedIn">
+				<h3 class="v-center">很轻的H5、PPT演示文稿制作工具</h3>
 			</div>
-			<div class="bloc" id="start" animate="fadeIn">
-				<span>开始使用</span>
+			<div class="bloc" id="start" now="now" delay="1.2s" animate="fadeIn">
+				<p class="v-center">
+					<span>开始使用</span>
+				</p>
 			</div>
-		</section>
-		<section class="stage" id="s-2" animate="rightIn">
+		</section>		
+		<section class="stage" id="s-2" animate="rightRotateIn">
 			<div id="static">
 				<p>这是一个静态区块，它随着stage一起进场。</p>
 			</div>
 			<div class="bloc" now="now" animate="rightRotateIn">
 				<p>这是一个nowbloc区块，它会在stage进场动画执行后立即进场。</p>
 			</div>
-			<div class="bloc" now="now" delay="1s" animate="rightInReverse">
+			<div class="bloc" now="now" delay="1.2s" animate="rightInReverse">
+				<p>这是一个具有delay属性的nowbloc区块，它会在stage进场动画执行后延迟1s进场。</p>
+			</div>
+			<div class="bloc" now="now" delay="3s" animate="fadeIn">
+				<p>请轻触屏幕进入下一个区块。</p>
+			</div>
+			<div class="bloc"  animate="swing">
 				<p>这是一个bloc区块，它会根据用户交互依次进场。</p>
 			</div>
 			<div class="bloc"  animate="fadeIn">
 				<p>这依然是一个bloc区块，它会根据用户交互依次进场。</p>
 			</div>
+			<div class="bloc"  animate="fadeIn">
+				<p>你可以可以通过左右滑动屏幕直接进入下一个stage，当然通过Javascript也可以设置为上下滑动。</p>
+			</div>
+		</section>
+		<section class="stage" id="s-3" animate="rightRotateIn">
+			<div class="bloc" now="now" animate="fadeIn">
+				<p>如果你倾向于制作一个H5页面，那么你可以把bloc都设置为now，并设置一定的delay。</p>
+			</div>
+			<div class="bloc" animate="fadeIn">
+				<p>如果你倾向于制作一个PPT演示文稿，那么你可能希望让bloc一个接一个显示，那么你需要在Javascript中开启flow: true，这样，点击屏幕就会进入下一个bloc。</p>
+			</div>
+			<div class="bloc" animate="rightInReverse">
+				<p>smooth还提供了一个叫做锚点(anchor)的API，anchor允许你在一个元素上设置锚点，当轻触锚点时，会直接加载绑定的stage</p>
+				<pre>
+//轻触#go-home回到stage-1
+ppt.anchor('#go-home', '#stage-1')
+				</pre>
+			</div>
 			<div id="gohome" class="bloc" animate="rightInReverse">
 				<p id="goo">这里绑定了锚点，轻触立即回到第一屏</p>
 			</div>
 		</section>
-		<section class="stage" id="s-3" animate="bottomIn">
-            <div class="bloc" now="now">
-				<h1>三、如何书写HTML</h1>
-			</div>
-		</section>
-		<section class="stage" id="s-4">
-			<div class="heading">
-				<h1>四、如何书写Javascript</h1>
-			</div>
-			<h1 class="bloc" animate="fadeIn">Introduce</h1>
+		<section class="stage" id="s-4" animate="rightRotateIn">
+			<div class="bloc" animate="fadeIn">
+				<p>smooth仅仅目前内置了很少的动画效果，你可以使用第三方的CSS库，例如Animate.css添加更加丰富的交互效果。</p>
+			</div>			
 		</section>
 	</main>
 </body>
