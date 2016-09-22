@@ -131,7 +131,8 @@ Smooth.prototype = {
             toBeRemoved = this.currentStage
         var index = this.stages.indexOf(stage),
             prevIndex = this.stages.indexOf(this.currentStage),
-            isFromNextStage = index < prevIndex
+            rolledIndex = prevIndex === this.stages.length - 1 ? -1 : prevIndex
+            isFromNextStage = index < rolledIndex
 
         if(toBeRemoved) $(toBeRemoved.el).css({'zIndex': '0'})
         $el.css({zIndex:'1',transform: 'translateX(0)'})

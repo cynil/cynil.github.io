@@ -1,20 +1,20 @@
 .rightIn{
-    animation: rightIn 1s ease-in 1;
+    animation: rightIn 0.6s ease-in 1;
 }
 .rightInReverse{
-    animation: rightInReverse 1s ease-in 1;
+    animation: rightInReverse 0.6s ease-in 1;
 }
 .rightRotateIn{
-    animation: rightRotateIn 1s ease-in 1;
+    animation: rightRotateIn 0.6s ease-in 1;
 }
 .rightRotateInReverse{
-    animation: rightRotateInReverse 1s ease-in 1;
+    animation: rightRotateInReverse 0.6s ease-in 1;
 }
 .bottomIn{
-    animation: bottomIn 1s ease-in 1;
+    animation: bottomIn 0.6s ease-in 1;
 }
 .bottomInReverse{
-    animation: bottomInReverse 1s ease 1;
+    animation: bottomInReverse 0.6s ease 1;
 }
 /*rightin*/
 @keyframes rightIn{
@@ -63,6 +63,7 @@
 @keyframes rightRotateIn{
     from{
         transform: translateX(100%) rotate(30deg);
+        opacity: 1;
     }
     to{
         transform: translateX(0) rotate(0deg);
@@ -72,6 +73,7 @@
 @keyframes rightRotateInReverse{
     from{
         transform: translateX(-100%) rotate(-30deg);
+        opacity: 1;
     }
     to{
         transform: translateX(0) rotate(0deg);
@@ -80,7 +82,7 @@
 }
 
 .fadeIn{
-    animation: fadeIn 1s ease 1;
+    animation: fadeIn 0.6s ease 1;
 }
 @keyframes fadeIn{
     from{
@@ -93,7 +95,7 @@
 
 
 .lightSpeedIn{
-    animation: lightSpeedIn 1s ease-out 1;
+    animation: lightSpeedIn 0.6s ease-out 1;
 }
 @keyframes lightSpeedIn {
   from {
@@ -123,7 +125,7 @@
 
 
 .rubberBand{
-    animation: rubberBand 1s ease-out 1;
+    animation: rubberBand 1.2s ease-out 1;
 }
 @keyframes rubberBand {
   from {
@@ -169,7 +171,7 @@
 .swing {
     -webkit-transform-origin: top center;
     transform-origin: top center;
-    animation: swing 1s ease-out 1;
+    animation: swing 0.6s ease-out 1;
 }
 @keyframes swing {
   20% {
