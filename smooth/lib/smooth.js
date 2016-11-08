@@ -12,17 +12,6 @@ function next(dir, val, arr){
     if(index === -1) return -1
     return arr[(index + dir + arr.length) % arr.length]
 }
-
-var view = (function() {
-    var W = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0,
-        H = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 0
-
-    return {
-        W: W,
-        H: H
-    }
-})()
-
 function hm(el){
     var el = typeof el === 'string' ? document.querySelector(el) : el
     var hmer = new Hammer(el)
@@ -131,7 +120,7 @@ Smooth.prototype = {
             toBeRemoved = this.currentStage
         var index = this.stages.indexOf(stage),
             prevIndex = this.stages.indexOf(this.currentStage),
-            rolledIndex = prevIndex === this.stages.length - 1 ? -1 : prevIndex
+            rolledIndex = prevIndex === this.stages.length - 1 ? -1 : prevIndex,
             isFromNextStage = index < rolledIndex
 
         if(toBeRemoved) $(toBeRemoved.el).css({'zIndex': '0'})
