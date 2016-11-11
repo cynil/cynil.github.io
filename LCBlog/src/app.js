@@ -284,14 +284,13 @@ leanBlog.controller('EditpostController', function($scope, $rootScope,$routePara
     })
 
     $scope.post = function(){
-
         $scope.tags = $scope.tags.split(',').map(function(v){
             return v.trim()
         }).filter(function(v){
             return v != ''
         })
 
-        var cql = 'update Article set title = ?, tags = ?, content = ?, where objectId = ?'
+        var cql = 'update Article set title = ?, tags = ?, content = ? where objectId = ?'
             pvalues = [$scope.title, $scope.tags, $scope.content, $scope.aid]
             
         leanDB.query(cql, pvalues).then(function(updatedposts){
