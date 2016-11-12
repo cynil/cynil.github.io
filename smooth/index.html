@@ -22,23 +22,17 @@
 			</div>
 		</section>
 		<section class="stage" id="s-2">	
-			<div class="bloc" now="now" animation="expandIn">
+			<div class="bloc" now="now" animation="lightSpeedIn">
 				<h1>smooth.js是什么？</h1>
 			</div>
-			<div class="bloc" now="now" animation="typing">
-				<p>这是一段javascript动画</p>
+			<div id="s21" class="bloc h5" now="now" delay="600" animation="rotateExpandIn">
+				<p>HTML5</p>
 			</div>
-			<div class="bloc" animation="expandIn">
-				<p>帮助你快速制制作基于HTML5和CSS3的工具0</p>
+			<div id="s22" class="bloc h5" now="now" delay="1000" animation="rotateExpandIn">
+				<p>CSS3</p>
 			</div>
-			<div class="bloc" animation="expandIn">
-				<p>帮助你快速制制作基于HTML5和CSS3的工具1</p>
-			</div>
-			<div class="bloc" animation="expandIn">
-				<p>帮助你快速制制作基于HTML5和CSS3的工具2</p>
-			</div>
-			<div class="bloc" animation="expandIn">
-				<p>帮助你快速制制作基于HTML5和CSS3的工具3</p>
+			<div id="s23" class="bloc" now="now" delay="1400" animation="typing">
+				<p>一款HTML5演示文稿制作工具</p>
 			</div>
 		</section>
 		<section class="stage" id="s-3">
@@ -59,23 +53,29 @@
 			<div id="bub3" class="bloc bubble" now="now" animation="expandIn"></div>
 		</section>
 		<section class="stage" id="s-4">
-			<div class="bloc" now="now" animation="rightRotateIn">
+			<div class="bloc" now="now" delay="400" animation="rightRotateIn">
 				<h1>smooth动画</h1>
 			</div>
-			<div class="bloc" animation="rightRotateIn">
-				<p>smooth支持CSS动画和Javascript动画</p>
+			<div class="bloc" now="now" delay="800" animation="rightRotateIn">
+				<p>支持CSS动画和Javascript动画</p>
 			</div>
-			<div class="bloc" animation="rightRotateIn">
-				<p>smooth仅仅目前内置了很少的动画效果</p>
+			<div class="bloc" now="now" delay="1200" animation="rightRotateIn">
+				<p>目前仅仅内置了很少的动画效果</p>
 			</div>
-			<div class="bloc" animation="rightRotateIn">
+			<div class="bloc" now="now" delay="1600" animation="rightRotateIn">
 				<p>你可以自己书写动画</p>
 			</div>
-			<div class="bloc" animation="rightRotateIn">
-				<p>也可以采用第三方CSS动画库，例如Animate.css</p>
+			<div class="bloc" now="now" delay="2000" animation="rightRotateIn">
+				<p>你可以采用第三方CSS动画库</p>
 			</div>	
 		</section>
+		<section class="stage" id="s-5">
+			<div class="bloc" now="now" animation="bounceInDown">
+				<h1 ontap="download">DOWNLOAD</h1>
+			</div>
+		</section>
 	</main>
+	<div id="dot"></div>
 </body>
     <script src="./dist.js"></script>
 </html>
