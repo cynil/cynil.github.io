@@ -6,7 +6,7 @@
     line-height: 1.428571429;
     font-size: 14px;
     font-weight: lighter;
-    margin: 6px 0;
+    margin: 1em 0;
     text-align: justify;
 
 }
@@ -18,7 +18,7 @@
 .cymd-h6{
     font-family: 'Open Sans Light',Helvetica,Arial,sans-serif;
     font-weight: bold;
-    margin: .6em 0;
+    margin: 1em 0;
     color: #4d4e53;
 }
 .cymd-h3::before{
@@ -32,7 +32,7 @@
 .cymd-code{
     font-family: monospace,Consolas,'Liberation Mono',Courier;
     background-color: #efefef;
-    padding: 6px;
+    padding: 2em 1em;
     font-size: 12px;
     color: #708090;
     overflow-x: scroll;
@@ -55,7 +55,7 @@ small.cymd-img-text{
     display:block;
     margin-top: 1em;
     color: darkslategrey;
-    font-size: 14px;
+    font-size: 12px;
 }
 .cymd-img{
     display:block;
@@ -66,7 +66,7 @@ small.cymd-img-text{
 .cymd-ol,
 .cymd-ul{
     margin: 0;
-    padding: 16px;
+    padding: 12px;
 }
 .cymd-strong{
     font-weight: bold;
