@@ -33,6 +33,7 @@
     font-family: monospace,Consolas,'Liberation Mono',Courier;
     background-color: #efefef;
     padding: 2em 1em;
+    margin: 2em 0;
     font-size: 12px;
     color: #708090;
     overflow-x: scroll;
