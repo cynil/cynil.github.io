@@ -6,7 +6,7 @@
     line-height: 1.428571429;
     font-size: 14px;
     font-weight: lighter;
-    margin: 2em 0;
+    margin: 1em 0;
     text-align: justify;
 
 }
@@ -33,7 +33,7 @@
     font-family: monospace,Consolas,'Liberation Mono',Courier;
     background-color: #efefef;
     padding: 2em 1em;
-    margin: 2em 0;
+    margin: 1em 0;
     font-size: 12px;
     color: #708090;
     overflow-x: scroll;
@@ -67,7 +67,6 @@ small.cymd-img-text{
 .cymd-ol,
 .cymd-ul{
     margin: 0;
-    padding: 12px;
 }
 .cymd-strong{
     font-weight: bold;
