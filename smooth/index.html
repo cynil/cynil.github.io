@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <title>Smooth</title>
     <link rel="stylesheet" href="./dist.css">
+    <script src="./dist.js"></script>
 </head>
 <body>
-	<main class="smooth">
+	<main class="smooth" transition="bottomExpandIn" resource="true">
 		<section class="stage" id="s-1">
             <div id="heading" class="bloc" now="now" animation="rubberBand">
 				<h1 class="v-center">smooth.js</h1>
@@ -53,19 +54,19 @@
 			<div id="bub3" class="bloc bubble" now="now" animation="expandIn"></div>
 		</section>
 		<section class="stage" id="s-4">
-			<div class="bloc" now="now" delay="400" animation="rightRotateIn">
+			<div class="bloc" now="now" animation="bounceInDown">
 				<h1>smooth动画</h1>
 			</div>
-			<div class="bloc" now="now" delay="800" animation="rightRotateIn">
+			<div class="bloc" now="now" delay="400" animation="fadeInUp">
 				<p>支持CSS动画和Javascript动画</p>
 			</div>
-			<div class="bloc" now="now" delay="1200" animation="rightRotateIn">
+			<div class="bloc" now="now" delay="800" animation="fadeInUp">
 				<p>目前仅仅内置了很少的动画效果</p>
 			</div>
-			<div class="bloc" now="now" delay="1600" animation="rightRotateIn">
+			<div class="bloc" now="now" delay="1200" animation="fadeInUp">
 				<p>你可以自己书写动画</p>
 			</div>
-			<div class="bloc" now="now" delay="2000" animation="rightRotateIn">
+			<div class="bloc" now="now" delay="1600" animation="fadeInUp">
 				<p>你可以采用第三方CSS动画库</p>
 			</div>	
 		</section>
@@ -74,8 +75,20 @@
 				<h1 ontap="download">DOWNLOAD</h1>
 			</div>
 		</section>
+		<section class="stage" id="s-6">
+			<div class="bloc" now="now" animation="fadeIn">
+				<img style="width: 50%;float:left;" data-src="http://img3.redocn.com/tupian/20150806/weimeisheyingtupian_4779232.jpg" />
+			</div>
+			<div class="bloc" now="now" animation="lightSpeedIn">
+				<img style="width: 50%;float:left;" data-src="http://h5.86.cc/walls/20150922/1024x768_0cce092c00c8dec.jpg" />
+			</div>
+			<div class="bloc" now="now" animation="lightSpeedIn">
+				<img style="width: 50%;float:left;" data-src="http://ww1.sinaimg.cn/mw690/43aeabd5gw1f9igiaqsyoj21kw19c1kx.jpg" />
+			</div>
+			<div class="bloc" now="now" animation="lightSpeedIn">
+				<img style="width: 50%;float:left;" data-src="http://ww2.sinaimg.cn/mw690/43aeabd5gw1f9igi244mlj20wv0sgdp1.jpg" />
+			</div>
+		</section>
 	</main>
-	<div id="dot"></div>
 </body>
-    <script src="./dist.js"></script>
 </html>

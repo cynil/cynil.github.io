@@ -1,40 +1,51 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Smooth = require('./smooth.js')
 
-var smooth = document.querySelector('main')
-var app = new Smooth(smooth, {
-    direction: 'vertical',
-    stageAnimation: 'bottomExpandIn',
-    animations: {
-        typing: function(node, parent){
-            var p = node.getElementsByTagName('p')[0],
-                content = p.innerHTML,
-                index = 0
+window.addEventListener('DOMContentLoaded', function(){
+    var main = document.querySelector('main')
+    var smooth = new Smooth(main, {
+        animations: {
+            typing: function(node, parent){
+                var p = node.getElementsByTagName('p')[0],
+                    content = p.innerHTML,
+                    index = 0
 
-            p.innerHTML = ''
-            parent.appendChild(node)
-            var timer = setInterval(function(){
-                p.innerHTML += content[index++]
-                if(!content[index]) clearInterval(timer)
-            }, 100)
+                p.innerHTML = ''
+                parent.appendChild(node)
+                var timer = setInterval(function(){
+                    p.innerHTML += content[index++]
+                    if(!content[index]) clearInterval(timer)
+                }, 100)
+            }
+        },
+        methods: {
+            download: function(event, currentStage){
+                window.location = 'https://github.com/cynil/smooth.js'
+            }
         }
-    },
-    methods: {
-        download: function(event, currentStage){
-            window.location = 'https://github.com/cynil/smooth.js'
-        }
-    }
+    })
+
+    var indicator = document.createElement('div')
+    indicator.style.cssText = "position:absolute;height:24px;width:100%;top:0;bottom:0;margin:auto;color:#323232;font-size:20px;text-align:center;"
+    document.body.appendChild(indicator)
+
+    smooth.on('ready', function(e){
+        document.body.removeChild(indicator)
+    })
+
+    smooth.on('progress', function(e){
+        console.log(e.current + '/' + e.total)
+        indicator.innerHTML = e.current + '/' + e.total
+    })
 })
 
-Smooth.touch('#dot').on('tap', function(event){
-	var currentStage = app.stages[app.index]
-	if(!currentStage.next()){
-        app.goto(app.stages[app.index + 1])
-    }
-})
 },{"./smooth.js":2}],2:[function(require,module,exports){
 //smooth.js
 //git repository: https://github.com/cynil/smooth.js
+//?todo: on('event') hooks
+//todo: canvas animation
+//todo: a theme
+//?todo: abstract of Event
 (function(window, factory){
 	if(typeof define === 'function' && define.amd){
 		define(factory)
@@ -55,6 +66,13 @@ Smooth.touch('#dot').on('tap', function(event){
 	function isFunc(thing){
 		return Object.prototype.toString.call(thing) === '[object Function]'
 	}
+	function extend(optional, base){
+		for(var prop in optional){
+			if(!base[prop] && optional.hasOwnProperty(prop)){
+				base[prop] = optional[prop]
+			}
+		}
+	}
 	function throttle(fn, interval){
 		var stamp = Date.now()
 		return function(){
@@ -72,19 +90,57 @@ Smooth.touch('#dot').on('tap', function(event){
 	function cssAnimate(node, parent, klass, cb){
 		node.classList.add(klass)
 		parent.appendChild(node)
-		node.addEventListener('animationend', function clearAnimation(event){
-			node.classList.remove(klass)
-			this.removeEventListener('animationend', clearAnimation)
+		node.addEventListener('webkitAnimationEnd', function clearAnimation(event){
+			this.removeEventListener('webkitAnimationEnd', clearAnimation)
 			if(cb && isFunc(cb)){
 				cb()
 			}
 		})
 	}
-
-	//smooth
+    //Event.js
+    
+    var Event = (function(){
+        function Event(){
+					this.events = {}
+        }
+        
+        Event.prototype = {
+					_emit: function(type, event){
+						var callbacks = this.events[type],
+								self = this
+								
+						if(!callbacks) return
+						callbacks.map(function(cb){
+							cb.call(self, event)
+						})
+					},
+					on: function(type, cb){
+						if(this.events[type] === undefined) {
+							this.events[type] = [cb]
+						}
+						else{
+							this.events[type].push(cb)
+						}
+						return this
+					},
+					off: function(type, cb){
+						if (!this.events[type]) return
+						if(!cb) this.events[type] = []
+												
+						this.events[type] = this.events[type].filter(function(fn){
+							return fn !== cb
+						})
+					}
+				}
+				return Event
+    })()
+	//smooth.js
 
 	function Smooth(el, options){
+		Event.apply(this)
+		
 		this.el = el
+		this.index = -1
 		this.options = options || {}
 		this.methods = options.methods || {}
 		this.animations = options.animations || {}
@@ -93,30 +149,72 @@ Smooth.touch('#dot').on('tap', function(event){
 	}
 
 	Smooth.prototype = {
-		constructor: Smooth,
 		_init: function(){
-			var self = this
-
-			var rawStage = this.el.querySelectorAll('.stage')
-
+			var rawStage = this.el.querySelectorAll('.stage'),
+					self = this
+			
+			this.images = this.el.querySelectorAll('img')
 			makeArray(rawStage).map(function(raw){
 				var stage = self.el.removeChild(raw)
 				self.stages.push(new Stage(stage))
 			})
 
-			this.el.classList.add('show')
-			this._bindEvents()
-			this.index = -1
-			this._load(this.stages[0])
+			this._bindDOMEvents()
+			this.on('ready', function(e){
+				this.el.classList.add('show')
+				this._load(this.stages[0])
+			})
+			if(this.el.getAttribute('resource')){
+				this.getResource()
+			}
+			else{
+				setTimeout(function(){
+					self._emit('ready')
+				}, 60)
+			}
 		},
-		_bindEvents: function(){
+		getResource: function(){
+			var images = this.images,
+			    progress = 0,
+			    self = this
+			
+			if(images.length < 1){
+				setTimeout(function(){
+					self._emit('ready')
+				}, 60)
+			}
+			
+			makeArray(images).map(function(img){
+				var src = img.dataset.src
+				if(src){
+					img.onerror = img.onload = function(e){
+						self._emit('progress', {
+							current: ++progress,
+							total: images.length
+						})
+						if(progress >= images.length){
+							setTimeout(function(){
+								self._emit('ready')
+							}, 60)
+						}
+						img.onload = null; img = null
+					}
+					img.src = src
+				}
+			})
+		},
+
+		_bindDOMEvents: function(){
 			touch(this.el)
-				.on('swipe', throttle(this.swipeDelegateHandler.bind(this)))
-				.on('tap', throttle(this.tapDelegateHandler.bind(this)))
+				.on('swipe', throttle(this.delegateSwipe.bind(this)))
+				.on('tap', throttle(this.delegateTap.bind(this)))
 		},
-		swipeDelegateHandler: function(event){
-			if(this.options.direction === 'vertical' && (event.direction === 0 || event.direction === 2)) return
-			if(this.options.direction === 'horizontal' && (event.direction === 1 || event.direction === 3)) return
+		
+		delegateSwipe: function(event){
+			var direction = this.el.getAttribute('direction') || 'vertical'
+
+			if(direction === 'vertical' && (event.direction === 0 || event.direction === 2)) return
+			if(direction === 'horizontal' && (event.direction === 1 || event.direction === 3)) return
 
 			if(event.direction === 2 || event.direction === 3){
 				var next = this.index + 1
@@ -127,48 +225,37 @@ Smooth.touch('#dot').on('tap', function(event){
 		    this._load(this.stages[next])
 		},
 
-		tapDelegateHandler: function(event){
+		delegateTap: function(event){
 			var stage = this.stages[this.index],
 			    possibleAnchor = event.target.getAttribute('anchor'),
 			    possibleHandler = event.target.getAttribute('ontap')
-			
-			console.log(event.target, possibleHandler, possibleAnchor)
+
 			if(possibleHandler && isFunc(this.methods[possibleHandler])){
 				this.methods[possibleHandler].call(this, event, stage)
-            }
-            else if(!possibleHandler && possibleAnchor){
+			}
+			else if(!possibleHandler && possibleAnchor){
 				this._load(this.stages[possibleAnchor])
-            }
+			}
 			else if(!possibleAnchor){
 				if(!stage.next()){
 					this._load(this.stages[this.index + 1])
-                }
+				}
 			}
 		},
-		
+
 		_load: function(stage){			
 			if(!(stage instanceof Stage)) return
 
 			var nextIndex = this.stages.indexOf(stage),
 				currentStage = this.stages[this.index],
-				animation = this.options.stageAnimation,
+				animation = this.el.getAttribute('transition') || 'bottomExpandIn',
+				klass = nextIndex > this.index ? animation : animation + 'Reverse'
 				self = this
-
-			if(nextIndex > this.index){
-				stage.el.classList.remove(animation + 'Reverse')
-				stage.el.classList.add(animation)
-			}
-			else{
-				stage.el.classList.remove(animation)
-				stage.el.classList.add(animation + 'Reverse')
-			}
-			this.el.appendChild(stage.el)
-			stage.el.addEventListener('animationend', function clearAnimation(event){
-				try{
-					self.el.removeChild(currentStage.el)
-				}catch(e){}
+				
+			cssAnimate(stage.el, this.el, klass, function(){
+				try{self.el.removeChild(currentStage.el)}catch(e){}
 				if(!stage.played){
-					stage.blocs.map(function(bloc, index){
+					stage.blocs.map(function(bloc){
 						var delay = bloc.el.getAttribute('delay') || 0
 						if(bloc.now === 'now'){
 							var clock = setTimeout(function(){								
@@ -176,10 +263,11 @@ Smooth.touch('#dot').on('tap', function(event){
 								var possibleJSAnimation = self.animations[bloc.animation]
 
 								if(possibleJSAnimation && isFunc(possibleJSAnimation)){
-									possibleJSAnimation(bloc.el, stage.el)
-                                }else{
-                                    //no js animation provided, use CSS instead
+									possibleJSAnimation.call(self, bloc.el, stage.el)
+								}else{
+									//no js animation provided, use CSS instead
 									cssAnimate(bloc.el, stage.el, bloc.animation, function(){
+										bloc.el.classList.remove(bloc.animation)
 										clearTimeout(clock)
 									})
 								}
@@ -188,13 +276,20 @@ Smooth.touch('#dot').on('tap', function(event){
 					})
 					stage.played = true
 				}
-				this.removeEventListener('animationend', clearAnimation)
+				stage.el.classList.remove(klass)
 			})
-
 			this.index = nextIndex
+		},
+
+		flow: function(){
+			var currentStage = this.stages[this.index]
+
+			if(!currentStage.next()){
+				this.goto(this.stages[this.index + 1])
+			}
 		}
 	}
-
+	extend(Event.prototype, Smooth.prototype)    
 	Smooth.prototype.goto = Smooth.prototype._load
 
 	function Stage(el){
@@ -205,14 +300,13 @@ Smooth.touch('#dot').on('tap', function(event){
 		this._init()
 	}
 	Stage.prototype = {
-		constructor: Stage,
 		_init: function(){
 			var self = this,
-				rawBlocs = this.el.querySelectorAll('.bloc')
+					rawBlocs = this.el.querySelectorAll('.bloc')
 
 			makeArray(rawBlocs).map(function(raw){
 				var animation = raw.getAttribute('animation') || 'expandIn',
-					now = raw.getAttribute('now')
+						now = raw.getAttribute('now')
 
 				self.blocs.push({
 					el: self.el.removeChild(raw),
@@ -221,121 +315,78 @@ Smooth.touch('#dot').on('tap', function(event){
 				})
 			})
 		},
+
 		next: function(){
 			var currentBloc = this.blocs.filter(function(bloc){
-				return bloc.now !== 'now'
-			})[this.currentBloc],
-			self = this
+				    return bloc.now !== 'now'
+			    })[this.currentBloc],
+			    self = this
 
 			if(currentBloc){
-                cssAnimate(currentBloc.el, this.el, currentBloc.animation, function(){
-				    self.currentBloc++
+				cssAnimate(currentBloc.el, this.el, currentBloc.animation, function(){
+					currentBloc.el.classList.remove(currentBloc.animation)
+					self.currentBloc++
 				})
 				return true
 			}
-            
-            return false
-        }
+			return false
+		}
 	}
 
 	//Touch.js
 
 	var Touch = (function(){
-		var TAP_DURATION = 200
-
-		function getTime(){
-			return Date.now()
-		}
+		var TAP_DURATION = 200,
+		    TAP_DISTANCE = 30
+		
 		function getDistance(x0, y0){
 			return Math.sqrt(x0 * x0 + y0 * y0)
 		}
-
-		function Touch(el){
-			this.el = el
-			this.events = {}
-			this._init()
+		function getDirection(x1, x2, y1, y2) {
+			return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 2 : 0) : (y1 - y2 > 0 ? 3 : 1)
 		}
 
+		function Touch(el){
+			Event.apply(this)
+			this.el = el
+			this._init()
+		}
+		
 		Touch.prototype = {
-			constructor: Touch,
 			_init: function(){
-				this.el.addEventListener('touchstart', this._touchstart.bind(this))
-				this.el.addEventListener('touchend', this._touchend.bind(this))
+				this.el.addEventListener('touchstart', this._start.bind(this))
+				this.el.addEventListener('touchend', this._end.bind(this))
 			},
-			_emit: function(type, event){
-				var callbacks = this.events[type],
-					self = this
-
-				if(!callbacks) return
-				callbacks.map(function(cb){
-					cb.call(self.el, event)
-				})
-			},
-			on: function(type, cb){
-				if(this.events[type] === undefined) {
-					this.events[type] = [cb]
-				}
-				else{
-					this.events[type].push(cb)
-				}
-
-				return this
-			},
-			off: function(type, cb){
-				if (!this.events[type]) return
-				if(!cb) this.events[type] = []
-
-				this.events[type] = this.events[type].filter(function(fn){
-					return fn !== cb
-				})
-			},
-
-			_touchstart: function(event){
+			_start: function(event){
 				var pointer = event.touches[0]
 
-				this.e = this.e || {}
-				this.e.startTime = getTime()
-				this.e.startX = pointer.pageX
-				this.e.startY = pointer.pageY
+				this.then = Date.now()
+				this.x0 = pointer.pageX
+				this.y0 = pointer.pageY
 			},
-			_touchend: function(event){
+			_end: function(event){
 				var pointer = event.changedTouches[0]
 
-				event.duration = getTime() - this.e.startTime
-				event.startX = this.e.startX
-				event.startY = this.e.startY
+				event.duration = Date.now() - this.then 
 				event.endX = pointer.pageX
 				event.endY = pointer.pageY
 
-				var diffX = event.endX - event.startX,
-					diffY = event.endY - event.startY
+				var dX = event.endX - this.x0,
+						dY = event.endY - this.y0
 
-				event.distance = getDistance(diffX, diffY)
+				event.distance = getDistance(dX, dY)
 
-				if(event.duration < TAP_DURATION && event.distance <= 15){
+				if(event.duration < TAP_DURATION && event.distance <= TAP_DISTANCE){
 					this._emit('tap', event)
 				}
-				else if(event.duration >= TAP_DURATION / 2 && event.distance > 15){
-					var rightWards = diffX > 0,
-						downWards = diffY > 0,
-						horizontal = Math.abs(diffX) > Math.abs(diffY)
-
-					if(horizontal && rightWards){
-						event.direction = 0//east
-					}
-					else if(!horizontal && downWards){
-						event.direction = 1//south
-					}
-					else if(horizontal && !rightWards){
-						event.direction = 2//west
-					}
-					else if(!horizontal && !downWards){
-						event.direction = 3//north
-					}
+				else if(event.distance > TAP_DISTANCE){
+					event.direction = getDirection(this.x0, event.endX, this.y0, event.endY)
 					this._emit('swipe', event)
 				}
 			}
 		}
+		extend(Event.prototype, Touch.prototype)
+		
 		return Touch
 	})()
 
