@@ -190,7 +190,7 @@ div.article-list{
 
 small.article-tag img,small.timestamp img{
     height: 1em;
-    vertical-align: -1px;
+    vertical-align: -2px;
     margin-right: 4px;
 }
 .article-tag-item{

@@ -14,7 +14,12 @@
                     <a ng-href="#/tag/{{tag}}">{{tag}}</a>
                 </span>
             </small>
-            <small class="timestamp">{{article.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}</small>
+            <small class="timestamp">
+                <img src="./images/date.png">
+                <span>
+                    {{article.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}
+                </span>
+            </small>
         </li>
     </ul>
     <load completed="nomore" pending="loading" onloadmore="next()"></load>
