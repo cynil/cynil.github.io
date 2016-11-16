@@ -153,53 +153,46 @@ window.addEventListener('DOMContentLoaded', function(){
 			var rawStage = this.el.querySelectorAll('.stage'),
 					self = this
 			
-			this.images = this.el.querySelectorAll('img')
+			this.resource = this.el.querySelectorAll('[data-src]')
 			makeArray(rawStage).map(function(raw){
 				var stage = self.el.removeChild(raw)
 				self.stages.push(new Stage(stage))
 			})
-
 			this._bindDOMEvents()
 			this.on('ready', function(e){
 				this.el.classList.add('show')
 				this._load(this.stages[0])
 			})
-			if(this.el.getAttribute('resource')){
+			if(this.resource){
 				this.getResource()
 			}
 			else{
-				setTimeout(function(){
-					self._emit('ready')
-				}, 60)
+				setTimeout(function(){self._emit('ready')}, 60)
 			}
 		},
 		getResource: function(){
-			var images = this.images,
+			var resources = this.resource,
 			    progress = 0,
 			    self = this
 			
-			if(images.length < 1){
-				setTimeout(function(){
-					self._emit('ready')
-				}, 60)
+			if(resources.length < 1){
+				setTimeout(function(){self._emit('ready')}, 60)
 			}
 			
-			makeArray(images).map(function(img){
-				var src = img.dataset.src
+			makeArray(resources).map(function(res){
+				var src = res.dataset.src
 				if(src){
-					img.onerror = img.onload = function(e){
+					res.onerror = res.onload = function(e){
 						self._emit('progress', {
 							current: ++progress,
-							total: images.length
+							total: resources.length
 						})
-						if(progress >= images.length){
-							setTimeout(function(){
-								self._emit('ready')
-							}, 60)
+						if(progress >= resources.length){
+							setTimeout(function(){self._emit('ready')}, 60)
 						}
-						img.onload = null; img = null
+						res.onload = null; res = null
 					}
-					img.src = src
+					res.src = src
 				}
 			})
 		},
