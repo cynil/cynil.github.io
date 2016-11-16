@@ -8,7 +8,9 @@
     font-weight: lighter;
     margin: 1em 0;
     text-align: justify;
-
+}
+.article-comment .cymd-p{
+    margin: 0.5em 0;
 }
 .cymd-h1,
 .cymd-h2,

@@ -446,6 +446,18 @@ div.like-this-blog{
 .tooltip .message{
     color: #fff;
 }
+/**
+
+*/
+.guest-message form{
+    margin: 0.6em;
+}
+.guest-message form{
+    margin: 0.6em;
+}
+.message-list h3{
+    margin-left: 0.6em;
+}
 /*
 *for lean-animates
 */

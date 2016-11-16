@@ -1,4 +1,4 @@
-<div class="article-comment" ng-controller="MessageController">    
+<div class="guest-message article-comment" ng-controller="MessageController">    
     <form ng-submit="addMessage()">
         <h3>留言板</h3>
         <textarea name="newm" ng-model="newMsg.content" placeholder="留言，支持markdown语法" required></textarea>
@@ -6,7 +6,7 @@
         <input type="text" ng-model="newMsg.website" placeholder="留网址">
         <input type="submit" value="加上去">
     </form>
-    <div class="article-comment-list" ng-show="!empty">
+    <div class="message-list article-comment-list" ng-show="!empty">
         <h3>留言列表</h3>
         <ol>
             <li class="comment-item" ng-repeat="message in messages" lean-animate="dropdown">
