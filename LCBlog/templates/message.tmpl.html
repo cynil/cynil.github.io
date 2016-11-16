@@ -1,0 +1,26 @@
+<div class="article-comment" ng-controller="MessageController">    
+    <form ng-submit="addMessage()">
+        <h3>留言板</h3>
+        <textarea name="newm" ng-model="newMsg.content" placeholder="留言，支持markdown语法" required></textarea>
+        <input type="text" ng-model="newMsg.name" placeholder="留名">
+        <input type="text" ng-model="newMsg.website" placeholder="留网址">
+        <input type="submit" value="加上去">
+    </form>
+    <div class="article-comment-list" ng-show="!empty">
+        <h3>留言列表</h3>
+        <ol>
+            <li class="comment-item" ng-repeat="message in messages" lean-animate="dropdown">
+                <div class="comment-avatar">
+                    <span>{{message.name | limitTo:1}}</span>
+                </div>
+                <div class="comment-detail">
+                    <p class="comment-author">
+                        <a ng-href="{{message.website}}">{{message.name}}</a>
+                        <small class="timestamp">{{message.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}</small>
+                    </p>
+                    <div class="comment-content" ng-bind-html="marked(message.content)"></div>
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>

@@ -4,7 +4,6 @@ leanBlog.constant('ITEMS_PER_PAGE', 6)
 
 leanBlog.config(function($routeProvider){
     $routeProvider
-
     .when('/',{
         templateUrl: 'templates/article-list.tmpl.html',
         controller: 'MainController',
@@ -39,6 +38,10 @@ leanBlog.config(function($routeProvider){
         templateUrl: 'templates/about.tmpl.html'
     })
 
+    .when('/message/', {
+        templateUrl: 'templates/message.tmpl.html'
+    })
+
     .when('/login/', {
         templateUrl: 'templates/login.tmpl.html',
         controller: 'LoginController'
@@ -60,8 +63,8 @@ leanBlog.run(function($rootScope, leanDB){
     $rootScope.items = [
         {name: '文章', pic:'article.png', link: '/'},
         {name: '简历', pic:'cv.png', link: 'cv'},
-        {name: '摄影', pic:'pics.png', link: 'pics'},
         {name: '链接', pic:'link.png', link: 'link'},
+        {name: '留言', pic:'message.png', link: 'message'},
         {name: '关于', pic:'about.png', link: 'about'},
         {name: '后台管理', pic:'back.png', link: 'admin'},
     ]
@@ -224,8 +227,7 @@ leanBlog.controller('CommentController', function($scope, $rootScope, leanDB, $r
 
         var pvalues = [aid, content, name, website, time]
 
-        leanDB.query(cql, pvalues).then(function(data){
-            
+        leanDB.query(cql, pvalues).then(function(data){            
             //insert仅仅返回id
             $scope.comments.unshift({
                 id: data[0].id,
@@ -234,16 +236,11 @@ leanBlog.controller('CommentController', function($scope, $rootScope, leanDB, $r
                 name: name,
                 website: website
             })
-
         }, function(err){
-
             $rootScope.errorMessage = err.message
             $rootScope.showError = true
-
         })
-
     }
-
 })
 
 leanBlog.controller('ErrorPageController', function($scope, $location){
@@ -253,9 +250,7 @@ leanBlog.controller('ErrorPageController', function($scope, $location){
 })
 
 leanBlog.controller('NewpostController', function($scope, $location, leanDB){
-
     $scope.post = function(){
-
         $scope.tags = !$scope.tags ? [] : $scope.tags.split(',').map(function(v){
             return v.trim()
         }).filter(function(v){
@@ -305,87 +300,53 @@ leanBlog.controller('EditpostController', function($scope, $rootScope,$routePara
 })
 
 leanBlog.controller('AdminController', function($scope, $rootScope, $location, $timeout, leanDB, ITEMS_PER_PAGE){
-
-    if(!leanDB.currentUser()){
-        $location.path('/login')
-    }
-
-    var aCnt = 0
-    var cCnt = 0
+    if(!leanDB.currentUser()) $location.path('/login')
+    var aCnt = 0, cCnt = 0
 
     $scope.articles = []; $scope.comments = []
-
     $scope.loadArticles = function(){
-
         $scope.loading = true
-
         var aCQL = 'select title,time from Article limit ?, ? order by createdAt desc',
             pvalues =  [aCnt * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
 
         leanDB.query(aCQL, pvalues).then(function(articles){
-
             $scope.articles = $scope.articles.concat(articles)
-
             $scope.loading = false
-
         }, function(err){
-
             $rootScope.errorMessage = err.message
             $rootScope.showError = true
-
         })
-
         aCnt++;
-
     }
-
     $scope.loadComments = function(){
-
         $scope.loading = true
-
         var cCQL = 'select targetArticle,content,name,time from Comment limit ?, ? order by createdAt desc',
             pvalues =  [cCnt * ITEMS_PER_PAGE, ITEMS_PER_PAGE]
 
         leanDB.query(cCQL, pvalues).then(function(comments){
-
             $scope.comments = $scope.comments.concat(comments)
-
             $scope.loading = false
-
         }, function(err){
             console.log(err)
         })
-
         cCnt++;
     }
-
     $scope.delete = function(isArticle, id){
-        var cql
-
         if(isArticle){
-
             $scope.articles.splice(findKey($scope.articles, id), 1)
-            cql = 'delete from Article where objectId = ?'
-
+            var cql = 'delete from Article where objectId = ?'
         }else {
-
             $scope.comments.splice(findKey($scope.comments, id), 1)
             cql = 'delete from Comment where objectId = ?'
-
         }
-
         var pvalues = [id]
 
         leanDB.query(cql, pvalues).then(function(output){
-
             $rootScope.errorMessage = '删除成功！'
             $rootScope.showError = true
-
         }, function(err){
-
              $rootScope.showError = true
              $rootScope.errorMessage = '删除失败了:(  ' + err.message
-
         })
 
         function findKey(arr, value){
@@ -398,6 +359,42 @@ leanBlog.controller('AdminController', function($scope, $rootScope, $location, $
     }
 
     $scope.loadComments(); $scope.loadArticles()
+})
+
+leanBlog.controller('MessageController', function($scope, $rootScope, leanDB, $route){
+    $scope.empty = true; $scope.marked = marked;
+
+    var cql = 'select * from Message order by createdAt desc'
+    leanDB.query(cql).then(function(messages){
+        $scope.messages = messages || []
+        if($scope.messages.length >= 1) {
+            $scope.empty = false
+        }
+    })
+
+    $scope.addMessage = function(){
+        if(leanDB.currentUser()) $scope.isAdmin = true
+        var content = $scope.newMsg.content,
+            time = new Date(),
+            name = $scope.isAdmin ? 'cYnii' : $scope.newMsg.name || '匿名者',
+            website = $scope.newMsg.website || 'http://cynil.github.io'
+
+        var cql = 'insert into Message(content,name,website,time) values(?, ?, ?, date(?))',
+            pvalues = [content, name, website, time]
+
+        leanDB.query(cql, pvalues).then(function(data){
+            $scope.messages.unshift({
+                id: data[0].id,
+                content: content,
+                time: time,
+                name: name,
+                website: website
+            })
+        }, function(err){
+            $rootScope.errorMessage = err.message
+            $rootScope.showError = true
+        })
+    }
 })
 
 leanBlog.controller('LoginController', function($scope, $location, leanDB){

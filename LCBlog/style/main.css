@@ -188,9 +188,9 @@ div.article-list{
     border-bottom: 1px solid #aaa;
 }
 
-small.article-tag img{
+small.article-tag img,small.timestamp img{
     height: 1em;
-    vertical-align: -10%;
+    vertical-align: -1px;
     margin-right: 4px;
 }
 .article-tag-item{

@@ -7,7 +7,12 @@
             <a ng-href="#/tag/{{tag}}">{{tag}}</a>
         </span>
     </small>
-    <small class="timestamp">{{article.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}</small>
+    <small class="timestamp">
+        <img src="./images/date.png">
+        <span class="timestamp-text">
+            {{article.time | date:'yyyy/MM/dd HH:mm:ss.sss'}}
+        </span>
+    </small>
 
     <p ng-if="!!logined"><a ng-href="#/edit/{{article.id}}">编辑</a></p>
 
@@ -19,7 +24,7 @@
             <h3>评论区</h3>
             <textarea name="newc" ng-model="newComment.content" placeholder="留言，支持markdown语法" required></textarea>
             <input type="text" ng-model="newComment.name" placeholder="留名">
-            <input type="text" ng-model="newComment.website" placeholder="留地址">
+            <input type="text" ng-model="newComment.website" placeholder="留网址">
             <input type="submit" value="加上去">
         </form>
 

@@ -762,11 +762,7 @@ function Renderer(options) {
 }
 
 /*
- * 
  * sorry modified by cynii
- * 
- * 
- * 
  */
 Renderer.prototype.code = function(code, lang, escaped) {
   if (this.options.highlight) {
