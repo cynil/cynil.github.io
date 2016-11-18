@@ -3,17 +3,11 @@
 	function sorTable(data){
 		this.data = data;
 		this.el = document.createElement("table");
-		//this.head = this.el.getElementsByTagName('thead');
 		this.sortBtns = [];
 		this.render(this.data);
-		//this.head.addEventListener('click', funciton(event){
-		//	if()
-		//});
 	}
 
 	sorTable.prototype = {
-		constructor: sorTable,
-
 		canSort: function(key, fn){
 			var index = this.data.thead.indexOf(key);
 			var sortBtn = this.el.childNodes[0].childNodes[0].childNodes[index];

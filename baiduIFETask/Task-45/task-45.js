@@ -1,6 +1,6 @@
 window.onload = function(){
     var images = U.$$('img', U.$('.container')),
-        curWidth = 0,
+        curW = 0,
         baseH = 200,//baseH,
         baseW = U.$('.container').clientWidth,
         diff = 0.1,
@@ -9,40 +9,23 @@ window.onload = function(){
     for(var i = 0; i < images.length; i++){
         images[i].height = baseH
     }
-
     for(var i = 0; i < images.length; i++){
-
-        stack.push(images[i])
-        curWidth += images[i].width
-
-        if(curWidth >= (1 - diff) * baseW){
-
-            stack.forEach(function(v, i, arr){
-        
-            var justifiedH = baseW / curWidth * v.height
-
-                v.height = justifiedH
-
-                v.style.visibility = 'visible'
-
+        var afterW = curW + images[i].width,
+            remainW = baseW
+        if(afterW / baseW > 1 - diff){
+            var fixH = baseH * baseW / afterW
+            stack.map(function(img){
+                img.height = fixH;
+                img.width = parseInt(img.width)
+                remainW -= img.width
             })
-
-            stack[stack.length - 1].width += baseW - w(stack)
-
-            stack = []; curWidth = 0
+            images[i].height = fixH;
+            console.log('remain: ' + remainW, 'img: ' + images[i].width)
+            images[i].width = remainW
+            stack = []; curW = 0
+        }
+        else if(afterW / baseW <= 1 - diff){
+            stack.push(images[i]); curW = afterW
         }
     }
-}
-
-function w(stack){
-
-    var len = 0
-
-    for (var i = 0; i < stack.length; i++) {
-
-        len += stack[i].width
-
-    }
-
-    return len
 }

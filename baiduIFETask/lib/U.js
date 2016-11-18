@@ -240,17 +240,3 @@ window.U = {
 };
 
 U.listen = U.addEvent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-

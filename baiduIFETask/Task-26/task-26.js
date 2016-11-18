@@ -45,15 +45,14 @@ var U = {
 	}
 };
 
-
 //GLOBAL CONSTANTS
 
 var MAX_ENERGY = 100, //%
 	ENERGY_CHARGE_UNIT = 2, //%
 	ENERGY_CONSUME_UNIT = 5, //%
-	COMMAND_LOST_RATE = 0.3, //rate
+	COMMAND_LOST_RATE = 0.2, //rate
 
-	SPEED = 10, //px
+	SPEED = 15, //px
 	STEP = 1000 / 60, //ms, animation step	
 	WAIT = 1000; //ms
 
@@ -134,7 +133,6 @@ Spaceship.prototype.engine = function(){
 //Power System OK
 //2016/6/1 11:04
 Spaceship.prototype.power = function(){
-
 	var that = this,
 		timer;
 	return {
@@ -144,11 +142,9 @@ Spaceship.prototype.power = function(){
 					that.remainEnegy += unit;
 				}else{
 					that.remainEnegy = MAX_ENERGY;
-				}
-				
+				}				
 				U.setBatteryStatus(that.battery);	
 				that.battery.style.width = that.remainEnegy + '%';
-
 			}, 1000);
 		}
 	}
@@ -190,26 +186,20 @@ Spaceship.prototype.destory = function(){
  */
 
 var Commander = {
-
 	guid: 0,
-
-	command: function(cmd){
-		
+	command: function(cmd){		
 		Panel.log('Command ' + cmd.command.toUpperCase() + ' to Ship ' + cmd.id + ' start Sending.');
-		Mediator.exec(cmd);
+		return Mediator.exec(cmd);
 	},
 	/*create command should not send via Mediator, as you can't make order to a non-exsit ship;
      *our user should be able to set orbit when creating spaceships，but the id should be managed 
      *and distributed by commander to ensure data sharing among modules.
      */
 	create: function(orbit){
-
 		var sp = new Spaceship(++this.guid, orbit);
 
-		sp.label.innerHTML = 'Ship ' + sp.id;
-		
-		U.$('universe').appendChild(sp.dom);
-		
+		sp.label.innerHTML = 'Ship ' + sp.id;		
+		U.$('universe').appendChild(sp.dom);		
 		U.setttleDOM({
 			dom: sp.dom,
 			orbit: orbit
@@ -241,14 +231,11 @@ var Mediator = {
 	},
 
 	exec: function(cmd){
-
 		var that = this;
 
 		function send(){
 			if(Math.random() < COMMAND_LOST_RATE){
-
 				Panel.warn('Command ' + cmd.command.toUpperCase() + ' to Ship ' + cmd.id + ' Lost.');
-				return;
 			}else{
 				for(var sp in that.spaceships){
 					if(that.spaceships[sp].receiveCommand(cmd)){
@@ -269,7 +256,6 @@ var Mediator = {
 
 
 var DOMManipulator = (function(){
-
 	var timers = {},
 		degs = {},
 		guid = 0;
@@ -281,7 +267,8 @@ var DOMManipulator = (function(){
 			}
 
 			timers[dom.guid] = setInterval(function(){
-				// SPEED is defined in pixels, but we can only Manipulate transform by degs, so here we change it to degs.
+				// SPEED is defined in pixels, but we can only Manipulate transform by degs, 
+				// so here we change it to degs.
 				degs[dom.guid] += (SPEED / (dom.radius * Math.PI * 2)) * (180 / Math.PI);
 				if(degs[dom.guid] >= 360){
 					degs[dom.guid] = 0;
@@ -368,13 +355,10 @@ U.$('ship-list').addEventListener('click', function(e){
 		var myShipID = event.target.parentNode.dataset.ship;
 		var command = event.target.dataset.command;
 		
-		Commander.command({
+		var result = Commander.command({
 			id: myShipID,
 			command: command
         });
-        if(command == 'destory'){
-            this.removeChild(event.target.parentNode);
-        }
     }
 });
 
