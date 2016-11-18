@@ -45,41 +45,33 @@
 			<br/>
 			<p class="title">this is a title</p>
 		</div>
+		<div class="pic">
+			<img src="http://i1.piimg.com/4851/fcc67acca99efc7f.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i1.piimg.com/4851/d6c314e929027032.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i1.piimg.com/4851/9459887192ee6c26.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i1.piimg.com/4851/9a545349f8bd2bec.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
+		<div class="pic">
+			<img src="http://i1.piimg.com/4851/a8adf0f6014fe73c.jpg" />
+			<br/>
+			<p class="title">this is a title</p>
+		</div>
 	</div>
-	<div><button id="load-more">加载更多</button></div>
 	<script src="../lib/U.js"></script>
 	<script src="task-44.js"></script>
-	<script type="text/javascript">
-		window.onload = function(){
-		    var wf = new WaterFall(U.$('.container'), {
-		        columns: 6,
-		        dist: 5,
-		        resizable: true
-		    })
-			function addImage(src){
-			    var img = new Image()
-			    img.src = src
-			    var template = 	U.liveHTML('<div class="pic">' + 
-									'<img src="" />' +
-									'<br/>' + 
-									'<p class="title">this is a title</p>' +
-								'</div>')
-			    img.onload = function(){
-			    	template.replaceChild(img, template.firstChild)
-			    	wf.addItem(template)
-			    }
-			}
-			function loadExtraImages(howMany){
-			    var color = ['E97452', 'EF3C6B', '297385', '5A5751', 'F7574A']
-				for (var i = 0; i < howMany; i++) {
-					//http://placehold.it/300x600/E97452/fff
-					addImage('http://placehold.it/' + (Math.random() * 100 + 200) + 'x' + (Math.random() * 100 + 200) + '/' + color[i % 5] + '/fff')
-				}
-			}
-			U.listen('#load-more', 'click', function(event){
-				loadExtraImages(10)
-			})
-		}
-	</script>
 </body>
 </html>

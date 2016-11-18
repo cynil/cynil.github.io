@@ -59,14 +59,10 @@
 
 ;(function Tohome(window, document){
 
-	var html = '<div id="back"><img src="images/rocket.png"></div>',
+	var $widget = U.$('#back'),
 		h = document.documentElement.clientHeight || document.body.clientHeight
 
-		U.appendHTML(document.body, html)
-
-	var $widget = U.$('#back')
-
-	U.addEvent($widget, 'click', function(){
+	U.listen($widget, 'click', function(){
 		var then = +new Date,
 			S = U.ua('firefox') ? document.documentElement.scrollTop : document.body.scrollTop,
 			T = 8 * Math.sqrt(S),
@@ -91,10 +87,8 @@
 	})		
 
 	window.onkeyup = window.onscroll = function(){
-
 		//火狐浏览器s始终为0 -_-|||
 		var s = U.ua('firefox') ? document.documentElement.scrollTop : document.body.scrollTop
-
 		if(s > 0){
 			$widget.style.visibility = 'visible'
 		}else{

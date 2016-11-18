@@ -14,19 +14,15 @@
 .iconfont{
     font-family:"iconfont" !important;
     font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar{
-	width: 10px;
-	border-radius: 5px;
+	width: 16px;
 	background-color: #323232;
 }
 
 ::-webkit-scrollbar-thumb{
-	width: 10px;
+	width: 16px;
 	background-color: #999;
 	border-radius: 5px;
 }
@@ -36,12 +32,14 @@ html, body{
 	width: 100%;
 	color: #323232;
 }
+body{
+	min-width: 960px;
+}
 a{
 	text-decoration: none;
+	color: indianred;
 }
-body{
-	min-width: 1300px;
-}
+
 header{
 	width: 100%;
 	height: 35%;
@@ -87,30 +85,19 @@ ul.social>li:last-child{
 	left: 200px;
 	bottom: -80px;
 }
-
 .avatar img{
 	height: 110%;
 	width: 115%;
 	position: absolute;
 }
-
 main.wrap{
-	margin: 120px 200px 80px 200px;
+	margin: 200px;
 }
-
 .preface{
-	border-left: 6px solid #297385;
+	border-left: 4px solid #297385;
 	padding: 12px 0 0 12px;
-	margin: 20px 0px;
-	font-family: "Microsoft kaiti";
-	margin-bottom: 80px; 
+	margin-bottom: 40px;
 }
-.preface .zuosi{
-	text-decoration: line-through;
-	font-size: 14px;
-
-}
-
 .content h3{
 	font-weight: normal;
 }
@@ -121,10 +108,6 @@ main.wrap{
 
 .works i{
 	margin-right: 6px;
-}
-
-.works a{
-	color: #212121;
 }
 .works-loading{
 	text-align: center;
@@ -185,8 +168,7 @@ main.wrap{
 	width: 16px;
 	height: 16px;
 	background: #5a5751;
-	left: -14px;
-	border: 2px solid #fff;
+	left: -12px;
 }
 .item-main{
 	float: right;
@@ -198,8 +180,6 @@ main.wrap{
 	background: #fff;
 	padding: 6px;
 	border-radius: 4px;
-}
-.sign{
 }
 
 .sign span{
@@ -222,13 +202,15 @@ footer p{
 	right: 40px;
 	bottom: 40px;
 	height: 80px;
+	width: 80px;
 	opacity: 0.6;
 	transition: opacity 0.4s ease;
-	cursor: pointer;
 	visibility: hidden;
+	background: url(../images/rocket.png);
+	background-size: contain;
 }
 #back:hover{
-	opacity: 0.9
+	opacity: 0.9;
 }
 #back img{
 	height: 100%;

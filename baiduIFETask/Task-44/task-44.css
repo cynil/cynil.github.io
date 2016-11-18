@@ -6,6 +6,7 @@
 }
 body{
 	text-align: center;
+	background: #ddd;
 }
 h2{
 	margin: 1em auto;
@@ -48,6 +49,6 @@ img{
 	z-index: 2;
 }
 .pic{
-	border: 1px solid silver;
-	box-shadow: 2px 2px 2px silver
+	background: #fff;
+	border-radius: 4px;
 }
