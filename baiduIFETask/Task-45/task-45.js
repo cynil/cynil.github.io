@@ -2,7 +2,7 @@ function barrel(baseH){
     var container = document.querySelector('.container')
         images = container.querySelectorAll('img'),
         curW = 0,
-        baseH = baseH || 100,
+        baseH = baseH || 200,
         baseW = container.clientWidth,
         diff = 0.1,
         stack = []

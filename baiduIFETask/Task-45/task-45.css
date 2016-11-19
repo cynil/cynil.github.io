@@ -12,9 +12,8 @@ body{
 	padding: 2em;
 }
 .container{
-	width: 900px;
 	font-size: 0;
 	margin: 0 auto;
-	border: 1px solid red;
+	box-shadow: 0 0 0 1px red;
 	text-align: left;
 }
