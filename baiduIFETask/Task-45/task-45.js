@@ -1,8 +1,9 @@
-window.onload = function(){
-    var images = U.$$('img', U.$('.container')),
+function barrel(baseH){
+    var container = document.querySelector('.container')
+        images = container.querySelectorAll('img'),
         curW = 0,
-        baseH = 200,//baseH,
-        baseW = U.$('.container').clientWidth,
+        baseH = baseH || 100,
+        baseW = container.clientWidth,
         diff = 0.1,
         stack = []
 
@@ -19,11 +20,15 @@ window.onload = function(){
                 img.width = parseInt(img.width)
                 remainW -= img.width
             })
-            images[i].width = remainW
+            images[i].width = remainW; images[i].height = fixH
             stack = []; curW = 0
         }
         else if(afterW / baseW <= 1 - diff){
             stack.push(images[i]); curW = afterW
         }
     }
+}
+
+window.onload = function(){
+    barrel()
 }
