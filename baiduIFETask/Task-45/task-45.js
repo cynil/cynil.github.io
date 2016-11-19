@@ -19,8 +19,6 @@ window.onload = function(){
                 img.width = parseInt(img.width)
                 remainW -= img.width
             })
-            images[i].height = fixH;
-            console.log('remain: ' + remainW, 'img: ' + images[i].width)
             images[i].width = remainW
             stack = []; curW = 0
         }
