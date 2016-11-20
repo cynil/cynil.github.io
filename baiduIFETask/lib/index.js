@@ -2,20 +2,22 @@ $(document).ready(function(){
 	$.ajax('./lib/items.json', {
 		dataType: 'json',
 		success: function(data){
-			var template =  '<li id={{id}} class="task-item clearfix">' + 
-								'<h4 class="timeline-title">{{date}}</h4>' + 
+			var template =  '<li id={{id}} class="task-item">' + 
 								'<div class="item-main">' +
-								'<h3 class="item-title"><i class="iconfont">&#xe606;</i>{{title}}</h3>' +
+								'<h3 class="item-title">{{title}}</h3>' +
 									'<p class="detail"><span>任务描述：</span>{{content}}</p>' +
 									'<p class="sign">' +
-										'<span class="demo"><a href="Task-{{id}}"><i class="iconfont">&#xe602;</i>DEMO</a></span>'+
-										'<span class="source"><a href="https://github.com/cynil/cynil.github.io/tree/master/baiduIFETask/Task-{{id}}"><i class="iconfont">&#xe601;</i>CODE</a></span>' +
+										'<span class="timeline">{{date}}</span>' + 
+										'<span class="demo"><a href="Task-{{id}}">DEMO</a></span>'+
+										'<span class="source"><a href="https://github.com/cynil/cynil.github.io/tree/master/baiduIFETask/Task-{{id}}">CODE</a></span>' +
 									'</p>' +
 								'</div>' +
 							'</li>'
-			data.sort(function(a, b){
+			data = data.sort(function(a, b){
 				return new Date(b['date']) - new Date(a['date'])
-			}).map(function(item){
+			})
+			
+			$.each(data, function(index, item){
 				var html = tmpl(template, item)
 				$('.task-list').append(html)
 			})

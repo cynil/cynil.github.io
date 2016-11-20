@@ -6,11 +6,11 @@
 body{
 	color: #323232;
 	font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
-	font-size: 100%;
+	font-size: 14px;
 	background: #fefefe;
 	min-height: 100%;
 }
-ul{
+ul,ol{
 	list-style: none;
 }
 a{
@@ -60,17 +60,28 @@ div.avatar{
 	width: 6rem;
 	position: absolute;
 	bottom: -3rem;
-	border: 2px solid;
 	clip-path: polygon(33.3% 0%,0% 33.3%,0 66.7%,33.3% 100%,66.7% 100%,100% 66.7%,100% 33.3%,66.7% 0);
-	-webkit-clip-path: polygon(33.3% 0%,0% 33.3%,0 66.7%,33.3% 100%,66.7% 100%,100% 66.7%,100% 33.3%,66.7% 0)
+	-ms-clip-path: polygon(33.3% 0%,0% 33.3%,0 66.7%,33.3% 100%,66.7% 100%,100% 66.7%,100% 33.3%,66.7% 0);
+	-webkit-clip-path: polygon(33.3% 0%,0% 33.3%,0 66.7%,33.3% 100%,66.7% 100%,100% 66.7%,100% 33.3%,66.7% 0)	
 }
-main{
+.main{
 	margin: 2rem auto !important;
 	padding: 0.5rem;
 	outline: 1px solid;
 }
 div.preface{
-	border: 1px solid;
+	margin: 1rem 0.5rem;
+	padding: 0.5rem 0 0 0.5rem;
+	line-height: 1rem;
+	border-left: 4px solid #323232;
+}
+ol.task-list{
+	margin: 0.5rem;
+}
+li.task-item{
+	border-bottom: 1px solid #323232;
+	margin: 1rem auto;
+	padding: 0.5rem;
 }
 footer div.strip{
 	height: 0.5rem;
@@ -100,28 +111,4 @@ small.copy{
 	header{
 		margin-bottom: 4rem;
 	}
-}
-li.task-item{
-	border: 1px solid;
-}
-
-
-
-
-
-
-
-
-
-.clearfix { 
-	*zoom: 1;
-}
-
-.clearfix:before,.clearfix:after { 
-	display: table; 
-	line-height: 0;
-	content: "";
-} 
-.clearfix:after{
-	clear: both;
 }
