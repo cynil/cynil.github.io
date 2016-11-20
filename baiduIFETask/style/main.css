@@ -67,7 +67,6 @@ div.avatar{
 .main{
 	margin: 2rem auto !important;
 	padding: 0.5rem;
-	outline: 1px solid;
 }
 div.preface{
 	margin: 1rem 0.5rem;
@@ -81,7 +80,12 @@ ol.task-list{
 li.task-item{
 	border-bottom: 1px solid #323232;
 	margin: 1rem auto;
-	padding: 0.5rem;
+	padding: 0.5rem 0;
+}
+p.sign span{
+	display: inline-block;
+	padding-right: 0.5rem;
+	font-weight: bold;
 }
 footer div.strip{
 	height: 0.5rem;
