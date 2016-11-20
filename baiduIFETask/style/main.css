@@ -9,6 +9,7 @@ body{
 	font-size: 14px;
 	background: #fefefe;
 	min-height: 100%;
+	text-align: justify;
 }
 ul,ol{
 	list-style: none;
@@ -79,19 +80,21 @@ ol.task-list{
 }
 li.task-item{
 	border-bottom: 1px solid #323232;
-	margin: 1rem auto;
-	padding: 0.5rem 0;
+	margin: 1.5rem auto;
+	padding-top: 0.5rem;
 }
 p.sign span{
 	display: inline-block;
 	padding-right: 0.5rem;
+	margin-top: 0.25rem;
 	font-weight: bold;
 }
 footer div.strip{
 	height: 0.5rem;
-	background: linear-gradient(90deg,
-#fb3 20%, #655 0, #655 40%,
-#ab4 0, #ab4 65%, hsl(20, 40%, 90%) 0);
+	background: linear-gradient(90deg,#fb3 20%, 
+	#655 0, #655 40%,
+	#ab4 0, #ab4 65%, 
+	hsl(20, 40%, 90%) 0);
 	background-size: 120px 100%;
 }
 small.copy{
