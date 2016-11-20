@@ -1,4 +1,36 @@
-;(function LoadContents(){
+$(document).ready(function(){
+	$.ajax('./lib/items.json', {
+		dataType: 'json',
+		success: function(data){
+			var template =  '<li id={{id}} class="task-item clearfix">' + 
+								'<h4 class="timeline-title">{{date}}</h4>' + 
+								'<div class="item-main">' +
+								'<h3 class="item-title"><i class="iconfont">&#xe606;</i>{{title}}</h3>' +
+									'<p class="detail"><span>任务描述：</span>{{content}}</p>' +
+									'<p class="sign">' +
+										'<span class="demo"><a href="Task-{{id}}"><i class="iconfont">&#xe602;</i>DEMO</a></span>'+
+										'<span class="source"><a href="https://github.com/cynil/cynil.github.io/tree/master/baiduIFETask/Task-{{id}}"><i class="iconfont">&#xe601;</i>CODE</a></span>' +
+									'</p>' +
+								'</div>' +
+							'</li>'
+			data.sort(function(a, b){
+				return new Date(b['date']) - new Date(a['date'])
+			}).map(function(item){
+				var html = tmpl(template, item)
+				$('.task-list').append(html)
+			})
+		},
+		error: function(err){}
+	})
+
+	function tmpl(template, o){
+		var pattern = /\{\{([^\}\{}]+)\}\}/g;		
+		return template.replace(pattern, function(all, a){
+			return o[a]
+		})
+	}
+})
+/*;(function LoadContents(){
 	var template =  '<li class="work-item clearfix" id={{id}}>' + 
 						'<h3 class="timeline-title">{{date}}</h3>' + 
 						'<div class="item-main">' +
@@ -15,43 +47,27 @@
 	//相对路径，不是指js文件所在的路径，而是指引用该js文件的html文档的路径
 	
 	U.ajax('lib/items.json', {
-
 		firstly: function(){
-
 			var $works = U.$('.works')
 				html = '<div class="works-loading"><img src="images/loading.png" alt=""></div>'
-
 			U.appendHTML($works, html);
 		},
-
 		success: function(xhr){
-
 			var $works = U.$('.works'),
 				results = xhr.responseText
-
 			try{
-
 				results = JSON.parse(results)
-
 			}catch(e){
-
 				U.$('.works-loding').innerHTML = '<strong>加载失败了，您的浏览器可能不支持json</strong>'
-
 				return false
 			}
-
 			$works.removeChild($works.children[0])
-
 			results.sort(function(a, b){
 				return new Date(b['date']) - new Date(a['date'])
 			})
-
 			results.forEach(function(v, i, arr){
-
 				var html = U.parse(template, v)
-
 				U.appendHTML($works, html)
-
 			})
 		}
 	})
@@ -98,3 +114,4 @@
 	}
 
 })(window, document);
+*/

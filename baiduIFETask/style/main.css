@@ -1,0 +1,127 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	color: #323232;
+	font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	background: #fefefe;
+	min-height: 100%;
+}
+ul{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: indianred;
+}
+img{
+	max-width: 100%;
+	border: none;
+}
+.center-page{
+	min-width: 20rem;
+	max-width: 60rem;
+	margin: 0 auto;
+}
+.pc-only{
+	display: none;
+}
+header{
+	background: #3c3c3c url(../assets/baidu.png);
+	color: #efefef;
+}
+.header-wrap{
+	text-align: right;
+	position: relative;
+}
+h1.main-title{
+	font-size: 2rem;
+	line-height: 2rem;
+	padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+}
+ul.socials{
+	padding-left: 0.5rem;
+}
+ul.socials li{
+	display: inline-block;
+}
+ul.socials li a{
+	display: block;
+	height: 3rem;
+	padding: 0.5rem 0.5rem 0.5rem 0;
+}
+ul.socials li img{
+	max-height: 100%;
+}
+div.avatar{
+	width: 6rem;
+	position: absolute;
+	bottom: -3rem;
+	border: 2px solid;
+	clip-path: polygon(33.3% 0%,0% 33.3%,0 66.7%,33.3% 100%,66.7% 100%,100% 66.7%,100% 33.3%,66.7% 0);
+	-webkit-clip-path: polygon(33.3% 0%,0% 33.3%,0 66.7%,33.3% 100%,66.7% 100%,100% 66.7%,100% 33.3%,66.7% 0)
+}
+main{
+	margin: 2rem auto !important;
+	padding: 0.5rem;
+	outline: 1px solid;
+}
+div.preface{
+	border: 1px solid;
+}
+footer div.strip{
+	height: 0.5rem;
+	background: linear-gradient(90deg,
+#fb3 20%, #655 0, #655 40%,
+#ab4 0, #ab4 65%, hsl(20, 40%, 90%) 0);
+	background-size: 120px 100%;
+}
+small.copy{
+	display: block;
+	text-align: center;
+	padding: 1rem;
+	background: #323232;
+	color: #fff;
+}
+@media only screen and (min-width: 20rem){
+}
+
+@media only screen and (min-width: 48rem){
+	h1.main-title{
+		line-height: 2rem;
+		padding: 3rem 0.5rem 1rem 0.5rem;
+	}
+	.pc-only{
+		display: block;
+	}
+	header{
+		margin-bottom: 4rem;
+	}
+}
+li.task-item{
+	border: 1px solid;
+}
+
+
+
+
+
+
+
+
+
+.clearfix { 
+	*zoom: 1;
+}
+
+.clearfix:before,.clearfix:after { 
+	display: table; 
+	line-height: 0;
+	content: "";
+} 
+.clearfix:after{
+	clear: both;
+}
