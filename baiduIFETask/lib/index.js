@@ -1,5 +1,13 @@
+function tmpl(template, o){
+	var pattern = /\{\{([^\}\{}]+)\}\}/g;		
+	return template.replace(pattern, function(all, a){
+		return o[a]
+	})
+}
+
 $(document).ready(function(){
 	$.ajax('./lib/items.json', {
+		type: 'get',
 		dataType: 'json',
 		success: function(data){
 			var template =  '<li id={{id}} class="task-item">' + 
@@ -21,47 +29,35 @@ $(document).ready(function(){
 				var html = tmpl(template, item)
 				$('.task-list').append(html)
 			})
-		},
-		error: function(err){}
+		}
 	})
 
 	$('#rocket').click(function(e){
 		var then = +new Date,
-			S = document.documentElement.scrollTop,
+			S = Math.max(document.documentElement.scrollTop, document.body.scrollTop),
 			T = 8 * Math.sqrt(S),
-			self = this
-		requestAnimationFrame(function step(){
-			var now = +new Date
-				p = Math.min(1.0, (now - then)/T)
+			$this = $(this)
+		if($this.is(':visible')){
+			requestAnimationFrame(function step(){
+				var now = +new Date
+					p = Math.min(1.0, (now - then)/T)
 
-			document.documentElement.scrollTop = (1 - p) * (1 - p) * S
-			if(p < 1.0){
-				requestAnimationFrame(step)
-			}else{
-				self.style.visibility = 'hidden'
-			}
-		})
+				window.scrollTo(0, (1 - p) * (1 - p) * S)
+				if(p < 1.0){
+					requestAnimationFrame(step)
+				}else{
+					$this.css({visibility: 'hidden'})
+				}
+			})
+		}
 	})
 
-	function tmpl(template, o){
-		var pattern = /\{\{([^\}\{}]+)\}\}/g;		
-		return template.replace(pattern, function(all, a){
-			return o[a]
-		})
-	}
+	$(window).on('keyup scroll', function(){
+		var $rocket = $('#rocket')
+		if(document.documentElement.scrollTop + document.body.scrollTop > 0){
+			$rocket.css({visibility: 'visible'})
+		}else{
+			$rocket.css({visibility: 'hidden'})
+		}
+	})
 })
-
-// ;(function Tohome(window, document){
-
-// 	window.onkeyup = window.onscroll = function(){
-// 		//火狐浏览器s始终为0 -_-|||
-// 		var s = U.ua('firefox') ? document.documentElement.scrollTop : document.body.scrollTop
-// 		if(s > 0){
-// 			$widget.style.visibility = 'visible'
-// 		}else{
-// 			$widget.style.visibility = 'hidden'
-// 		}
-
-// 	}
-
-// })(window, document);
