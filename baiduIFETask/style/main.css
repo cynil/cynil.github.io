@@ -100,9 +100,23 @@ footer div.strip{
 small.copy{
 	display: block;
 	text-align: center;
-	padding: 1rem;
+	padding: 1.5rem;
+	font-size: 1rem;
 	background: #323232;
 	color: #fff;
+}
+#rocket{
+	position: fixed;
+	right: 4rem;
+	bottom: 4rem;
+	height: 4rem;
+	width: 4rem;
+	background: url(../assets/rocket.png);
+	background-size: contain;
+	cursor: pointer;
+}
+#rocket:hover{
+	
 }
 @media only screen and (min-width: 20rem){
 }
