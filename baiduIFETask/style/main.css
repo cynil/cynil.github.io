@@ -132,3 +132,17 @@ small.copy{
 		margin-bottom: 4rem;
 	}
 }
+
+@keyframes spin{
+	from{
+		transform: rotate(0)
+	}
+	to{
+		transform: rotate(360deg)
+	}
+}
+.loading{
+	text-align: center;
+	margin: 1.5rem;
+	animation: spin 1s infinite;
+}

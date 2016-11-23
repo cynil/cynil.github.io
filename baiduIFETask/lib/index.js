@@ -29,6 +29,8 @@ $(document).ready(function(){
 				var html = tmpl(template, item)
 				$('.task-list').append(html)
 			})
+
+			$('.loading').remove()
 		}
 	})
 
