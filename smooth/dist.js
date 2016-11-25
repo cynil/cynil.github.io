@@ -2,6 +2,11 @@
 var Smooth = require('./smooth.js')
 
 window.addEventListener('DOMContentLoaded', function(){
+    var pcRedirect = document.querySelector('.pc-redirect')
+    if(!('ontouchend' in window)) {
+        return pcRedirect.style.display = 'block'
+    }
+    document.body.removeChild(pcRedirect)
     var main = document.querySelector('main')
     var smooth = new Smooth(main, {
         animations: {
@@ -24,28 +29,12 @@ window.addEventListener('DOMContentLoaded', function(){
             }
         }
     })
-
-    var indicator = document.createElement('div')
-    indicator.style.cssText = "position:absolute;height:24px;width:100%;top:0;bottom:0;margin:auto;color:#323232;font-size:20px;text-align:center;"
-    document.body.appendChild(indicator)
-
-    smooth.on('ready', function(e){
-        document.body.removeChild(indicator)
-    })
-
-    smooth.on('progress', function(e){
-        console.log(e.current + '/' + e.total)
-        indicator.innerHTML = e.current + '/' + e.total
-    })
 })
-
 },{"./smooth.js":2}],2:[function(require,module,exports){
 //smooth.js
 //git repository: https://github.com/cynil/smooth.js
-//?todo: on('event') hooks
 //todo: canvas animation
 //todo: a theme
-//?todo: abstract of Event
 (function(window, factory){
 	if(typeof define === 'function' && define.amd){
 		define(factory)
@@ -59,7 +48,7 @@ window.addEventListener('DOMContentLoaded', function(){
 	'use strict';
 
 	//utils
-
+	var animationend = 'onanimationend' in window ? 'animationend' : 'webkitAnimationEnd'	
 	function makeArray(list){
 		return Array.prototype.slice.call(list)
 	}
@@ -90,15 +79,15 @@ window.addEventListener('DOMContentLoaded', function(){
 	function cssAnimate(node, parent, klass, cb){
 		node.classList.add(klass)
 		parent.appendChild(node)
-		node.addEventListener('webkitAnimationEnd', function clearAnimation(event){
-			this.removeEventListener('webkitAnimationEnd', clearAnimation)
+		node.addEventListener(animationend, function clearAnimation(event){
+			this.removeEventListener(animationend, clearAnimation)
 			if(cb && isFunc(cb)){
 				cb()
 			}
 		})
 	}
-    //Event.js
-    
+
+    //Event.js   
     var Event = (function(){
         function Event(){
 					this.events = {}
@@ -134,8 +123,8 @@ window.addEventListener('DOMContentLoaded', function(){
 				}
 				return Event
     })()
-	//smooth.js
 
+	//smooth.js
 	function Smooth(el, options){
 		Event.apply(this)
 		
@@ -155,19 +144,26 @@ window.addEventListener('DOMContentLoaded', function(){
 			
 			this.resource = this.el.querySelectorAll('[data-src]')
 			makeArray(rawStage).map(function(raw){
-				var stage = self.el.removeChild(raw)
+				var stage = self.el.removeChild(raw),
+					theme = stage.getAttribute('theme') || '#323232'
+
+				if(theme) stage.style.backgroundColor = theme
 				self.stages.push(new Stage(stage))
 			})
 			this._bindDOMEvents()
 			this.on('ready', function(e){
 				this.el.classList.add('show')
-				this._load(this.stages[0])
+				var manual = this.el.getAttribute('manual')
+				if(!manual || manual === "false"){
+					this._load(this.stages[0])
+				}
 			})
 			if(this.resource){
+				setTimeout(function(){self._emit('loadstart')}, 40)
 				this.getResource()
 			}
 			else{
-				setTimeout(function(){self._emit('ready')}, 60)
+				setTimeout(function(){self._emit('ready')}, 80)
 			}
 		},
 		getResource: function(){
@@ -176,7 +172,7 @@ window.addEventListener('DOMContentLoaded', function(){
 			    self = this
 			
 			if(resources.length < 1){
-				setTimeout(function(){self._emit('ready')}, 60)
+				setTimeout(function(){self._emit('ready')}, 80)
 			}
 			
 			makeArray(resources).map(function(res){
@@ -188,7 +184,7 @@ window.addEventListener('DOMContentLoaded', function(){
 							total: resources.length
 						})
 						if(progress >= resources.length){
-							setTimeout(function(){self._emit('ready')}, 60)
+							setTimeout(function(){self._emit('ready')}, 80)
 						}
 						res.onload = null; res = null
 					}
@@ -198,9 +194,14 @@ window.addEventListener('DOMContentLoaded', function(){
 		},
 
 		_bindDOMEvents: function(){
-			touch(this.el)
-				.on('swipe', throttle(this.delegateSwipe.bind(this)))
-				.on('tap', throttle(this.delegateTap.bind(this)))
+			if('ontouchstart' in document){
+				touch(this.el)
+					.on('swipe', throttle(this.delegateSwipe.bind(this)))
+					.on('tap', throttle(this.delegateTap.bind(this)))
+			}
+			else{
+				this.el.addEventListener('click', throttle(this.delegateTap.bind(this)))
+			}
 		},
 		
 		delegateSwipe: function(event){
@@ -258,7 +259,7 @@ window.addEventListener('DOMContentLoaded', function(){
 								if(possibleJSAnimation && isFunc(possibleJSAnimation)){
 									possibleJSAnimation.call(self, bloc.el, stage.el)
 								}else{
-									//no js animation provided, use CSS instead
+									//no js animation specified, use CSS instead
 									cssAnimate(bloc.el, stage.el, bloc.animation, function(){
 										bloc.el.classList.remove(bloc.animation)
 										clearTimeout(clock)
@@ -271,6 +272,10 @@ window.addEventListener('DOMContentLoaded', function(){
 				}
 				stage.el.classList.remove(klass)
 			})
+			this._emit('paging', {
+				current: nextIndex,
+				total: this.stages.length
+			})
 			this.index = nextIndex
 		},
 
@@ -278,12 +283,14 @@ window.addEventListener('DOMContentLoaded', function(){
 			var currentStage = this.stages[this.index]
 
 			if(!currentStage.next()){
-				this.goto(this.stages[this.index + 1])
+				this.go(this.index + 1)
 			}
 		}
 	}
 	extend(Event.prototype, Smooth.prototype)    
-	Smooth.prototype.goto = Smooth.prototype._load
+	Smooth.prototype.go = function(index){
+		return this._load(this.stages[index])
+	}
 
 	function Stage(el){
 		this.el = el
@@ -299,8 +306,8 @@ window.addEventListener('DOMContentLoaded', function(){
 
 			makeArray(rawBlocs).map(function(raw){
 				var animation = raw.getAttribute('animation') || 'expandIn',
-						now = raw.getAttribute('now')
-
+					now = raw.getAttribute('now') || 'now'
+				
 				self.blocs.push({
 					el: self.el.removeChild(raw),
 					now: now,
