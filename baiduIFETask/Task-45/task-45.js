@@ -30,5 +30,5 @@ function barrel(baseH){
 }
 
 window.onload = function(){
-    barrel()
+    barrel(120)
 }
