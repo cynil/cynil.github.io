@@ -8,26 +8,30 @@
     <script src="./resume.js"></script>
 </head>
 <body>
+    <div id="loading">
+        <p></p>
+        <div class="progress-bar"></div>
+    </div>
     <main class="smooth" transition="bottomExpandIn" manual="true">
         <!--1 preface-->
         <section id="profile" class="stage" theme="#323232">
-            <div id="avatar" class="bloc" now="now" delay="200" animation="rightRotateIn">
+            <div id="avatar" class="bloc vh2" delay="200" animation="rightRotateIn">
                 <img data-src="./avatar.jpg" height="40" alt="">
             </div>
-            <div class="bloc" now="now" delay="800" animation="rightIn">
+            <div class="bloc vh2" delay="600" animation="rightIn">
                 <h1>周连剑</h1>
             </div>
-            <div class="bloc" now="now" delay="800" animation="rightInReverse">
+            <div class="bloc vh2" delay="1000" animation="rightInReverse">
                 <h3>前端工程师</h3>
             </div>
-            <div class="bloc" now="now" delay="1600" animation="fadeInUp">blog|github|email</div>
+            <div class="bloc vh2" delay="1400" animation="fadeInUp">blog|github|email</div>
         </section>
         <!--2 skills-->
         <section id="skills" class="stage" theme="#0074D9">
-            <div class="bloc" now="now">
+            <div class="bloc vh2">
                 <h1>我会哪些</h1>
             </div>
-            <div class="bloc" now="now" delay="800" animation="clipExpand">
+            <div class="bloc vh4" delay="800" animation="clipExpand">
                 <span class="skill-item">HTML5</span>
                 <span class="lt skill-item">CSS3</span>
                 <span class="skill-item">Javascript</span>
@@ -43,51 +47,48 @@
                 <span class="st skill-item">Browserify</span>
                 <span class="lt skill-item">Node.js</span>
             </div>
-            <div class="bloc buble" now="now"></div>
-            <div class="bloc buble" now="now"></div>
-            <div class="bloc buble" now="now"></div>
         </section>
         <!--3 projects-->
         <section id="ask-proj" class="stage" theme="#ff1493">
-            <div class="bloc" now="now">
+            <div class="bloc vh2">
                 <h1>我做过哪些</h1>
             </div>
-            <ul class="bloc" now="now">
+            <ul class="bloc vh4" delay="400">
                 <li anchor="3" class="proj-catalog">smooth.js</li>
                 <li anchor="4" class="proj-catalog">My Tech blog</li>
                 <li anchor="5" class="proj-catalog">And More</li>
             </ul>
         </section>
         <section id="smoothjs" class="stage" theme="#a656e8">
-            <div class="bloc" now="now" animation="rubberBand">
+            <div class="bloc vh2" animation="rubberBand">
                 <h1 class="center">smooth.js</h1>
             </div>
-            <div class="bloc" now="now" animation="lightSpeedIn">
+            <div class="bloc vh2" delay="400" animation="lightSpeedIn">
                 <h2 class="sub-title">快速制作HTML5单页的工具</h2>
             </div>
-            <div class="bloc" now="now" animation="typing">
+            <div class="bloc vh4" delay="800" animation="typing">
                 <p>只需要在HTML标签中书写动画和时间轴，就可快速完成H5页面。封装良好，接口灵活。这份简历正是由smooth.js制作的。</p>
             </div>
-            <div class="bloc" now="now" animation="expandIn">
+            <div class="bloc vh2" delay="4000" animation="expandIn">
                 <span link="https://github.com/cynil/smooth.js" ontap="gotoLink" class="button">去看看</span>
             </div>
         </section>
         <section id="lcblog" class="stage" theme="#5ba331">
-            <div class="bloc" now="now" animation="typing">
+            <div class="bloc vh2" animation="expandIn">
                 <h1>技术博客</h1>
             </div>
-            <div class="bloc" now="now" animation="lightSpeedIn">
+            <div class="bloc vh2" delay="400" animation="lightSpeedIn">
                 <h2 class="sub-title">基于AngularJS的移动端WebAPP</h2>
             </div>
-            <div class="bloc" now="now" delay="400" animation="typing">
+            <div class="bloc vh4" delay="800" animation="typing">
                 <p>使用AngularJS作为前端框架，Leancloud作为Baas服务，是的，它是一款无服务器应用。支持使用markdown格式写文章、评论、留言，以及进行后台管理。</p>
             </div>
-            <div class="bloc" now="now" delay="1200" animation="expandIn">
+            <div class="bloc" delay="4000" animation="expandIn">
                 <a link="https://cynil.github.io/LCBlog" ontap="goLink" class="button">去看看</a>
             </div>
         </section>
-        <section id="sp" class="stage" theme="#004358">
-            <div class="bloc" now="now" animation="rubberBand">
+        <section id="sp" class="stage" theme="#f4c766">
+            <div class="bloc" animation="expandIn">
                 <h1>更多</h1>
             </div>
             <div class="bloc" animation="fadeInUp">
