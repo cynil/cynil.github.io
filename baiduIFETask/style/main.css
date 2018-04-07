@@ -50,7 +50,7 @@ ul.socials li{
 }
 ul.socials li a{
 	display: block;
-	height: 3rem;
+	height: 2rem;
 	padding: 0.5rem 0.5rem 0.5rem 0;
 }
 ul.socials li img{
@@ -80,8 +80,7 @@ ol.task-list{
 	margin: 0.5rem;
 }
 li.task-item{
-	border-bottom: 1px solid #323232;
-	margin: 1.5rem auto;
+	margin: 2rem auto;
 	padding-top: 0.5rem;
 }
 p.sign span{
